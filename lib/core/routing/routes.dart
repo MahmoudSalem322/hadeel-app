@@ -31,4 +31,7 @@ abstract final class Routes {
   static String surah(int id, {int? ayah}) =>
       ayah == null ? '/quran/surah/$id' : '/quran/surah/$id?ayah=$ayah';
   static String azkarOf(String category) => '/azkar/$category';
+  static String duasOf(String category) => '/duas/$category';
+  static String hadithBook(String book) => '/hadith/$book';
+  static String hadithItem(String book, int number) => '/hadith/$book/$number';
 }

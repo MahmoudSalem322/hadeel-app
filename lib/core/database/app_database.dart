@@ -51,9 +51,39 @@ class ReadingHistory extends Table {
   DateTimeColumn get readAt => dateTime()();
 }
 
+/// Per-phrase tasbeeh counter: current count toward the target, and the
+/// lifetime total.
+@DataClassName('TasbeehCounterRow')
+class TasbeehCounters extends Table {
+  TextColumn get phraseKey => text()();
+  IntColumn get count => integer().withDefault(const Constant(0))();
+  IntColumn get total => integer().withDefault(const Constant(0))();
+  IntColumn get target => integer().withDefault(const Constant(33))();
+  DateTimeColumn get updatedAt => dateTime()();
+
+  @override
+  Set<Column> get primaryKey => {phraseKey};
+}
+
+/// Where the user is in an adhkar category today. Resets on a new day.
+@DataClassName('AdhkarProgressRow')
+class AdhkarProgress extends Table {
+  TextColumn get categoryKey => text()();
+  IntColumn get itemIndex => integer()();
+  IntColumn get count => integer()();
+
+  /// Local calendar day, `yyyy-mm-dd`.
+  TextColumn get day => text()();
+
+  @override
+  Set<Column> get primaryKey => {categoryKey};
+}
+
 /// The on-device database for user data. Content (Quran, adhkar…) ships as
 /// read-only assets; only what the user creates lives here.
-@DriftDatabase(tables: [Favorites, Bookmarks, ReadingProgress, ReadingHistory])
+@DriftDatabase(
+  tables: [Favorites, Bookmarks, ReadingProgress, ReadingHistory, TasbeehCounters, AdhkarProgress],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.executor);
 
@@ -69,5 +99,16 @@ class AppDatabase extends _$AppDatabase {
       );
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+        onCreate: (m) => m.createAll(),
+        onUpgrade: (m, from, to) async {
+          if (from < 2) {
+            await m.createTable(tasbeehCounters);
+            await m.createTable(adhkarProgress);
+          }
+        },
+      );
 }

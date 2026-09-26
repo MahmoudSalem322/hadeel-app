@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/adhkar/adhkar_home_screen.dart';
+import '../../features/adhkar/adhkar_reader_screen.dart';
 import '../../features/design_gallery/design_gallery_screen.dart';
+import '../../features/duas/dua_category_screen.dart';
+import '../../features/duas/duas_screen.dart';
+import '../../features/hadith/hadith_screens.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/more/more_screen.dart';
 import '../../features/onboarding/onboarding_screen.dart';
@@ -79,10 +84,17 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
           StatefulShellBranch(
             routes: [
-              _placeholder(
-                Routes.azkar,
-                (l) => l.featureAdhkar,
-                routes: [_placeholder(':category', (l) => l.featureAdhkar)],
+              GoRoute(
+                path: Routes.azkar,
+                builder: (context, state) => const AdhkarHomeScreen(),
+                routes: [
+                  GoRoute(
+                    path: ':category',
+                    parentNavigatorKey: _rootKey,
+                    builder: (context, state) =>
+                        AdhkarReaderScreen(categoryKey: state.pathParameters['category'] ?? ''),
+                  ),
+                ],
               ),
             ],
           ),
@@ -95,8 +107,35 @@ final routerProvider = Provider<GoRouter>((ref) {
         ],
       ),
       _placeholder(Routes.qibla, (l) => l.featureQibla),
-      _placeholder(Routes.duas, (l) => l.featureDuas),
-      _placeholder(Routes.hadith, (l) => l.featureHadith),
+      GoRoute(
+        path: Routes.duas,
+        builder: (context, state) => const DuasScreen(),
+        routes: [
+          GoRoute(
+            path: ':category',
+            builder: (context, state) => DuaCategoryScreen(categoryKey: state.pathParameters['category'] ?? ''),
+          ),
+        ],
+      ),
+      GoRoute(
+        path: Routes.hadith,
+        builder: (context, state) => const HadithBooksScreen(),
+        routes: [
+          GoRoute(
+            path: ':book',
+            builder: (context, state) => HadithBookScreen(bookKey: state.pathParameters['book'] ?? ''),
+            routes: [
+              GoRoute(
+                path: ':n',
+                builder: (context, state) => HadithDetailScreen(
+                  bookKey: state.pathParameters['book'] ?? '',
+                  number: int.tryParse(state.pathParameters['n'] ?? '') ?? 0,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
       _placeholder(Routes.tasbeeh, (l) => l.featureTasbeeh),
       _placeholder(Routes.hijriCalendar, (l) => l.featureHijriCalendar),
       _placeholder(Routes.favorites, (l) => l.featureFavorites),

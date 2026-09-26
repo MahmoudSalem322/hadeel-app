@@ -1,0 +1,79 @@
+{
+  "_comment": "Maps app categories to Hisn al-Muslim chapter titles (exact, as published at hisnmuslim.com) and Quranic duas to ayah ranges. Quranic text is never stored here: it is read from the Tanzil text at runtime. Each Quran entry has a 'check' phrase (simple-clean spelling) that tests verify against the source to catch any wrong reference.",
+  "adhkar": [
+    { "key": "morning_evening", "chapters": ["أذكار الصباح والمساء"] },
+    { "key": "after_prayer", "chapters": ["الأذكار بعد السلام من الصلاة"] },
+    { "key": "sleep", "chapters": ["أذكار النوم", "الدعاء إذا تقلب ليلا", "دعاء الفزع في النوم و من بُلِيَ بالوحشة"] },
+    { "key": "waking", "chapters": ["أذكار الاستيقاظ من النوم"] },
+    { "key": "home_leave", "chapters": ["الذكر عند الخروج من المنزل"] },
+    { "key": "home_enter", "chapters": ["الذكر عند دخول المنزل"] },
+    { "key": "mosque", "chapters": ["دعاء الذهاب إلى المسجد", "دعاء دخول المسجد", "دعاء الخروج من المسجد"] },
+    { "key": "adhan", "chapters": ["أذكار الآذان"] },
+    { "key": "wudu", "chapters": ["الذكر قبل الوضوء", "الذكر بعد الفراغ من الوضوء"] },
+    { "key": "food", "chapters": ["الدعاء قبل الطعام", "الدعاء عند الفراغ من الطعام", "دعاء الضيف لصاحب الطعام"] },
+    { "key": "travel", "chapters": ["دعاء الركوب", "دعاء السفر", "دعاء دخول القرية أو البلدة", "ذكر الرجوع من السفر"] },
+    { "key": "tasbih", "chapters": ["فضل التسبيح و التحميد، و التهليل، و التكبير", "كيف كان النبي يسبح؟"] }
+  ],
+  "duas": [
+    {
+      "key": "quranic",
+      "quran": [
+        { "from": "2:201", "check": "في الدنيا حسنة" },
+        { "from": "2:250", "check": "أفرغ علينا صبرا" },
+        { "from": "2:286", "check": "لا تؤاخذنا" },
+        { "from": "3:8", "check": "لا تزغ قلوبنا" },
+        { "from": "3:16", "check": "فاغفر لنا ذنوبنا" },
+        { "from": "3:53", "check": "آمنا بما أنزلت" },
+        { "from": "3:147", "check": "وإسرافنا في أمرنا" },
+        { "from": "3:191", "to": "3:194", "check": "ما خلقت هذا باطلا" },
+        { "from": "7:126", "check": "وتوفنا مسلمين" },
+        { "from": "10:85", "to": "10:86", "check": "لا تجعلنا فتنة للقوم الظالمين" },
+        { "from": "17:24", "check": "رب ارحمهما" },
+        { "from": "17:80", "check": "مدخل صدق" },
+        { "from": "18:10", "check": "من لدنك رحمة" },
+        { "from": "20:114", "check": "زدني علما" },
+        { "from": "23:97", "to": "23:98", "check": "من همزات الشياطين" },
+        { "from": "23:109", "check": "فاغفر لنا وارحمنا" },
+        { "from": "23:118", "check": "رب اغفر وارحم" },
+        { "from": "25:65", "check": "اصرف عنا عذاب جهنم" },
+        { "from": "25:74", "check": "قرة أعين" },
+        { "from": "40:7", "to": "40:9", "check": "وسعت كل شيء" },
+        { "from": "46:15", "check": "أوزعني أن أشكر" },
+        { "from": "59:10", "check": "ولإخواننا" },
+        { "from": "60:5", "check": "لا تجعلنا فتنة للذين كفروا" },
+        { "from": "66:8", "check": "أتمم لنا نورنا" }
+      ]
+    },
+    {
+      "key": "prophets",
+      "quran": [
+        { "from": "7:23", "check": "ظلمنا أنفسنا", "prophet": "adam" },
+        { "from": "11:47", "check": "أعوذ بك أن أسألك", "prophet": "nuh" },
+        { "from": "23:29", "check": "منزلا مباركا", "prophet": "nuh" },
+        { "from": "71:28", "check": "رب اغفر لي ولوالدي", "prophet": "nuh" },
+        { "from": "2:127", "to": "2:128", "check": "تقبل منا", "prophet": "ibrahim" },
+        { "from": "14:40", "to": "14:41", "check": "مقيم الصلاة", "prophet": "ibrahim" },
+        { "from": "26:83", "check": "هب لي حكما", "prophet": "ibrahim" },
+        { "from": "7:89", "check": "افتح بيننا وبين قومنا", "prophet": "shuayb" },
+        { "from": "26:169", "check": "نجني وأهلي", "prophet": "lut" },
+        { "from": "12:101", "check": "توفني مسلما", "prophet": "yusuf" },
+        { "from": "20:25", "to": "20:28", "check": "اشرح لي صدري", "prophet": "musa" },
+        { "from": "28:16", "check": "ظلمت نفسي فاغفر لي", "prophet": "musa" },
+        { "from": "28:24", "check": "لما أنزلت إلي من خير فقير", "prophet": "musa" },
+        { "from": "21:83", "check": "مسني الضر", "prophet": "ayyub" },
+        { "from": "21:87", "check": "سبحانك إني كنت من الظالمين", "prophet": "yunus" },
+        { "from": "27:19", "check": "أوزعني أن أشكر", "prophet": "sulayman" },
+        { "from": "38:35", "check": "هب لي ملكا", "prophet": "sulayman" },
+        { "from": "3:38", "check": "ذرية طيبة", "prophet": "zakariya" },
+        { "from": "21:89", "check": "لا تذرني فردا", "prophet": "zakariya" }
+      ]
+    },
+    { "key": "rizq", "chapters": ["دعاء قضاء الدين"] },
+    { "key": "tawbah", "chapters": ["الاستغفار و التوبة", "ما يقول ويفعل من أذنب ذنبا"] },
+    { "key": "travel", "chapters": ["دعاء السفر", "دعاء المقيم للمسافر", "دعاء المسافر للمقيم"] },
+    { "key": "healing", "chapters": ["الدعاء للمريض في عيادته", "ما يقول من أحس وجعا في جسده"] },
+    { "key": "distress", "chapters": ["دعاء الهم والحزن", "دعاء الكرب", "دعاء من استصعب عليه أمر"] },
+    { "key": "morning_evening", "chapters": ["أذكار الصباح والمساء"] },
+    { "key": "general", "chapters": ["الدعاء بعد التشهد الأخير قبل السلام", "من أنواع الخير والآداب الجامعة"] }
+  ]
+}

@@ -10,6 +10,7 @@ import '../../../domain/entities/quran.dart';
 import '../../../shared/extensions/context_x.dart';
 import '../../../shared/widgets/hadeel_bottom_sheet.dart';
 import '../../settings/providers/settings_provider.dart';
+import '../../tafsir/tafsir_sheet.dart';
 import '../providers/quran_providers.dart';
 import 'quran_style.dart';
 
@@ -98,6 +99,16 @@ class AyahActionsSheet extends ConsumerWidget {
                     if (context.mounted) {
                       _toast(context, added ? l10n.toastFavoriteAdded : l10n.toastFavoriteRemoved);
                     }
+                  },
+                ),
+                _Action(
+                  icon: Icons.menu_book_outlined,
+                  label: l10n.ayahActionTafsir,
+                  onTap: () {
+                    // The navigator outlives this sheet, so open the tafsir from it.
+                    final navigator = Navigator.of(context);
+                    navigator.pop();
+                    showTafsir(navigator.context, ref: ayah, ayahText: text);
                   },
                 ),
                 _Action(

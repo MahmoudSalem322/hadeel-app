@@ -47,6 +47,9 @@ flutter:
     - assets/data/
     - assets/branding/
     - assets/quran/
+    - assets/tafsir/
+    - assets/adhkar/
+    - assets/hadith/
 
   fonts:
     - family: IBMPlexSansArabic

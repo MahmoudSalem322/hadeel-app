@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 
 import '../../core/database/app_database.dart';
+import '../../domain/entities/geo.dart';
 import '../../domain/entities/library.dart';
 import '../../domain/entities/quran.dart';
 import '../../domain/repositories/library_repository.dart';
@@ -93,6 +94,51 @@ class LibraryRepositoryImpl implements LibraryRepository {
         '(SELECT id FROM reading_history ORDER BY read_at DESC, id DESC LIMIT $historyLimit)',
       );
     });
+  }
+
+  // Tasbeeh --------------------------------------------------------------
+
+  @override
+  Future<TasbeehCounter> loadTasbeeh(String phraseKey) async {
+    final row = await (_db.select(_db.tasbeehCounters)..where((t) => t.phraseKey.equals(phraseKey)))
+        .getSingleOrNull();
+    if (row == null) return TasbeehCounter(phraseKey: phraseKey);
+    return TasbeehCounter(phraseKey: phraseKey, count: row.count, total: row.total, target: row.target);
+  }
+
+  @override
+  Future<void> saveTasbeeh(TasbeehCounter counter) {
+    return _db.into(_db.tasbeehCounters).insertOnConflictUpdate(
+          TasbeehCountersCompanion.insert(
+            phraseKey: counter.phraseKey,
+            count: Value(counter.count),
+            total: Value(counter.total),
+            target: Value(counter.target),
+            updatedAt: _now(),
+          ),
+        );
+  }
+
+  // Adhkar progress ------------------------------------------------------
+
+  @override
+  Future<AdhkarSession?> loadAdhkarSession(String categoryKey, CalendarDate day) async {
+    final row = await (_db.select(_db.adhkarProgress)..where((a) => a.categoryKey.equals(categoryKey)))
+        .getSingleOrNull();
+    if (row == null || row.day != day.toString()) return null;
+    return AdhkarSession(categoryKey: categoryKey, itemIndex: row.itemIndex, count: row.count);
+  }
+
+  @override
+  Future<void> saveAdhkarSession(AdhkarSession session, CalendarDate day) {
+    return _db.into(_db.adhkarProgress).insertOnConflictUpdate(
+          AdhkarProgressCompanion.insert(
+            categoryKey: session.categoryKey,
+            itemIndex: session.itemIndex,
+            count: session.count,
+            day: day.toString(),
+          ),
+        );
   }
 
   @override

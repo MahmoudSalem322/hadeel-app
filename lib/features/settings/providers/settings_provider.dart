@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers/core_providers.dart';
 import '../../../domain/entities/app_settings.dart';
 import '../../../domain/entities/location_selection.dart';
+import '../../../domain/entities/prayer.dart';
 import '../../../domain/entities/prayer_settings.dart';
 import '../../../domain/entities/quran_reading_settings.dart';
 import '../../../domain/repositories/settings_repository.dart';
@@ -43,7 +44,39 @@ class SettingsNotifier extends Notifier<AppSettings> {
     state = state.copyWith(quran: next);
     await _repo.saveQuranSettings(next);
   }
+
+  Future<void> setLanguage(String code) async {
+    if (!AppSettings.supportedLanguages.contains(code)) return;
+    state = state.copyWith(languageCode: code);
+    await _repo.saveLanguage(code);
+  }
+
+  Future<void> setPrayerNotification(Prayer prayer, {required bool on}) async {
+    final next = state.notifications.toggled(prayer, on: on);
+    state = state.copyWith(notifications: next);
+    await _repo.saveNotificationSettings(next);
+  }
+
+  Future<void> setAllPrayerNotifications({required bool on}) async {
+    final next = on ? NotificationSettings.allOn : const NotificationSettings();
+    state = state.copyWith(notifications: next);
+    await _repo.saveNotificationSettings(next);
+  }
+
+  Future<void> setTasbeehSettings(TasbeehSettings settings) async {
+    state = state.copyWith(tasbeeh: settings);
+    await _repo.saveTasbeehSettings(settings);
+  }
+
+  Future<void> setHijriAdjustment(int days) async {
+    state = state.copyWith(hijriAdjustment: days);
+    await _repo.saveHijriAdjustment(state.hijriAdjustment);
+  }
 }
+
+final localeProvider = Provider<Locale>(
+  (ref) => Locale(ref.watch(settingsProvider.select((s) => s.languageCode))),
+);
 
 final quranSettingsProvider = Provider<QuranReadingSettings>(
   (ref) => ref.watch(settingsProvider.select((s) => s.quran)),

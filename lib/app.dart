@@ -10,8 +10,6 @@ import 'features/settings/providers/settings_provider.dart';
 class HadeelApp extends ConsumerWidget {
   const HadeelApp({super.key});
 
-  /// Arabic first. English is wired up for a future language setting.
-  static const Locale defaultLocale = Locale('ar');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,7 +19,7 @@ class HadeelApp extends ConsumerWidget {
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       themeMode: ref.watch(themeModeProvider),
-      locale: defaultLocale,
+      locale: ref.watch(localeProvider),
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,

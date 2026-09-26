@@ -531,4 +531,496 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sourceHijriBody => 'Umm al-Qura calendar.';
+
+  @override
+  String get sourceTafsirTitle => 'Tafsir';
+
+  @override
+  String get sourceTafsirBody =>
+      'Al-Tafsir al-Muyassar — King Fahd Complex for the Printing of the Holy Quran, via Tanzil. Shown unaltered.';
+
+  @override
+  String get sourceAdhkarTitle => 'Adhkar and duas';
+
+  @override
+  String get sourceAdhkarBody =>
+      'Hisn al-Muslim — Sa\'id ibn Ali ibn Wahf al-Qahtani (hisnmuslim.com). Quranic duas are shown straight from the mushaf text.';
+
+  @override
+  String get sourceHadithTitle => 'Hadith';
+
+  @override
+  String get sourceHadithBody =>
+      'Imam an-Nawawi\'s Forty Hadith and Riyad as-Salihin — Arabic text as published by Sunnah.com, including the takhrij given in the book.';
+
+  @override
+  String get ayahActionTafsir => 'Tafsir';
+
+  @override
+  String get tafsirTitle => 'Al-Tafsir al-Muyassar';
+
+  @override
+  String get tafsirSource =>
+      'Source: Al-Tafsir al-Muyassar — King Fahd Complex';
+
+  @override
+  String get readingShowTafsir => 'Show tafsir under each ayah';
+
+  @override
+  String get tafsirLoadError => 'Couldn\'t load the tafsir';
+
+  @override
+  String adhkarCategory(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'morning_evening': 'Morning & evening',
+      'after_prayer': 'After prayer',
+      'sleep': 'Before sleep',
+      'waking': 'On waking',
+      'home_leave': 'Leaving home',
+      'home_enter': 'Entering home',
+      'mosque': 'Mosque',
+      'adhan': 'Adhan',
+      'wudu': 'Wudu',
+      'food': 'Eating',
+      'travel': 'Travel',
+      'tasbih': 'Tasbih & praise',
+      'other': 'Adhkar',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get adhkarDaily => 'Daily adhkar';
+
+  @override
+  String get adhkarAllChapters => 'All chapters of Hisn al-Muslim';
+
+  @override
+  String get adhkarSearchHint => 'Search adhkar chapters';
+
+  @override
+  String dhikrPosition(String current, String total) {
+    return '$current / $total';
+  }
+
+  @override
+  String dhikrRepeat(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count times',
+      one: 'Once',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dhikrCounterButton => 'Count';
+
+  @override
+  String dhikrCountSemantics(String count, String target) {
+    return '$count of $target';
+  }
+
+  @override
+  String get actionReset => 'Reset';
+
+  @override
+  String get actionPrevious => 'Previous';
+
+  @override
+  String get adhkarCompletedTitle => 'May Allah accept it from you';
+
+  @override
+  String get adhkarCompletedBody => 'You\'ve completed this chapter.';
+
+  @override
+  String get actionRestart => 'Start again';
+
+  @override
+  String get adhkarSource => 'Source: Hisn al-Muslim';
+
+  @override
+  String itemsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count adhkar',
+      one: '1 dhikr',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get contentLoadError => 'Couldn\'t load the content';
+
+  @override
+  String duaCategory(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'quranic': 'Quranic duas',
+      'prophets': 'Duas of the prophets',
+      'rizq': 'Provision & debt',
+      'tawbah': 'Repentance',
+      'travel': 'Travel',
+      'healing': 'Illness & healing',
+      'distress': 'Worry & distress',
+      'morning_evening': 'Morning & evening',
+      'general': 'Comprehensive duas',
+      'other': 'Duas',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String prophetName(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'adam': 'Adam (AS)',
+      'nuh': 'Nuh (AS)',
+      'ibrahim': 'Ibrahim (AS)',
+      'shuayb': 'Shu\'ayb (AS)',
+      'lut': 'Lut (AS)',
+      'yusuf': 'Yusuf (AS)',
+      'musa': 'Musa (AS)',
+      'ayyub': 'Ayyub (AS)',
+      'yunus': 'Yunus (AS)',
+      'sulayman': 'Sulayman (AS)',
+      'zakariya': 'Zakariya (AS)',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String quranReference(String surah, String ayat) {
+    return '[$surah: $ayat]';
+  }
+
+  @override
+  String duasCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count duas',
+      one: '1 dua',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get toastCopiedText => 'Copied';
+
+  @override
+  String get hadithBooks => 'Hadith books';
+
+  @override
+  String hadithNumber(String number) {
+    return 'Hadith $number';
+  }
+
+  @override
+  String hadithCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hadith',
+      one: '1 hadith',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hadithAllChapters => 'All books';
+
+  @override
+  String hadithSourceLine(String book, String author) {
+    return '$book — $author';
+  }
+
+  @override
+  String get hadithSearchHint => 'Search hadith';
+
+  @override
+  String get prayerMethod => 'Calculation method';
+
+  @override
+  String get prayerMadhab => 'Asr juristic method';
+
+  @override
+  String calcMethodName(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'egyptian': 'Egyptian General Authority',
+      'muslimWorldLeague': 'Muslim World League',
+      'ummAlQura': 'Umm al-Qura',
+      'karachi': 'University of Islamic Sciences, Karachi',
+      'northAmerica': 'North America (ISNA)',
+      'dubai': 'Dubai',
+      'kuwait': 'Kuwait',
+      'qatar': 'Qatar',
+      'turkey': 'Turkey',
+      'singapore': 'Singapore',
+      'moonSightingCommittee': 'Moonsighting Committee',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String madhabName(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'shafi': 'Standard (Shafi\'i, Maliki, Hanbali)',
+      'hanafi': 'Hanafi',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get locationGpsLabel => 'My location (GPS)';
+
+  @override
+  String get locationUpdate => 'Update location';
+
+  @override
+  String get locationChangeCity => 'Change city';
+
+  @override
+  String get prayerCalcNote =>
+      'Times are calculated on your device, no internet needed.';
+
+  @override
+  String get notificationsTitle => 'Prayer notifications';
+
+  @override
+  String get notificationsEnableAll => 'Turn on prayer notifications';
+
+  @override
+  String notificationForPrayer(String prayer) {
+    return '$prayer notification';
+  }
+
+  @override
+  String get notificationsDenied =>
+      'Notifications aren\'t allowed. You can allow them in device settings.';
+
+  @override
+  String notificationTitle(String prayer) {
+    return 'It\'s time for $prayer';
+  }
+
+  @override
+  String notificationBody(String place, String time) {
+    return '$place · $time';
+  }
+
+  @override
+  String get notificationChannelName => 'Prayer times';
+
+  @override
+  String get notificationChannelDescription =>
+      'Alerts when each prayer time begins';
+
+  @override
+  String get qiblaDirectionLabel => 'Qibla direction';
+
+  @override
+  String qiblaBearing(String degrees) {
+    return '$degrees° from north';
+  }
+
+  @override
+  String qiblaDistance(String km) {
+    return 'Distance to the Kaaba: $km km';
+  }
+
+  @override
+  String get qiblaAligned => 'You\'re facing the qibla';
+
+  @override
+  String get qiblaTurnRight => 'Turn right';
+
+  @override
+  String get qiblaTurnLeft => 'Turn left';
+
+  @override
+  String get qiblaCalibrationTitle => 'Calibrate the compass';
+
+  @override
+  String get qiblaCalibrationBody =>
+      'Move your phone in a figure-8 a few times, away from metal, magnets and electronics, and hold it flat.';
+
+  @override
+  String get qiblaNoSensor =>
+      'This device has no compass sensor. Use the angle shown with another compass.';
+
+  @override
+  String get qiblaNeedsLocation => 'Set your location to calculate the qibla.';
+
+  @override
+  String qiblaHeading(String degrees) {
+    return 'Phone heading: $degrees°';
+  }
+
+  @override
+  String get tasbeehTarget => 'Target';
+
+  @override
+  String get tasbeehUnlimited => 'No limit';
+
+  @override
+  String get tasbeehChangeDhikr => 'Change dhikr';
+
+  @override
+  String get tasbeehReset => 'Reset';
+
+  @override
+  String tasbeehTotal(String count) {
+    return 'Total: $count';
+  }
+
+  @override
+  String tasbeehRounds(String count) {
+    return 'Rounds: $count';
+  }
+
+  @override
+  String get tasbeehTapHint => 'Tap to count';
+
+  @override
+  String get tasbeehVibration => 'Vibrate on each count';
+
+  @override
+  String get tasbeehSound => 'Sound on each count';
+
+  @override
+  String tasbeehPhrase(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'subhanallah': 'SubhanAllah',
+      'alhamdulillah': 'Alhamdulillah',
+      'allahuakbar': 'Allahu Akbar',
+      'tahlil': 'La ilaha illallah',
+      'istighfar': 'Astaghfirullah',
+      'hawqala': 'La hawla wa la quwwata illa billah',
+      'subhanallah_wabihamdihi': 'SubhanAllahi wa bihamdihi',
+      'salawat': 'Allahumma salli ala Muhammad',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get hijriToday => 'Today';
+
+  @override
+  String hijriMonthTitle(String month, String year) {
+    return '$month $year AH';
+  }
+
+  @override
+  String get hijriAdjustment => 'Hijri date adjustment';
+
+  @override
+  String hijriAdjustmentValue(String days) {
+    return '$days day(s)';
+  }
+
+  @override
+  String get hijriNoAdjustment => 'No adjustment';
+
+  @override
+  String get hijriAdjustmentHint =>
+      'To match the moon sighting in your country.';
+
+  @override
+  String get previousMonth => 'Previous month';
+
+  @override
+  String get nextMonth => 'Next month';
+
+  @override
+  String get favoritesTabQuran => 'Quran';
+
+  @override
+  String get favoritesTabAdhkar => 'Adhkar';
+
+  @override
+  String get favoritesTabDuas => 'Duas';
+
+  @override
+  String get favoritesTabHadith => 'Hadith';
+
+  @override
+  String get globalSearchHint => 'Search the Quran, adhkar, duas and hadith';
+
+  @override
+  String get searchSectionQuran => 'The Holy Quran';
+
+  @override
+  String get searchSectionAdhkar => 'Adhkar';
+
+  @override
+  String get searchSectionHadith => 'Hadith';
+
+  @override
+  String get searchShowAll => 'Show all results';
+
+  @override
+  String get settingsAppearance => 'Appearance';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get languageArabic => 'العربية';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get settingsQuran => 'Quran';
+
+  @override
+  String get settingsPrayer => 'Prayer';
+
+  @override
+  String get settingsTasbeeh => 'Tasbeeh';
+
+  @override
+  String get settingsGeneral => 'General';
+
+  @override
+  String get settingsLocation => 'Location';
+
+  @override
+  String get settingsPrivacy => 'Privacy';
+
+  @override
+  String get settingsVersion => 'Version';
+
+  @override
+  String get privacyBody =>
+      'Hadeel collects no personal data, sends nothing to any server and needs no account. Your location is used on your device only, to calculate prayer times and the qibla. Favorites, bookmarks and settings are stored locally.';
+
+  @override
+  String get aboutBody =>
+      'Hadeel is your daily companion for Quran and dhikr: the Holy Quran with tafsir, adhkar and duas, hadith, prayer times, qibla, tasbeeh and the Hijri calendar — all working fully offline.';
+
+  @override
+  String aboutVersion(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String get dailyContent => 'Today\'s reflection';
+
+  @override
+  String get dailyAyah => 'Ayah of the day';
+
+  @override
+  String get dailyDhikr => 'Dhikr of the day';
+
+  @override
+  String get dailyHadith => 'Hadith of the day';
+
+  @override
+  String get dailyDua => 'Dua of the day';
 }

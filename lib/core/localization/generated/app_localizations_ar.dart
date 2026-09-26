@@ -531,4 +531,501 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sourceHijriBody => 'تقويم أم القرى.';
+
+  @override
+  String get sourceTafsirTitle => 'التفسير';
+
+  @override
+  String get sourceTafsirBody =>
+      'التفسير الميسر — مجمع الملك فهد لطباعة المصحف الشريف، عبر مشروع تنزيل. يُعرض كما هو دون تعديل.';
+
+  @override
+  String get sourceAdhkarTitle => 'الأذكار والأدعية';
+
+  @override
+  String get sourceAdhkarBody =>
+      'حصن المسلم من أذكار الكتاب والسنة — سعيد بن علي بن وهف القحطاني (hisnmuslim.com). الأدعية القرآنية تُعرض من نص المصحف مباشرة.';
+
+  @override
+  String get sourceHadithTitle => 'الأحاديث';
+
+  @override
+  String get sourceHadithBody =>
+      'الأربعون النووية ورياض الصالحين للإمام النووي — النص العربي كما نشره موقع Sunnah.com، ويتضمن التخريج كما ورد في الكتاب.';
+
+  @override
+  String get ayahActionTafsir => 'التفسير';
+
+  @override
+  String get tafsirTitle => 'التفسير الميسر';
+
+  @override
+  String get tafsirSource =>
+      'المصدر: التفسير الميسر — مجمع الملك فهد لطباعة المصحف الشريف';
+
+  @override
+  String get readingShowTafsir => 'إظهار التفسير تحت الآيات';
+
+  @override
+  String get tafsirLoadError => 'تعذر تحميل التفسير';
+
+  @override
+  String adhkarCategory(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'morning_evening': 'أذكار الصباح والمساء',
+      'after_prayer': 'أذكار بعد الصلاة',
+      'sleep': 'أذكار النوم',
+      'waking': 'أذكار الاستيقاظ',
+      'home_leave': 'الخروج من المنزل',
+      'home_enter': 'دخول المنزل',
+      'mosque': 'أذكار المسجد',
+      'adhan': 'أذكار الأذان',
+      'wudu': 'أذكار الوضوء',
+      'food': 'أذكار الطعام',
+      'travel': 'أذكار السفر',
+      'tasbih': 'التسبيح والتحميد',
+      'other': 'الأذكار',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get adhkarDaily => 'الأذكار اليومية';
+
+  @override
+  String get adhkarAllChapters => 'جميع أبواب حصن المسلم';
+
+  @override
+  String get adhkarSearchHint => 'ابحث في أبواب الأذكار';
+
+  @override
+  String dhikrPosition(String current, String total) {
+    return '$current / $total';
+  }
+
+  @override
+  String dhikrRepeat(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مرة',
+      few: '$count مرات',
+      two: 'مرتان',
+      one: 'مرة واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dhikrCounterButton => 'تسبيح';
+
+  @override
+  String dhikrCountSemantics(String count, String target) {
+    return 'العدد $count من $target';
+  }
+
+  @override
+  String get actionReset => 'إعادة';
+
+  @override
+  String get actionPrevious => 'السابق';
+
+  @override
+  String get adhkarCompletedTitle => 'تقبّل الله منك';
+
+  @override
+  String get adhkarCompletedBody => 'أتممت أذكار هذا الباب.';
+
+  @override
+  String get actionRestart => 'البدء من جديد';
+
+  @override
+  String get adhkarSource => 'المصدر: حصن المسلم';
+
+  @override
+  String itemsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ذكرًا',
+      few: '$count أذكار',
+      two: 'ذكران',
+      one: 'ذكر واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get contentLoadError => 'تعذر تحميل المحتوى';
+
+  @override
+  String duaCategory(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'quranic': 'أدعية قرآنية',
+      'prophets': 'أدعية الأنبياء',
+      'rizq': 'الرزق وقضاء الدين',
+      'tawbah': 'التوبة والاستغفار',
+      'travel': 'السفر',
+      'healing': 'الشفاء والمرض',
+      'distress': 'الهم والحزن والكرب',
+      'morning_evening': 'الصباح والمساء',
+      'general': 'أدعية جامعة',
+      'other': 'الأدعية',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String prophetName(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'adam': 'آدم عليه السلام',
+      'nuh': 'نوح عليه السلام',
+      'ibrahim': 'إبراهيم عليه السلام',
+      'shuayb': 'شعيب عليه السلام',
+      'lut': 'لوط عليه السلام',
+      'yusuf': 'يوسف عليه السلام',
+      'musa': 'موسى عليه السلام',
+      'ayyub': 'أيوب عليه السلام',
+      'yunus': 'يونس عليه السلام',
+      'sulayman': 'سليمان عليه السلام',
+      'zakariya': 'زكريا عليه السلام',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String quranReference(String surah, String ayat) {
+    return '[$surah: $ayat]';
+  }
+
+  @override
+  String duasCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count دعاءً',
+      few: '$count أدعية',
+      two: 'دعاءان',
+      one: 'دعاء واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get toastCopiedText => 'تم النسخ';
+
+  @override
+  String get hadithBooks => 'كتب الحديث';
+
+  @override
+  String hadithNumber(String number) {
+    return 'الحديث $number';
+  }
+
+  @override
+  String hadithCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count حديثًا',
+      few: '$count أحاديث',
+      two: 'حديثان',
+      one: 'حديث واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hadithAllChapters => 'كل الكتب';
+
+  @override
+  String hadithSourceLine(String book, String author) {
+    return '$book — $author';
+  }
+
+  @override
+  String get hadithSearchHint => 'ابحث في الأحاديث';
+
+  @override
+  String get prayerMethod => 'طريقة الحساب';
+
+  @override
+  String get prayerMadhab => 'مذهب صلاة العصر';
+
+  @override
+  String calcMethodName(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'egyptian': 'الهيئة المصرية العامة للمساحة',
+      'muslimWorldLeague': 'رابطة العالم الإسلامي',
+      'ummAlQura': 'أم القرى',
+      'karachi': 'جامعة العلوم الإسلامية بكراتشي',
+      'northAmerica': 'أمريكا الشمالية',
+      'dubai': 'دبي',
+      'kuwait': 'الكويت',
+      'qatar': 'قطر',
+      'turkey': 'تركيا',
+      'singapore': 'سنغافورة',
+      'moonSightingCommittee': 'لجنة رؤية الهلال',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String madhabName(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'shafi': 'الجمهور (شافعي، مالكي، حنبلي)',
+      'hanafi': 'الحنفي',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get locationGpsLabel => 'موقعي الحالي (GPS)';
+
+  @override
+  String get locationUpdate => 'تحديث الموقع';
+
+  @override
+  String get locationChangeCity => 'تغيير المدينة';
+
+  @override
+  String get prayerCalcNote => 'تُحسب المواقيت على جهازك دون اتصال بالإنترنت.';
+
+  @override
+  String get notificationsTitle => 'تنبيهات الصلاة';
+
+  @override
+  String get notificationsEnableAll => 'تفعيل تنبيهات الصلوات';
+
+  @override
+  String notificationForPrayer(String prayer) {
+    return 'تنبيه $prayer';
+  }
+
+  @override
+  String get notificationsDenied =>
+      'الإشعارات غير مسموحة. يمكنك السماح بها من إعدادات الجهاز.';
+
+  @override
+  String notificationTitle(String prayer) {
+    return 'حان الآن موعد صلاة $prayer';
+  }
+
+  @override
+  String notificationBody(String place, String time) {
+    return '$place · $time';
+  }
+
+  @override
+  String get notificationChannelName => 'مواقيت الصلاة';
+
+  @override
+  String get notificationChannelDescription => 'تنبيه عند دخول وقت كل صلاة';
+
+  @override
+  String get qiblaDirectionLabel => 'اتجاه القبلة';
+
+  @override
+  String qiblaBearing(String degrees) {
+    return '$degrees° من الشمال';
+  }
+
+  @override
+  String qiblaDistance(String km) {
+    return 'المسافة إلى الكعبة المشرفة: $km كم';
+  }
+
+  @override
+  String get qiblaAligned => 'أنت متجه نحو القبلة';
+
+  @override
+  String get qiblaTurnRight => 'استدر يمينًا';
+
+  @override
+  String get qiblaTurnLeft => 'استدر يسارًا';
+
+  @override
+  String get qiblaCalibrationTitle => 'معايرة البوصلة';
+
+  @override
+  String get qiblaCalibrationBody =>
+      'حرّك الهاتف في الهواء على شكل الرقم 8 عدة مرات، وأبعده عن المعادن والمغناطيس والأجهزة الإلكترونية، وضعه بشكل أفقي.';
+
+  @override
+  String get qiblaNoSensor =>
+      'لا يتوفر مستشعر بوصلة في هذا الجهاز. استخدم الزاوية الموضحة مع بوصلة أخرى.';
+
+  @override
+  String get qiblaNeedsLocation => 'حدّد موقعك لحساب اتجاه القبلة.';
+
+  @override
+  String qiblaHeading(String degrees) {
+    return 'اتجاه الهاتف: $degrees°';
+  }
+
+  @override
+  String get tasbeehTarget => 'الهدف';
+
+  @override
+  String get tasbeehUnlimited => 'بلا حد';
+
+  @override
+  String get tasbeehChangeDhikr => 'تغيير الذكر';
+
+  @override
+  String get tasbeehReset => 'تصفير';
+
+  @override
+  String tasbeehTotal(String count) {
+    return 'المجموع: $count';
+  }
+
+  @override
+  String tasbeehRounds(String count) {
+    return 'الدورات: $count';
+  }
+
+  @override
+  String get tasbeehTapHint => 'اضغط للتسبيح';
+
+  @override
+  String get tasbeehVibration => 'الاهتزاز عند كل تسبيحة';
+
+  @override
+  String get tasbeehSound => 'صوت عند كل تسبيحة';
+
+  @override
+  String tasbeehPhrase(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'subhanallah': 'سبحان الله',
+      'alhamdulillah': 'الحمد لله',
+      'allahuakbar': 'الله أكبر',
+      'tahlil': 'لا إله إلا الله',
+      'istighfar': 'أستغفر الله',
+      'hawqala': 'لا حول ولا قوة إلا بالله',
+      'subhanallah_wabihamdihi': 'سبحان الله وبحمده',
+      'salawat': 'اللهم صلِّ على محمد',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get hijriToday => 'اليوم';
+
+  @override
+  String hijriMonthTitle(String month, String year) {
+    return '$month $year هـ';
+  }
+
+  @override
+  String get hijriAdjustment => 'تعديل التاريخ الهجري';
+
+  @override
+  String hijriAdjustmentValue(String days) {
+    return '$days يوم';
+  }
+
+  @override
+  String get hijriNoAdjustment => 'بدون تعديل';
+
+  @override
+  String get hijriAdjustmentHint => 'لموافقة رؤية الهلال في بلدك.';
+
+  @override
+  String get previousMonth => 'الشهر السابق';
+
+  @override
+  String get nextMonth => 'الشهر التالي';
+
+  @override
+  String get favoritesTabQuran => 'القرآن';
+
+  @override
+  String get favoritesTabAdhkar => 'الأذكار';
+
+  @override
+  String get favoritesTabDuas => 'الأدعية';
+
+  @override
+  String get favoritesTabHadith => 'الأحاديث';
+
+  @override
+  String get globalSearchHint => 'ابحث في القرآن والأذكار والأدعية والأحاديث';
+
+  @override
+  String get searchSectionQuran => 'القرآن الكريم';
+
+  @override
+  String get searchSectionAdhkar => 'الأذكار';
+
+  @override
+  String get searchSectionHadith => 'الأحاديث';
+
+  @override
+  String get searchShowAll => 'عرض كل النتائج';
+
+  @override
+  String get settingsAppearance => 'المظهر';
+
+  @override
+  String get settingsLanguage => 'اللغة';
+
+  @override
+  String get languageArabic => 'العربية';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get settingsQuran => 'القرآن الكريم';
+
+  @override
+  String get settingsPrayer => 'الصلاة';
+
+  @override
+  String get settingsTasbeeh => 'التسبيح';
+
+  @override
+  String get settingsGeneral => 'عام';
+
+  @override
+  String get settingsLocation => 'الموقع';
+
+  @override
+  String get settingsPrivacy => 'الخصوصية';
+
+  @override
+  String get settingsVersion => 'الإصدار';
+
+  @override
+  String get privacyBody =>
+      'لا يجمع هديل أي بيانات شخصية، ولا يرسل أي بيانات إلى أي خادم، ولا يحتاج إلى حساب. يُستخدم موقعك على جهازك فقط لحساب مواقيت الصلاة واتجاه القبلة، وتُحفظ المفضلة والعلامات والإعدادات محليًا على جهازك.';
+
+  @override
+  String get aboutBody =>
+      'هديل رفيقك اليومي للقرآن والذكر: القرآن الكريم وتفسيره، الأذكار والأدعية، الأحاديث، مواقيت الصلاة، القبلة، التسبيح، والتقويم الهجري — ويعمل بالكامل دون اتصال بالإنترنت.';
+
+  @override
+  String aboutVersion(String version) {
+    return 'الإصدار $version';
+  }
+
+  @override
+  String get dailyContent => 'زاد اليوم';
+
+  @override
+  String get dailyAyah => 'آية اليوم';
+
+  @override
+  String get dailyDhikr => 'ذكر اليوم';
+
+  @override
+  String get dailyHadith => 'حديث اليوم';
+
+  @override
+  String get dailyDua => 'دعاء اليوم';
 }

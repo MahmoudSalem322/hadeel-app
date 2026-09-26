@@ -1,11 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/local/preferences_store.dart';
+import '../../data/repositories/asset_content_repository.dart';
 import '../../data/repositories/asset_quran_repository.dart';
 import '../../data/repositories/library_repository_impl.dart';
 import '../../data/repositories/settings_repository_impl.dart';
 import '../../domain/entities/city.dart';
 import '../../domain/entities/quran.dart';
+import '../../domain/repositories/content_repository.dart';
 import '../../domain/repositories/library_repository.dart';
 import '../../domain/repositories/prayer_time_calculator.dart';
 import '../../domain/repositories/quran_repository.dart';
@@ -43,6 +45,8 @@ final libraryRepositoryProvider = Provider<LibraryRepository>((ref) {
 });
 
 final quranRepositoryProvider = Provider<QuranRepository>((ref) => AssetQuranRepository());
+
+final contentRepositoryProvider = Provider<ContentRepository>((ref) => AssetContentRepository());
 
 final settingsRepositoryProvider = Provider<SettingsRepository>(
   (ref) => SettingsRepositoryImpl(ref.watch(preferencesStoreProvider)),

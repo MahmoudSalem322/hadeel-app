@@ -943,6 +943,672 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'تقويم أم القرى.'**
   String get sourceHijriBody;
+
+  /// No description provided for @sourceTafsirTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'التفسير'**
+  String get sourceTafsirTitle;
+
+  /// No description provided for @sourceTafsirBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'التفسير الميسر — مجمع الملك فهد لطباعة المصحف الشريف، عبر مشروع تنزيل. يُعرض كما هو دون تعديل.'**
+  String get sourceTafsirBody;
+
+  /// No description provided for @sourceAdhkarTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأذكار والأدعية'**
+  String get sourceAdhkarTitle;
+
+  /// No description provided for @sourceAdhkarBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'حصن المسلم من أذكار الكتاب والسنة — سعيد بن علي بن وهف القحطاني (hisnmuslim.com). الأدعية القرآنية تُعرض من نص المصحف مباشرة.'**
+  String get sourceAdhkarBody;
+
+  /// No description provided for @sourceHadithTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأحاديث'**
+  String get sourceHadithTitle;
+
+  /// No description provided for @sourceHadithBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأربعون النووية ورياض الصالحين للإمام النووي — النص العربي كما نشره موقع Sunnah.com، ويتضمن التخريج كما ورد في الكتاب.'**
+  String get sourceHadithBody;
+
+  /// No description provided for @ayahActionTafsir.
+  ///
+  /// In ar, this message translates to:
+  /// **'التفسير'**
+  String get ayahActionTafsir;
+
+  /// No description provided for @tafsirTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'التفسير الميسر'**
+  String get tafsirTitle;
+
+  /// No description provided for @tafsirSource.
+  ///
+  /// In ar, this message translates to:
+  /// **'المصدر: التفسير الميسر — مجمع الملك فهد لطباعة المصحف الشريف'**
+  String get tafsirSource;
+
+  /// No description provided for @readingShowTafsir.
+  ///
+  /// In ar, this message translates to:
+  /// **'إظهار التفسير تحت الآيات'**
+  String get readingShowTafsir;
+
+  /// No description provided for @tafsirLoadError.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعذر تحميل التفسير'**
+  String get tafsirLoadError;
+
+  /// No description provided for @adhkarCategory.
+  ///
+  /// In ar, this message translates to:
+  /// **'{key, select, morning_evening{أذكار الصباح والمساء} after_prayer{أذكار بعد الصلاة} sleep{أذكار النوم} waking{أذكار الاستيقاظ} home_leave{الخروج من المنزل} home_enter{دخول المنزل} mosque{أذكار المسجد} adhan{أذكار الأذان} wudu{أذكار الوضوء} food{أذكار الطعام} travel{أذكار السفر} tasbih{التسبيح والتحميد} other{الأذكار}}'**
+  String adhkarCategory(String key);
+
+  /// No description provided for @adhkarDaily.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأذكار اليومية'**
+  String get adhkarDaily;
+
+  /// No description provided for @adhkarAllChapters.
+  ///
+  /// In ar, this message translates to:
+  /// **'جميع أبواب حصن المسلم'**
+  String get adhkarAllChapters;
+
+  /// No description provided for @adhkarSearchHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابحث في أبواب الأذكار'**
+  String get adhkarSearchHint;
+
+  /// No description provided for @dhikrPosition.
+  ///
+  /// In ar, this message translates to:
+  /// **'{current} / {total}'**
+  String dhikrPosition(String current, String total);
+
+  /// No description provided for @dhikrRepeat.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count, plural, =1{مرة واحدة} =2{مرتان} few{{count} مرات} other{{count} مرة}}'**
+  String dhikrRepeat(int count);
+
+  /// No description provided for @dhikrCounterButton.
+  ///
+  /// In ar, this message translates to:
+  /// **'تسبيح'**
+  String get dhikrCounterButton;
+
+  /// No description provided for @dhikrCountSemantics.
+  ///
+  /// In ar, this message translates to:
+  /// **'العدد {count} من {target}'**
+  String dhikrCountSemantics(String count, String target);
+
+  /// No description provided for @actionReset.
+  ///
+  /// In ar, this message translates to:
+  /// **'إعادة'**
+  String get actionReset;
+
+  /// No description provided for @actionPrevious.
+  ///
+  /// In ar, this message translates to:
+  /// **'السابق'**
+  String get actionPrevious;
+
+  /// No description provided for @adhkarCompletedTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تقبّل الله منك'**
+  String get adhkarCompletedTitle;
+
+  /// No description provided for @adhkarCompletedBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'أتممت أذكار هذا الباب.'**
+  String get adhkarCompletedBody;
+
+  /// No description provided for @actionRestart.
+  ///
+  /// In ar, this message translates to:
+  /// **'البدء من جديد'**
+  String get actionRestart;
+
+  /// No description provided for @adhkarSource.
+  ///
+  /// In ar, this message translates to:
+  /// **'المصدر: حصن المسلم'**
+  String get adhkarSource;
+
+  /// No description provided for @itemsCount.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count, plural, =1{ذكر واحد} =2{ذكران} few{{count} أذكار} other{{count} ذكرًا}}'**
+  String itemsCount(int count);
+
+  /// No description provided for @contentLoadError.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعذر تحميل المحتوى'**
+  String get contentLoadError;
+
+  /// No description provided for @duaCategory.
+  ///
+  /// In ar, this message translates to:
+  /// **'{key, select, quranic{أدعية قرآنية} prophets{أدعية الأنبياء} rizq{الرزق وقضاء الدين} tawbah{التوبة والاستغفار} travel{السفر} healing{الشفاء والمرض} distress{الهم والحزن والكرب} morning_evening{الصباح والمساء} general{أدعية جامعة} other{الأدعية}}'**
+  String duaCategory(String key);
+
+  /// No description provided for @prophetName.
+  ///
+  /// In ar, this message translates to:
+  /// **'{key, select, adam{آدم عليه السلام} nuh{نوح عليه السلام} ibrahim{إبراهيم عليه السلام} shuayb{شعيب عليه السلام} lut{لوط عليه السلام} yusuf{يوسف عليه السلام} musa{موسى عليه السلام} ayyub{أيوب عليه السلام} yunus{يونس عليه السلام} sulayman{سليمان عليه السلام} zakariya{زكريا عليه السلام} other{}}'**
+  String prophetName(String key);
+
+  /// No description provided for @quranReference.
+  ///
+  /// In ar, this message translates to:
+  /// **'[{surah}: {ayat}]'**
+  String quranReference(String surah, String ayat);
+
+  /// No description provided for @duasCount.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count, plural, =1{دعاء واحد} =2{دعاءان} few{{count} أدعية} other{{count} دعاءً}}'**
+  String duasCount(int count);
+
+  /// No description provided for @toastCopiedText.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم النسخ'**
+  String get toastCopiedText;
+
+  /// No description provided for @hadithBooks.
+  ///
+  /// In ar, this message translates to:
+  /// **'كتب الحديث'**
+  String get hadithBooks;
+
+  /// No description provided for @hadithNumber.
+  ///
+  /// In ar, this message translates to:
+  /// **'الحديث {number}'**
+  String hadithNumber(String number);
+
+  /// No description provided for @hadithCount.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count, plural, =1{حديث واحد} =2{حديثان} few{{count} أحاديث} other{{count} حديثًا}}'**
+  String hadithCount(int count);
+
+  /// No description provided for @hadithAllChapters.
+  ///
+  /// In ar, this message translates to:
+  /// **'كل الكتب'**
+  String get hadithAllChapters;
+
+  /// No description provided for @hadithSourceLine.
+  ///
+  /// In ar, this message translates to:
+  /// **'{book} — {author}'**
+  String hadithSourceLine(String book, String author);
+
+  /// No description provided for @hadithSearchHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابحث في الأحاديث'**
+  String get hadithSearchHint;
+
+  /// No description provided for @prayerMethod.
+  ///
+  /// In ar, this message translates to:
+  /// **'طريقة الحساب'**
+  String get prayerMethod;
+
+  /// No description provided for @prayerMadhab.
+  ///
+  /// In ar, this message translates to:
+  /// **'مذهب صلاة العصر'**
+  String get prayerMadhab;
+
+  /// No description provided for @calcMethodName.
+  ///
+  /// In ar, this message translates to:
+  /// **'{key, select, egyptian{الهيئة المصرية العامة للمساحة} muslimWorldLeague{رابطة العالم الإسلامي} ummAlQura{أم القرى} karachi{جامعة العلوم الإسلامية بكراتشي} northAmerica{أمريكا الشمالية} dubai{دبي} kuwait{الكويت} qatar{قطر} turkey{تركيا} singapore{سنغافورة} moonSightingCommittee{لجنة رؤية الهلال} other{}}'**
+  String calcMethodName(String key);
+
+  /// No description provided for @madhabName.
+  ///
+  /// In ar, this message translates to:
+  /// **'{key, select, shafi{الجمهور (شافعي، مالكي، حنبلي)} hanafi{الحنفي} other{}}'**
+  String madhabName(String key);
+
+  /// No description provided for @locationGpsLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'موقعي الحالي (GPS)'**
+  String get locationGpsLabel;
+
+  /// No description provided for @locationUpdate.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحديث الموقع'**
+  String get locationUpdate;
+
+  /// No description provided for @locationChangeCity.
+  ///
+  /// In ar, this message translates to:
+  /// **'تغيير المدينة'**
+  String get locationChangeCity;
+
+  /// No description provided for @prayerCalcNote.
+  ///
+  /// In ar, this message translates to:
+  /// **'تُحسب المواقيت على جهازك دون اتصال بالإنترنت.'**
+  String get prayerCalcNote;
+
+  /// No description provided for @notificationsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تنبيهات الصلاة'**
+  String get notificationsTitle;
+
+  /// No description provided for @notificationsEnableAll.
+  ///
+  /// In ar, this message translates to:
+  /// **'تفعيل تنبيهات الصلوات'**
+  String get notificationsEnableAll;
+
+  /// No description provided for @notificationForPrayer.
+  ///
+  /// In ar, this message translates to:
+  /// **'تنبيه {prayer}'**
+  String notificationForPrayer(String prayer);
+
+  /// No description provided for @notificationsDenied.
+  ///
+  /// In ar, this message translates to:
+  /// **'الإشعارات غير مسموحة. يمكنك السماح بها من إعدادات الجهاز.'**
+  String get notificationsDenied;
+
+  /// No description provided for @notificationTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'حان الآن موعد صلاة {prayer}'**
+  String notificationTitle(String prayer);
+
+  /// No description provided for @notificationBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'{place} · {time}'**
+  String notificationBody(String place, String time);
+
+  /// No description provided for @notificationChannelName.
+  ///
+  /// In ar, this message translates to:
+  /// **'مواقيت الصلاة'**
+  String get notificationChannelName;
+
+  /// No description provided for @notificationChannelDescription.
+  ///
+  /// In ar, this message translates to:
+  /// **'تنبيه عند دخول وقت كل صلاة'**
+  String get notificationChannelDescription;
+
+  /// No description provided for @qiblaDirectionLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'اتجاه القبلة'**
+  String get qiblaDirectionLabel;
+
+  /// No description provided for @qiblaBearing.
+  ///
+  /// In ar, this message translates to:
+  /// **'{degrees}° من الشمال'**
+  String qiblaBearing(String degrees);
+
+  /// No description provided for @qiblaDistance.
+  ///
+  /// In ar, this message translates to:
+  /// **'المسافة إلى الكعبة المشرفة: {km} كم'**
+  String qiblaDistance(String km);
+
+  /// No description provided for @qiblaAligned.
+  ///
+  /// In ar, this message translates to:
+  /// **'أنت متجه نحو القبلة'**
+  String get qiblaAligned;
+
+  /// No description provided for @qiblaTurnRight.
+  ///
+  /// In ar, this message translates to:
+  /// **'استدر يمينًا'**
+  String get qiblaTurnRight;
+
+  /// No description provided for @qiblaTurnLeft.
+  ///
+  /// In ar, this message translates to:
+  /// **'استدر يسارًا'**
+  String get qiblaTurnLeft;
+
+  /// No description provided for @qiblaCalibrationTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'معايرة البوصلة'**
+  String get qiblaCalibrationTitle;
+
+  /// No description provided for @qiblaCalibrationBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'حرّك الهاتف في الهواء على شكل الرقم 8 عدة مرات، وأبعده عن المعادن والمغناطيس والأجهزة الإلكترونية، وضعه بشكل أفقي.'**
+  String get qiblaCalibrationBody;
+
+  /// No description provided for @qiblaNoSensor.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يتوفر مستشعر بوصلة في هذا الجهاز. استخدم الزاوية الموضحة مع بوصلة أخرى.'**
+  String get qiblaNoSensor;
+
+  /// No description provided for @qiblaNeedsLocation.
+  ///
+  /// In ar, this message translates to:
+  /// **'حدّد موقعك لحساب اتجاه القبلة.'**
+  String get qiblaNeedsLocation;
+
+  /// No description provided for @qiblaHeading.
+  ///
+  /// In ar, this message translates to:
+  /// **'اتجاه الهاتف: {degrees}°'**
+  String qiblaHeading(String degrees);
+
+  /// No description provided for @tasbeehTarget.
+  ///
+  /// In ar, this message translates to:
+  /// **'الهدف'**
+  String get tasbeehTarget;
+
+  /// No description provided for @tasbeehUnlimited.
+  ///
+  /// In ar, this message translates to:
+  /// **'بلا حد'**
+  String get tasbeehUnlimited;
+
+  /// No description provided for @tasbeehChangeDhikr.
+  ///
+  /// In ar, this message translates to:
+  /// **'تغيير الذكر'**
+  String get tasbeehChangeDhikr;
+
+  /// No description provided for @tasbeehReset.
+  ///
+  /// In ar, this message translates to:
+  /// **'تصفير'**
+  String get tasbeehReset;
+
+  /// No description provided for @tasbeehTotal.
+  ///
+  /// In ar, this message translates to:
+  /// **'المجموع: {count}'**
+  String tasbeehTotal(String count);
+
+  /// No description provided for @tasbeehRounds.
+  ///
+  /// In ar, this message translates to:
+  /// **'الدورات: {count}'**
+  String tasbeehRounds(String count);
+
+  /// No description provided for @tasbeehTapHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'اضغط للتسبيح'**
+  String get tasbeehTapHint;
+
+  /// No description provided for @tasbeehVibration.
+  ///
+  /// In ar, this message translates to:
+  /// **'الاهتزاز عند كل تسبيحة'**
+  String get tasbeehVibration;
+
+  /// No description provided for @tasbeehSound.
+  ///
+  /// In ar, this message translates to:
+  /// **'صوت عند كل تسبيحة'**
+  String get tasbeehSound;
+
+  /// No description provided for @tasbeehPhrase.
+  ///
+  /// In ar, this message translates to:
+  /// **'{key, select, subhanallah{سبحان الله} alhamdulillah{الحمد لله} allahuakbar{الله أكبر} tahlil{لا إله إلا الله} istighfar{أستغفر الله} hawqala{لا حول ولا قوة إلا بالله} subhanallah_wabihamdihi{سبحان الله وبحمده} salawat{اللهم صلِّ على محمد} other{}}'**
+  String tasbeehPhrase(String key);
+
+  /// No description provided for @hijriToday.
+  ///
+  /// In ar, this message translates to:
+  /// **'اليوم'**
+  String get hijriToday;
+
+  /// No description provided for @hijriMonthTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'{month} {year} هـ'**
+  String hijriMonthTitle(String month, String year);
+
+  /// No description provided for @hijriAdjustment.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعديل التاريخ الهجري'**
+  String get hijriAdjustment;
+
+  /// No description provided for @hijriAdjustmentValue.
+  ///
+  /// In ar, this message translates to:
+  /// **'{days} يوم'**
+  String hijriAdjustmentValue(String days);
+
+  /// No description provided for @hijriNoAdjustment.
+  ///
+  /// In ar, this message translates to:
+  /// **'بدون تعديل'**
+  String get hijriNoAdjustment;
+
+  /// No description provided for @hijriAdjustmentHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'لموافقة رؤية الهلال في بلدك.'**
+  String get hijriAdjustmentHint;
+
+  /// No description provided for @previousMonth.
+  ///
+  /// In ar, this message translates to:
+  /// **'الشهر السابق'**
+  String get previousMonth;
+
+  /// No description provided for @nextMonth.
+  ///
+  /// In ar, this message translates to:
+  /// **'الشهر التالي'**
+  String get nextMonth;
+
+  /// No description provided for @favoritesTabQuran.
+  ///
+  /// In ar, this message translates to:
+  /// **'القرآن'**
+  String get favoritesTabQuran;
+
+  /// No description provided for @favoritesTabAdhkar.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأذكار'**
+  String get favoritesTabAdhkar;
+
+  /// No description provided for @favoritesTabDuas.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأدعية'**
+  String get favoritesTabDuas;
+
+  /// No description provided for @favoritesTabHadith.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأحاديث'**
+  String get favoritesTabHadith;
+
+  /// No description provided for @globalSearchHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابحث في القرآن والأذكار والأدعية والأحاديث'**
+  String get globalSearchHint;
+
+  /// No description provided for @searchSectionQuran.
+  ///
+  /// In ar, this message translates to:
+  /// **'القرآن الكريم'**
+  String get searchSectionQuran;
+
+  /// No description provided for @searchSectionAdhkar.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأذكار'**
+  String get searchSectionAdhkar;
+
+  /// No description provided for @searchSectionHadith.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأحاديث'**
+  String get searchSectionHadith;
+
+  /// No description provided for @searchShowAll.
+  ///
+  /// In ar, this message translates to:
+  /// **'عرض كل النتائج'**
+  String get searchShowAll;
+
+  /// No description provided for @settingsAppearance.
+  ///
+  /// In ar, this message translates to:
+  /// **'المظهر'**
+  String get settingsAppearance;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In ar, this message translates to:
+  /// **'اللغة'**
+  String get settingsLanguage;
+
+  /// No description provided for @languageArabic.
+  ///
+  /// In ar, this message translates to:
+  /// **'العربية'**
+  String get languageArabic;
+
+  /// No description provided for @languageEnglish.
+  ///
+  /// In ar, this message translates to:
+  /// **'English'**
+  String get languageEnglish;
+
+  /// No description provided for @settingsQuran.
+  ///
+  /// In ar, this message translates to:
+  /// **'القرآن الكريم'**
+  String get settingsQuran;
+
+  /// No description provided for @settingsPrayer.
+  ///
+  /// In ar, this message translates to:
+  /// **'الصلاة'**
+  String get settingsPrayer;
+
+  /// No description provided for @settingsTasbeeh.
+  ///
+  /// In ar, this message translates to:
+  /// **'التسبيح'**
+  String get settingsTasbeeh;
+
+  /// No description provided for @settingsGeneral.
+  ///
+  /// In ar, this message translates to:
+  /// **'عام'**
+  String get settingsGeneral;
+
+  /// No description provided for @settingsLocation.
+  ///
+  /// In ar, this message translates to:
+  /// **'الموقع'**
+  String get settingsLocation;
+
+  /// No description provided for @settingsPrivacy.
+  ///
+  /// In ar, this message translates to:
+  /// **'الخصوصية'**
+  String get settingsPrivacy;
+
+  /// No description provided for @settingsVersion.
+  ///
+  /// In ar, this message translates to:
+  /// **'الإصدار'**
+  String get settingsVersion;
+
+  /// No description provided for @privacyBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا يجمع هديل أي بيانات شخصية، ولا يرسل أي بيانات إلى أي خادم، ولا يحتاج إلى حساب. يُستخدم موقعك على جهازك فقط لحساب مواقيت الصلاة واتجاه القبلة، وتُحفظ المفضلة والعلامات والإعدادات محليًا على جهازك.'**
+  String get privacyBody;
+
+  /// No description provided for @aboutBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'هديل رفيقك اليومي للقرآن والذكر: القرآن الكريم وتفسيره، الأذكار والأدعية، الأحاديث، مواقيت الصلاة، القبلة، التسبيح، والتقويم الهجري — ويعمل بالكامل دون اتصال بالإنترنت.'**
+  String get aboutBody;
+
+  /// No description provided for @aboutVersion.
+  ///
+  /// In ar, this message translates to:
+  /// **'الإصدار {version}'**
+  String aboutVersion(String version);
+
+  /// No description provided for @dailyContent.
+  ///
+  /// In ar, this message translates to:
+  /// **'زاد اليوم'**
+  String get dailyContent;
+
+  /// No description provided for @dailyAyah.
+  ///
+  /// In ar, this message translates to:
+  /// **'آية اليوم'**
+  String get dailyAyah;
+
+  /// No description provided for @dailyDhikr.
+  ///
+  /// In ar, this message translates to:
+  /// **'ذكر اليوم'**
+  String get dailyDhikr;
+
+  /// No description provided for @dailyHadith.
+  ///
+  /// In ar, this message translates to:
+  /// **'حديث اليوم'**
+  String get dailyHadith;
+
+  /// No description provided for @dailyDua.
+  ///
+  /// In ar, this message translates to:
+  /// **'دعاء اليوم'**
+  String get dailyDua;
 }
 
 class _AppLocalizationsDelegate

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../../core/providers/content_providers.dart';
 import '../../core/providers/core_providers.dart';
 import '../../core/routing/routes.dart';
 import '../../core/theme/app_spacing.dart';
@@ -255,12 +256,35 @@ class _AyahBlock extends ConsumerWidget {
                 textAlign: TextAlign.start,
                 style: quranTextStyle(settings, context.colors.onSurface),
               ),
+              if (settings.showTafsir) _InlineTafsir(ayah: ayah),
               const SizedBox(height: AppSpacing.xs),
               Divider(color: context.brand.divider),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+/// التفسير الميسر under an ayah, in a quieter style than the Quran text.
+class _InlineTafsir extends ConsumerWidget {
+  const _InlineTafsir({required this.ayah});
+
+  final AyahRef ayah;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final text = ref.watch(tafsirProvider).value?.ayah(ayah);
+    if (text == null) return const SizedBox.shrink();
+    return Container(
+      margin: const EdgeInsets.only(top: AppSpacing.sm),
+      padding: const EdgeInsets.all(AppSpacing.sm),
+      decoration: BoxDecoration(
+        color: context.brand.surfaceMuted,
+        borderRadius: AppRadius.mdAll,
+      ),
+      child: Text(text, style: context.text.bodyMedium!.copyWith(color: context.brand.textSecondary)),
     );
   }
 }

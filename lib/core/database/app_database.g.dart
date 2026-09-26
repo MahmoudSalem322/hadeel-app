@@ -1189,6 +1189,681 @@ class ReadingHistoryCompanion extends UpdateCompanion<ReadingHistoryRow> {
   }
 }
 
+class $TasbeehCountersTable extends TasbeehCounters
+    with TableInfo<$TasbeehCountersTable, TasbeehCounterRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TasbeehCountersTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _phraseKeyMeta = const VerificationMeta(
+    'phraseKey',
+  );
+  @override
+  late final GeneratedColumn<String> phraseKey = GeneratedColumn<String>(
+    'phrase_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _countMeta = const VerificationMeta('count');
+  @override
+  late final GeneratedColumn<int> count = GeneratedColumn<int>(
+    'count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _totalMeta = const VerificationMeta('total');
+  @override
+  late final GeneratedColumn<int> total = GeneratedColumn<int>(
+    'total',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _targetMeta = const VerificationMeta('target');
+  @override
+  late final GeneratedColumn<int> target = GeneratedColumn<int>(
+    'target',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(33),
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    phraseKey,
+    count,
+    total,
+    target,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tasbeeh_counters';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<TasbeehCounterRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('phrase_key')) {
+      context.handle(
+        _phraseKeyMeta,
+        phraseKey.isAcceptableOrUnknown(data['phrase_key']!, _phraseKeyMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_phraseKeyMeta);
+    }
+    if (data.containsKey('count')) {
+      context.handle(
+        _countMeta,
+        count.isAcceptableOrUnknown(data['count']!, _countMeta),
+      );
+    }
+    if (data.containsKey('total')) {
+      context.handle(
+        _totalMeta,
+        total.isAcceptableOrUnknown(data['total']!, _totalMeta),
+      );
+    }
+    if (data.containsKey('target')) {
+      context.handle(
+        _targetMeta,
+        target.isAcceptableOrUnknown(data['target']!, _targetMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {phraseKey};
+  @override
+  TasbeehCounterRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TasbeehCounterRow(
+      phraseKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phrase_key'],
+      )!,
+      count: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}count'],
+      )!,
+      total: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total'],
+      )!,
+      target: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}target'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+    );
+  }
+
+  @override
+  $TasbeehCountersTable createAlias(String alias) {
+    return $TasbeehCountersTable(attachedDatabase, alias);
+  }
+}
+
+class TasbeehCounterRow extends DataClass
+    implements Insertable<TasbeehCounterRow> {
+  final String phraseKey;
+  final int count;
+  final int total;
+  final int target;
+  final DateTime updatedAt;
+  const TasbeehCounterRow({
+    required this.phraseKey,
+    required this.count,
+    required this.total,
+    required this.target,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['phrase_key'] = Variable<String>(phraseKey);
+    map['count'] = Variable<int>(count);
+    map['total'] = Variable<int>(total);
+    map['target'] = Variable<int>(target);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  TasbeehCountersCompanion toCompanion(bool nullToAbsent) {
+    return TasbeehCountersCompanion(
+      phraseKey: Value(phraseKey),
+      count: Value(count),
+      total: Value(total),
+      target: Value(target),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory TasbeehCounterRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TasbeehCounterRow(
+      phraseKey: serializer.fromJson<String>(json['phraseKey']),
+      count: serializer.fromJson<int>(json['count']),
+      total: serializer.fromJson<int>(json['total']),
+      target: serializer.fromJson<int>(json['target']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'phraseKey': serializer.toJson<String>(phraseKey),
+      'count': serializer.toJson<int>(count),
+      'total': serializer.toJson<int>(total),
+      'target': serializer.toJson<int>(target),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  TasbeehCounterRow copyWith({
+    String? phraseKey,
+    int? count,
+    int? total,
+    int? target,
+    DateTime? updatedAt,
+  }) => TasbeehCounterRow(
+    phraseKey: phraseKey ?? this.phraseKey,
+    count: count ?? this.count,
+    total: total ?? this.total,
+    target: target ?? this.target,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  TasbeehCounterRow copyWithCompanion(TasbeehCountersCompanion data) {
+    return TasbeehCounterRow(
+      phraseKey: data.phraseKey.present ? data.phraseKey.value : this.phraseKey,
+      count: data.count.present ? data.count.value : this.count,
+      total: data.total.present ? data.total.value : this.total,
+      target: data.target.present ? data.target.value : this.target,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TasbeehCounterRow(')
+          ..write('phraseKey: $phraseKey, ')
+          ..write('count: $count, ')
+          ..write('total: $total, ')
+          ..write('target: $target, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(phraseKey, count, total, target, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TasbeehCounterRow &&
+          other.phraseKey == this.phraseKey &&
+          other.count == this.count &&
+          other.total == this.total &&
+          other.target == this.target &&
+          other.updatedAt == this.updatedAt);
+}
+
+class TasbeehCountersCompanion extends UpdateCompanion<TasbeehCounterRow> {
+  final Value<String> phraseKey;
+  final Value<int> count;
+  final Value<int> total;
+  final Value<int> target;
+  final Value<DateTime> updatedAt;
+  final Value<int> rowid;
+  const TasbeehCountersCompanion({
+    this.phraseKey = const Value.absent(),
+    this.count = const Value.absent(),
+    this.total = const Value.absent(),
+    this.target = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TasbeehCountersCompanion.insert({
+    required String phraseKey,
+    this.count = const Value.absent(),
+    this.total = const Value.absent(),
+    this.target = const Value.absent(),
+    required DateTime updatedAt,
+    this.rowid = const Value.absent(),
+  }) : phraseKey = Value(phraseKey),
+       updatedAt = Value(updatedAt);
+  static Insertable<TasbeehCounterRow> custom({
+    Expression<String>? phraseKey,
+    Expression<int>? count,
+    Expression<int>? total,
+    Expression<int>? target,
+    Expression<DateTime>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (phraseKey != null) 'phrase_key': phraseKey,
+      if (count != null) 'count': count,
+      if (total != null) 'total': total,
+      if (target != null) 'target': target,
+      if (updatedAt != null) 'updated_at': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TasbeehCountersCompanion copyWith({
+    Value<String>? phraseKey,
+    Value<int>? count,
+    Value<int>? total,
+    Value<int>? target,
+    Value<DateTime>? updatedAt,
+    Value<int>? rowid,
+  }) {
+    return TasbeehCountersCompanion(
+      phraseKey: phraseKey ?? this.phraseKey,
+      count: count ?? this.count,
+      total: total ?? this.total,
+      target: target ?? this.target,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (phraseKey.present) {
+      map['phrase_key'] = Variable<String>(phraseKey.value);
+    }
+    if (count.present) {
+      map['count'] = Variable<int>(count.value);
+    }
+    if (total.present) {
+      map['total'] = Variable<int>(total.value);
+    }
+    if (target.present) {
+      map['target'] = Variable<int>(target.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TasbeehCountersCompanion(')
+          ..write('phraseKey: $phraseKey, ')
+          ..write('count: $count, ')
+          ..write('total: $total, ')
+          ..write('target: $target, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $AdhkarProgressTable extends AdhkarProgress
+    with TableInfo<$AdhkarProgressTable, AdhkarProgressRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AdhkarProgressTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _categoryKeyMeta = const VerificationMeta(
+    'categoryKey',
+  );
+  @override
+  late final GeneratedColumn<String> categoryKey = GeneratedColumn<String>(
+    'category_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _itemIndexMeta = const VerificationMeta(
+    'itemIndex',
+  );
+  @override
+  late final GeneratedColumn<int> itemIndex = GeneratedColumn<int>(
+    'item_index',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _countMeta = const VerificationMeta('count');
+  @override
+  late final GeneratedColumn<int> count = GeneratedColumn<int>(
+    'count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _dayMeta = const VerificationMeta('day');
+  @override
+  late final GeneratedColumn<String> day = GeneratedColumn<String>(
+    'day',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [categoryKey, itemIndex, count, day];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'adhkar_progress';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AdhkarProgressRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('category_key')) {
+      context.handle(
+        _categoryKeyMeta,
+        categoryKey.isAcceptableOrUnknown(
+          data['category_key']!,
+          _categoryKeyMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_categoryKeyMeta);
+    }
+    if (data.containsKey('item_index')) {
+      context.handle(
+        _itemIndexMeta,
+        itemIndex.isAcceptableOrUnknown(data['item_index']!, _itemIndexMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_itemIndexMeta);
+    }
+    if (data.containsKey('count')) {
+      context.handle(
+        _countMeta,
+        count.isAcceptableOrUnknown(data['count']!, _countMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_countMeta);
+    }
+    if (data.containsKey('day')) {
+      context.handle(
+        _dayMeta,
+        day.isAcceptableOrUnknown(data['day']!, _dayMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_dayMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {categoryKey};
+  @override
+  AdhkarProgressRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AdhkarProgressRow(
+      categoryKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}category_key'],
+      )!,
+      itemIndex: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}item_index'],
+      )!,
+      count: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}count'],
+      )!,
+      day: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}day'],
+      )!,
+    );
+  }
+
+  @override
+  $AdhkarProgressTable createAlias(String alias) {
+    return $AdhkarProgressTable(attachedDatabase, alias);
+  }
+}
+
+class AdhkarProgressRow extends DataClass
+    implements Insertable<AdhkarProgressRow> {
+  final String categoryKey;
+  final int itemIndex;
+  final int count;
+
+  /// Local calendar day, `yyyy-mm-dd`.
+  final String day;
+  const AdhkarProgressRow({
+    required this.categoryKey,
+    required this.itemIndex,
+    required this.count,
+    required this.day,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['category_key'] = Variable<String>(categoryKey);
+    map['item_index'] = Variable<int>(itemIndex);
+    map['count'] = Variable<int>(count);
+    map['day'] = Variable<String>(day);
+    return map;
+  }
+
+  AdhkarProgressCompanion toCompanion(bool nullToAbsent) {
+    return AdhkarProgressCompanion(
+      categoryKey: Value(categoryKey),
+      itemIndex: Value(itemIndex),
+      count: Value(count),
+      day: Value(day),
+    );
+  }
+
+  factory AdhkarProgressRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AdhkarProgressRow(
+      categoryKey: serializer.fromJson<String>(json['categoryKey']),
+      itemIndex: serializer.fromJson<int>(json['itemIndex']),
+      count: serializer.fromJson<int>(json['count']),
+      day: serializer.fromJson<String>(json['day']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'categoryKey': serializer.toJson<String>(categoryKey),
+      'itemIndex': serializer.toJson<int>(itemIndex),
+      'count': serializer.toJson<int>(count),
+      'day': serializer.toJson<String>(day),
+    };
+  }
+
+  AdhkarProgressRow copyWith({
+    String? categoryKey,
+    int? itemIndex,
+    int? count,
+    String? day,
+  }) => AdhkarProgressRow(
+    categoryKey: categoryKey ?? this.categoryKey,
+    itemIndex: itemIndex ?? this.itemIndex,
+    count: count ?? this.count,
+    day: day ?? this.day,
+  );
+  AdhkarProgressRow copyWithCompanion(AdhkarProgressCompanion data) {
+    return AdhkarProgressRow(
+      categoryKey: data.categoryKey.present
+          ? data.categoryKey.value
+          : this.categoryKey,
+      itemIndex: data.itemIndex.present ? data.itemIndex.value : this.itemIndex,
+      count: data.count.present ? data.count.value : this.count,
+      day: data.day.present ? data.day.value : this.day,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AdhkarProgressRow(')
+          ..write('categoryKey: $categoryKey, ')
+          ..write('itemIndex: $itemIndex, ')
+          ..write('count: $count, ')
+          ..write('day: $day')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(categoryKey, itemIndex, count, day);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AdhkarProgressRow &&
+          other.categoryKey == this.categoryKey &&
+          other.itemIndex == this.itemIndex &&
+          other.count == this.count &&
+          other.day == this.day);
+}
+
+class AdhkarProgressCompanion extends UpdateCompanion<AdhkarProgressRow> {
+  final Value<String> categoryKey;
+  final Value<int> itemIndex;
+  final Value<int> count;
+  final Value<String> day;
+  final Value<int> rowid;
+  const AdhkarProgressCompanion({
+    this.categoryKey = const Value.absent(),
+    this.itemIndex = const Value.absent(),
+    this.count = const Value.absent(),
+    this.day = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AdhkarProgressCompanion.insert({
+    required String categoryKey,
+    required int itemIndex,
+    required int count,
+    required String day,
+    this.rowid = const Value.absent(),
+  }) : categoryKey = Value(categoryKey),
+       itemIndex = Value(itemIndex),
+       count = Value(count),
+       day = Value(day);
+  static Insertable<AdhkarProgressRow> custom({
+    Expression<String>? categoryKey,
+    Expression<int>? itemIndex,
+    Expression<int>? count,
+    Expression<String>? day,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (categoryKey != null) 'category_key': categoryKey,
+      if (itemIndex != null) 'item_index': itemIndex,
+      if (count != null) 'count': count,
+      if (day != null) 'day': day,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AdhkarProgressCompanion copyWith({
+    Value<String>? categoryKey,
+    Value<int>? itemIndex,
+    Value<int>? count,
+    Value<String>? day,
+    Value<int>? rowid,
+  }) {
+    return AdhkarProgressCompanion(
+      categoryKey: categoryKey ?? this.categoryKey,
+      itemIndex: itemIndex ?? this.itemIndex,
+      count: count ?? this.count,
+      day: day ?? this.day,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (categoryKey.present) {
+      map['category_key'] = Variable<String>(categoryKey.value);
+    }
+    if (itemIndex.present) {
+      map['item_index'] = Variable<int>(itemIndex.value);
+    }
+    if (count.present) {
+      map['count'] = Variable<int>(count.value);
+    }
+    if (day.present) {
+      map['day'] = Variable<String>(day.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AdhkarProgressCompanion(')
+          ..write('categoryKey: $categoryKey, ')
+          ..write('itemIndex: $itemIndex, ')
+          ..write('count: $count, ')
+          ..write('day: $day, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1198,6 +1873,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     this,
   );
   late final $ReadingHistoryTable readingHistory = $ReadingHistoryTable(this);
+  late final $TasbeehCountersTable tasbeehCounters = $TasbeehCountersTable(
+    this,
+  );
+  late final $AdhkarProgressTable adhkarProgress = $AdhkarProgressTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1207,6 +1886,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     bookmarks,
     readingProgress,
     readingHistory,
+    tasbeehCounters,
+    adhkarProgress,
   ];
 }
 
@@ -1958,6 +2639,419 @@ typedef $$ReadingHistoryTableProcessedTableManager =
       ReadingHistoryRow,
       PrefetchHooks Function()
     >;
+typedef $$TasbeehCountersTableCreateCompanionBuilder =
+    TasbeehCountersCompanion Function({
+      required String phraseKey,
+      Value<int> count,
+      Value<int> total,
+      Value<int> target,
+      required DateTime updatedAt,
+      Value<int> rowid,
+    });
+typedef $$TasbeehCountersTableUpdateCompanionBuilder =
+    TasbeehCountersCompanion Function({
+      Value<String> phraseKey,
+      Value<int> count,
+      Value<int> total,
+      Value<int> target,
+      Value<DateTime> updatedAt,
+      Value<int> rowid,
+    });
+
+class $$TasbeehCountersTableFilterComposer
+    extends Composer<_$AppDatabase, $TasbeehCountersTable> {
+  $$TasbeehCountersTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get phraseKey => $composableBuilder(
+    column: $table.phraseKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get count => $composableBuilder(
+    column: $table.count,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get total => $composableBuilder(
+    column: $table.total,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get target => $composableBuilder(
+    column: $table.target,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$TasbeehCountersTableOrderingComposer
+    extends Composer<_$AppDatabase, $TasbeehCountersTable> {
+  $$TasbeehCountersTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get phraseKey => $composableBuilder(
+    column: $table.phraseKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get count => $composableBuilder(
+    column: $table.count,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get total => $composableBuilder(
+    column: $table.total,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get target => $composableBuilder(
+    column: $table.target,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$TasbeehCountersTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TasbeehCountersTable> {
+  $$TasbeehCountersTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get phraseKey =>
+      $composableBuilder(column: $table.phraseKey, builder: (column) => column);
+
+  GeneratedColumn<int> get count =>
+      $composableBuilder(column: $table.count, builder: (column) => column);
+
+  GeneratedColumn<int> get total =>
+      $composableBuilder(column: $table.total, builder: (column) => column);
+
+  GeneratedColumn<int> get target =>
+      $composableBuilder(column: $table.target, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$TasbeehCountersTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TasbeehCountersTable,
+          TasbeehCounterRow,
+          $$TasbeehCountersTableFilterComposer,
+          $$TasbeehCountersTableOrderingComposer,
+          $$TasbeehCountersTableAnnotationComposer,
+          $$TasbeehCountersTableCreateCompanionBuilder,
+          $$TasbeehCountersTableUpdateCompanionBuilder,
+          (
+            TasbeehCounterRow,
+            BaseReferences<
+              _$AppDatabase,
+              $TasbeehCountersTable,
+              TasbeehCounterRow
+            >,
+          ),
+          TasbeehCounterRow,
+          PrefetchHooks Function()
+        > {
+  $$TasbeehCountersTableTableManager(
+    _$AppDatabase db,
+    $TasbeehCountersTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TasbeehCountersTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TasbeehCountersTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TasbeehCountersTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> phraseKey = const Value.absent(),
+                Value<int> count = const Value.absent(),
+                Value<int> total = const Value.absent(),
+                Value<int> target = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TasbeehCountersCompanion(
+                phraseKey: phraseKey,
+                count: count,
+                total: total,
+                target: target,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String phraseKey,
+                Value<int> count = const Value.absent(),
+                Value<int> total = const Value.absent(),
+                Value<int> target = const Value.absent(),
+                required DateTime updatedAt,
+                Value<int> rowid = const Value.absent(),
+              }) => TasbeehCountersCompanion.insert(
+                phraseKey: phraseKey,
+                count: count,
+                total: total,
+                target: target,
+                updatedAt: updatedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$TasbeehCountersTable, TasbeehCounterRow>(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $TasbeehCountersTable,
+                    TasbeehCounterRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$TasbeehCountersTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TasbeehCountersTable,
+      TasbeehCounterRow,
+      $$TasbeehCountersTableFilterComposer,
+      $$TasbeehCountersTableOrderingComposer,
+      $$TasbeehCountersTableAnnotationComposer,
+      $$TasbeehCountersTableCreateCompanionBuilder,
+      $$TasbeehCountersTableUpdateCompanionBuilder,
+      (
+        TasbeehCounterRow,
+        BaseReferences<_$AppDatabase, $TasbeehCountersTable, TasbeehCounterRow>,
+      ),
+      TasbeehCounterRow,
+      PrefetchHooks Function()
+    >;
+typedef $$AdhkarProgressTableCreateCompanionBuilder =
+    AdhkarProgressCompanion Function({
+      required String categoryKey,
+      required int itemIndex,
+      required int count,
+      required String day,
+      Value<int> rowid,
+    });
+typedef $$AdhkarProgressTableUpdateCompanionBuilder =
+    AdhkarProgressCompanion Function({
+      Value<String> categoryKey,
+      Value<int> itemIndex,
+      Value<int> count,
+      Value<String> day,
+      Value<int> rowid,
+    });
+
+class $$AdhkarProgressTableFilterComposer
+    extends Composer<_$AppDatabase, $AdhkarProgressTable> {
+  $$AdhkarProgressTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get categoryKey => $composableBuilder(
+    column: $table.categoryKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get itemIndex => $composableBuilder(
+    column: $table.itemIndex,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get count => $composableBuilder(
+    column: $table.count,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get day => $composableBuilder(
+    column: $table.day,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$AdhkarProgressTableOrderingComposer
+    extends Composer<_$AppDatabase, $AdhkarProgressTable> {
+  $$AdhkarProgressTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get categoryKey => $composableBuilder(
+    column: $table.categoryKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get itemIndex => $composableBuilder(
+    column: $table.itemIndex,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get count => $composableBuilder(
+    column: $table.count,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get day => $composableBuilder(
+    column: $table.day,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$AdhkarProgressTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AdhkarProgressTable> {
+  $$AdhkarProgressTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get categoryKey => $composableBuilder(
+    column: $table.categoryKey,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get itemIndex =>
+      $composableBuilder(column: $table.itemIndex, builder: (column) => column);
+
+  GeneratedColumn<int> get count =>
+      $composableBuilder(column: $table.count, builder: (column) => column);
+
+  GeneratedColumn<String> get day =>
+      $composableBuilder(column: $table.day, builder: (column) => column);
+}
+
+class $$AdhkarProgressTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $AdhkarProgressTable,
+          AdhkarProgressRow,
+          $$AdhkarProgressTableFilterComposer,
+          $$AdhkarProgressTableOrderingComposer,
+          $$AdhkarProgressTableAnnotationComposer,
+          $$AdhkarProgressTableCreateCompanionBuilder,
+          $$AdhkarProgressTableUpdateCompanionBuilder,
+          (
+            AdhkarProgressRow,
+            BaseReferences<
+              _$AppDatabase,
+              $AdhkarProgressTable,
+              AdhkarProgressRow
+            >,
+          ),
+          AdhkarProgressRow,
+          PrefetchHooks Function()
+        > {
+  $$AdhkarProgressTableTableManager(
+    _$AppDatabase db,
+    $AdhkarProgressTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AdhkarProgressTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AdhkarProgressTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AdhkarProgressTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> categoryKey = const Value.absent(),
+                Value<int> itemIndex = const Value.absent(),
+                Value<int> count = const Value.absent(),
+                Value<String> day = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AdhkarProgressCompanion(
+                categoryKey: categoryKey,
+                itemIndex: itemIndex,
+                count: count,
+                day: day,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String categoryKey,
+                required int itemIndex,
+                required int count,
+                required String day,
+                Value<int> rowid = const Value.absent(),
+              }) => AdhkarProgressCompanion.insert(
+                categoryKey: categoryKey,
+                itemIndex: itemIndex,
+                count: count,
+                day: day,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$AdhkarProgressTable, AdhkarProgressRow>(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $AdhkarProgressTable,
+                    AdhkarProgressRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$AdhkarProgressTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $AdhkarProgressTable,
+      AdhkarProgressRow,
+      $$AdhkarProgressTableFilterComposer,
+      $$AdhkarProgressTableOrderingComposer,
+      $$AdhkarProgressTableAnnotationComposer,
+      $$AdhkarProgressTableCreateCompanionBuilder,
+      $$AdhkarProgressTableUpdateCompanionBuilder,
+      (
+        AdhkarProgressRow,
+        BaseReferences<_$AppDatabase, $AdhkarProgressTable, AdhkarProgressRow>,
+      ),
+      AdhkarProgressRow,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -1970,4 +3064,8 @@ class $AppDatabaseManager {
       $$ReadingProgressTableTableManager(_db, _db.readingProgress);
   $$ReadingHistoryTableTableManager get readingHistory =>
       $$ReadingHistoryTableTableManager(_db, _db.readingHistory);
+  $$TasbeehCountersTableTableManager get tasbeehCounters =>
+      $$TasbeehCountersTableTableManager(_db, _db.tasbeehCounters);
+  $$AdhkarProgressTableTableManager get adhkarProgress =>
+      $$AdhkarProgressTableTableManager(_db, _db.adhkarProgress);
 }

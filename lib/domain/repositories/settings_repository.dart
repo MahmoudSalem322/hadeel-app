@@ -9,6 +9,8 @@ abstract interface class SettingsRepository {
 
   Future<void> saveThemeMode(AppThemeMode mode);
 
+  Future<void> saveLanguage(String code);
+
   Future<void> saveOnboardingDone({required bool done});
 
   Future<void> savePrayerSettings(PrayerSettings settings);
@@ -16,4 +18,10 @@ abstract interface class SettingsRepository {
   Future<void> saveLocation(LocationSelection selection);
 
   Future<void> saveQuranSettings(QuranReadingSettings settings);
+
+  Future<void> saveNotificationSettings(NotificationSettings settings);
+
+  Future<void> saveTasbeehSettings(TasbeehSettings settings);
+
+  Future<void> saveHijriAdjustment(int days);
 }

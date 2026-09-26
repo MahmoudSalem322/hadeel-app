@@ -87,6 +87,13 @@ class ReadingSettingsSheet extends ConsumerWidget {
               selected: {s.mode},
               onSelectionChanged: (v) => notifier.updateQuranSettings((q) => q.copyWith(mode: v.first)),
             ),
+            const SizedBox(height: AppSpacing.sm),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(l10n.readingShowTafsir, style: context.text.titleSmall),
+              value: s.showTafsir,
+              onChanged: (v) => notifier.updateQuranSettings((q) => q.copyWith(showTafsir: v)),
+            ),
             _Label(l10n.themeModeLabel),
             SegmentedButton<AppThemeMode>(
               segments: [

@@ -1,6 +1,7 @@
 import '../../domain/entities/app_settings.dart';
 import '../../domain/entities/geo.dart';
 import '../../domain/entities/location_selection.dart';
+import '../../domain/entities/prayer.dart';
 import '../../domain/entities/prayer_settings.dart';
 import '../../domain/entities/quran_reading_settings.dart';
 import '../../domain/repositories/settings_repository.dart';
@@ -36,9 +37,52 @@ class SettingsRepositoryImpl implements SettingsRepository {
         ),
       ),
       quran: _loadQuran(),
+      languageCode: _loadLanguage(),
+      notifications: NotificationSettings(
+        enabled: {
+          for (final name in _store.getStringList(PreferencesStore.keyNotifyPrayers) ?? const <String>[])
+            ?_prayerByName(name),
+        },
+      ),
+      tasbeeh: TasbeehSettings(
+        vibration: _store.getBool(PreferencesStore.keyTasbeehVibration) ?? true,
+        sound: _store.getBool(PreferencesStore.keyTasbeehSound) ?? false,
+      ),
+      hijriAdjustment: (_store.getInt(PreferencesStore.keyHijriAdjustment) ?? 0)
+          .clamp(-AppSettings.maxHijriAdjustment, AppSettings.maxHijriAdjustment),
       location: _loadLocation(),
     );
   }
+
+  String _loadLanguage() {
+    final code = _store.getString(PreferencesStore.keyLanguage);
+    return AppSettings.supportedLanguages.contains(code) ? code! : 'ar';
+  }
+
+  static Prayer? _prayerByName(String name) {
+    for (final p in Prayer.obligatory) {
+      if (p.name == name) return p;
+    }
+    return null;
+  }
+
+  @override
+  Future<void> saveLanguage(String code) => _store.setString(PreferencesStore.keyLanguage, code);
+
+  @override
+  Future<void> saveNotificationSettings(NotificationSettings settings) => _store.setStringList(
+        PreferencesStore.keyNotifyPrayers,
+        [for (final p in Prayer.obligatory) if (settings.isOn(p)) p.name],
+      );
+
+  @override
+  Future<void> saveTasbeehSettings(TasbeehSettings settings) async {
+    await _store.setBool(PreferencesStore.keyTasbeehVibration, value: settings.vibration);
+    await _store.setBool(PreferencesStore.keyTasbeehSound, value: settings.sound);
+  }
+
+  @override
+  Future<void> saveHijriAdjustment(int days) => _store.setInt(PreferencesStore.keyHijriAdjustment, days);
 
   QuranReadingSettings _loadQuran() {
     const defaults = QuranReadingSettings();
@@ -51,6 +95,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
         _store.getString(PreferencesStore.keyQuranMode),
         defaults.mode,
       ),
+      showTafsir: _store.getBool(PreferencesStore.keyQuranShowTafsir),
     );
   }
 
@@ -60,6 +105,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
     await _store.setDouble(PreferencesStore.keyQuranLineHeight, settings.lineHeight);
     await _store.setString(PreferencesStore.keyQuranFont, settings.font.name);
     await _store.setString(PreferencesStore.keyQuranMode, settings.mode.name);
+    await _store.setBool(PreferencesStore.keyQuranShowTafsir, value: settings.showTafsir);
   }
 
   LocationSelection? _loadLocation() {

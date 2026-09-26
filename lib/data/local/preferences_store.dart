@@ -8,6 +8,7 @@ class PreferencesStore {
   final SharedPreferencesWithCache _prefs;
 
   static const String keyThemeMode = 'settings.themeMode';
+  static const String keyLanguage = 'settings.language';
   static const String keyOnboardingDone = 'onboarding.done';
   static const String keyCalcMethod = 'prayer.method';
   static const String keyMadhab = 'prayer.madhab';
@@ -21,9 +22,15 @@ class PreferencesStore {
   static const String keyQuranLineHeight = 'quran.lineHeight';
   static const String keyQuranFont = 'quran.font';
   static const String keyQuranMode = 'quran.mode';
+  static const String keyQuranShowTafsir = 'quran.showTafsir';
+  static const String keyNotifyPrayers = 'notify.prayers';
+  static const String keyTasbeehVibration = 'tasbeeh.vibration';
+  static const String keyTasbeehSound = 'tasbeeh.sound';
+  static const String keyHijriAdjustment = 'hijri.adjustment';
 
   static const Set<String> allKeys = {
     keyThemeMode,
+    keyLanguage,
     keyOnboardingDone,
     keyCalcMethod,
     keyMadhab,
@@ -37,6 +44,11 @@ class PreferencesStore {
     keyQuranLineHeight,
     keyQuranFont,
     keyQuranMode,
+    keyQuranShowTafsir,
+    keyNotifyPrayers,
+    keyTasbeehVibration,
+    keyTasbeehSound,
+    keyHijriAdjustment,
   };
 
   static Future<PreferencesStore> open() async {
@@ -50,10 +62,12 @@ class PreferencesStore {
   bool? getBool(String key) => _prefs.getBool(key);
   double? getDouble(String key) => _prefs.getDouble(key);
   int? getInt(String key) => _prefs.getInt(key);
+  List<String>? getStringList(String key) => _prefs.getStringList(key);
 
   Future<void> setString(String key, String value) => _prefs.setString(key, value);
   Future<void> setBool(String key, {required bool value}) => _prefs.setBool(key, value);
   Future<void> setDouble(String key, double value) => _prefs.setDouble(key, value);
   Future<void> setInt(String key, int value) => _prefs.setInt(key, value);
+  Future<void> setStringList(String key, List<String> value) => _prefs.setStringList(key, value);
   Future<void> remove(String key) => _prefs.remove(key);
 }

@@ -14,11 +14,15 @@ import 'package:hadeel/core/providers/core_providers.dart';
 import 'package:hadeel/core/utils/clock.dart';
 import 'package:hadeel/data/local/preferences_store.dart';
 import 'package:hadeel/data/models/city_model.dart';
+import 'package:hadeel/data/models/content_models.dart';
 import 'package:hadeel/data/models/quran_models.dart';
+import 'package:hadeel/data/repositories/asset_content_repository.dart';
 import 'package:hadeel/data/repositories/asset_quran_repository.dart';
 import 'package:hadeel/domain/entities/city.dart';
+import 'package:hadeel/domain/entities/content.dart';
 import 'package:hadeel/domain/entities/geo.dart';
 import 'package:hadeel/domain/entities/quran.dart';
+import 'package:hadeel/domain/repositories/content_repository.dart';
 import 'package:hadeel/domain/repositories/quran_repository.dart';
 import 'package:hadeel/services/location/device_timezone_service.dart';
 import 'package:hadeel/services/location/location_service.dart';
@@ -77,6 +81,33 @@ class FileQuranRepository implements QuranRepository {
   Future<QuranText> loadSearchText() async => loadQuranSearchText();
 }
 
+QuranText? _tafsir;
+HisnLibrary? _hisn;
+HadithLibrary? _hadith;
+
+QuranText loadTafsirText() =>
+    _tafsir ??= ContentModels.tafsirFromJson(File(AssetContentRepository.tafsirAsset).readAsStringSync());
+HisnLibrary loadHisnLibrary() => _hisn ??= ContentModels.hisnFromJson((
+      File(AssetContentRepository.hisnAsset).readAsStringSync(),
+      File(AssetContentRepository.categoriesAsset).readAsStringSync(),
+    ));
+HadithLibrary loadHadithLibrary() =>
+    _hadith ??= ContentModels.hadithFromJson(File(AssetContentRepository.hadithAsset).readAsStringSync());
+
+/// Serves bundled content synchronously from disk for tests.
+class FileContentRepository implements ContentRepository {
+  const FileContentRepository();
+
+  @override
+  Future<QuranText> loadTafsir() async => loadTafsirText();
+
+  @override
+  Future<HisnLibrary> loadHisn() async => loadHisnLibrary();
+
+  @override
+  Future<HadithLibrary> loadHadith() async => loadHadithLibrary();
+}
+
 AppDatabase openTestDatabase() {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
   return AppDatabase(NativeDatabase.memory());
@@ -127,6 +158,7 @@ Future<ProviderContainer> pumpHadeelApp(
       citiesProvider.overrideWithValue(loadBundledCities()),
       quranMetaProvider.overrideWithValue(loadQuranMeta()),
       quranRepositoryProvider.overrideWithValue(const FileQuranRepository()),
+      contentRepositoryProvider.overrideWithValue(const FileContentRepository()),
       appDatabaseProvider.overrideWithValue(db),
       clockProvider.overrideWithValue(clock),
       locationServiceProvider.overrideWithValue(
