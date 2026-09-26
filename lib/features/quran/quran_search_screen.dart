@@ -19,7 +19,10 @@ import 'widgets/number_medallion.dart';
 import 'widgets/quran_style.dart';
 
 class QuranSearchScreen extends ConsumerStatefulWidget {
-  const QuranSearchScreen({super.key});
+  const QuranSearchScreen({super.key, this.initialQuery = ''});
+
+  /// Pre-filled query, e.g. from global search's "show all".
+  final String initialQuery;
 
   static const Duration debounce = Duration(milliseconds: 250);
 
@@ -29,11 +32,13 @@ class QuranSearchScreen extends ConsumerStatefulWidget {
 
 class _QuranSearchScreenState extends ConsumerState<QuranSearchScreen> {
   Timer? _debounce;
-  String _query = '';
+  late String _query = widget.initialQuery.trim();
+  late final TextEditingController _controller = TextEditingController(text: widget.initialQuery);
 
   @override
   void dispose() {
     _debounce?.cancel();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -54,7 +59,12 @@ class _QuranSearchScreenState extends ConsumerState<QuranSearchScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.xs),
-              child: SearchField(hint: l10n.quranSearchHint, autofocus: true, onChanged: _onChanged),
+              child: SearchField(
+                hint: l10n.quranSearchHint,
+                controller: _controller,
+                autofocus: widget.initialQuery.isEmpty,
+                onChanged: _onChanged,
+              ),
             ),
             Expanded(child: _Results(query: _query)),
           ],

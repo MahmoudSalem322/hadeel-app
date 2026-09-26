@@ -13,6 +13,7 @@ abstract final class Routes {
   // Nested under branches
   static const String quranSurah = '/quran/surah/:id';
   static const String quranSearch = '/quran/search';
+  static String quranSearchFor(String q) => Uri(path: quranSearch, queryParameters: {'q': q}).toString();
   static const String azkarCategory = '/azkar/:category';
 
   // Full-screen routes (above the navigation bar)
@@ -26,6 +27,7 @@ abstract final class Routes {
   static const String settings = '/settings';
   static const String about = '/about';
   static const String sources = '/sources';
+  static const String privacy = '/privacy';
   static const String designGallery = '/dev/gallery';
 
   static String surah(int id, {int? ayah}) =>

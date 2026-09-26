@@ -24,8 +24,12 @@ import 'package:hadeel/domain/entities/geo.dart';
 import 'package:hadeel/domain/entities/quran.dart';
 import 'package:hadeel/domain/repositories/content_repository.dart';
 import 'package:hadeel/domain/repositories/quran_repository.dart';
+import 'package:hadeel/features/prayer/providers/notification_providers.dart';
+import 'package:hadeel/features/qibla/qibla_screen.dart';
 import 'package:hadeel/services/location/device_timezone_service.dart';
 import 'package:hadeel/services/location/location_service.dart';
+import 'package:hadeel/services/notifications/notification_service.dart';
+import 'package:hadeel/services/sensors/compass_service.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
@@ -130,6 +134,36 @@ class FakeLocationService implements LocationService {
   }
 }
 
+class FakeNotificationService implements NotificationService {
+  FakeNotificationService({this.granted = true});
+
+  bool granted;
+  int permissionRequests = 0;
+  List<NotificationRequest> scheduled = const [];
+
+  @override
+  Future<void> init({required String channelName, required String channelDescription}) async {}
+
+  @override
+  Future<bool> requestPermission() async {
+    permissionRequests++;
+    return granted;
+  }
+
+  @override
+  Future<void> replaceAll(List<NotificationRequest> requests) async => scheduled = requests;
+}
+
+class FakeCompassService implements CompassService {
+  FakeCompassService([this.stream]);
+
+  /// Null simulates a device without a compass.
+  final Stream<CompassReading>? stream;
+
+  @override
+  Stream<CompassReading>? get readings => stream;
+}
+
 class FakeTimezoneService implements DeviceTimezoneService {
   const FakeTimezoneService([this.zone = 'Asia/Hebron']);
 
@@ -146,6 +180,8 @@ Future<ProviderContainer> pumpHadeelApp(
   required ManualClock clock,
   Map<String, Object> prefs = const {},
   LocationService? locationService,
+  NotificationService? notifications,
+  CompassService? compass,
   bool skipSplash = true,
   List<Override> extraOverrides = const [],
 }) async {
@@ -153,6 +189,7 @@ Future<ProviderContainer> pumpHadeelApp(
   final store = await openTestStore(prefs);
   final db = openTestDatabase();
   final container = ProviderContainer(
+    retry: (retryCount, error) => null,
     overrides: [
       preferencesStoreProvider.overrideWithValue(store),
       citiesProvider.overrideWithValue(loadBundledCities()),
@@ -165,6 +202,8 @@ Future<ProviderContainer> pumpHadeelApp(
         locationService ?? FakeLocationService(const Err(LocationFailure.permissionDenied)),
       ),
       deviceTimezoneServiceProvider.overrideWithValue(const FakeTimezoneService()),
+      notificationServiceProvider.overrideWithValue(notifications ?? FakeNotificationService()),
+      compassServiceProvider.overrideWithValue(compass ?? FakeCompassService()),
       ...extraOverrides,
     ],
   );

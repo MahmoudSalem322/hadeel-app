@@ -32,19 +32,39 @@ class NotificationSettings {
 
 @immutable
 class TasbeehSettings {
-  const TasbeehSettings({this.vibration = true, this.sound = false});
+  const TasbeehSettings({this.vibration = true, this.sound = false, this.phraseKey = defaultPhrase});
+
+  /// Phrase keys offered in the tasbeeh screen (labels live in the ARB files).
+  static const List<String> phrases = [
+    'subhanallah',
+    'alhamdulillah',
+    'allahuakbar',
+    'tahlil',
+    'istighfar',
+    'hawqala',
+    'subhanallah_wabihamdihi',
+    'salawat',
+  ];
+  static const String defaultPhrase = 'subhanallah';
 
   final bool vibration;
   final bool sound;
 
-  TasbeehSettings copyWith({bool? vibration, bool? sound}) =>
-      TasbeehSettings(vibration: vibration ?? this.vibration, sound: sound ?? this.sound);
+  /// The dhikr currently selected for counting.
+  final String phraseKey;
+
+  TasbeehSettings copyWith({bool? vibration, bool? sound, String? phraseKey}) => TasbeehSettings(
+        vibration: vibration ?? this.vibration,
+        sound: sound ?? this.sound,
+        phraseKey: phraseKey ?? this.phraseKey,
+      );
 
   @override
-  bool operator ==(Object other) => other is TasbeehSettings && other.vibration == vibration && other.sound == sound;
+  bool operator ==(Object other) =>
+      other is TasbeehSettings && other.vibration == vibration && other.sound == sound && other.phraseKey == phraseKey;
 
   @override
-  int get hashCode => Object.hash(vibration, sound);
+  int get hashCode => Object.hash(vibration, sound, phraseKey);
 }
 
 /// User preferences, persisted on the device.

@@ -47,11 +47,17 @@ class SettingsRepositoryImpl implements SettingsRepository {
       tasbeeh: TasbeehSettings(
         vibration: _store.getBool(PreferencesStore.keyTasbeehVibration) ?? true,
         sound: _store.getBool(PreferencesStore.keyTasbeehSound) ?? false,
+        phraseKey: _loadPhrase(),
       ),
       hijriAdjustment: (_store.getInt(PreferencesStore.keyHijriAdjustment) ?? 0)
           .clamp(-AppSettings.maxHijriAdjustment, AppSettings.maxHijriAdjustment),
       location: _loadLocation(),
     );
+  }
+
+  String _loadPhrase() {
+    final key = _store.getString(PreferencesStore.keyTasbeehPhrase);
+    return TasbeehSettings.phrases.contains(key) ? key! : TasbeehSettings.defaultPhrase;
   }
 
   String _loadLanguage() {
@@ -79,6 +85,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
   Future<void> saveTasbeehSettings(TasbeehSettings settings) async {
     await _store.setBool(PreferencesStore.keyTasbeehVibration, value: settings.vibration);
     await _store.setBool(PreferencesStore.keyTasbeehSound, value: settings.sound);
+    await _store.setString(PreferencesStore.keyTasbeehPhrase, settings.phraseKey);
   }
 
   @override

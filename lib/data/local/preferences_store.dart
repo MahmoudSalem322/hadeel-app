@@ -26,6 +26,7 @@ class PreferencesStore {
   static const String keyNotifyPrayers = 'notify.prayers';
   static const String keyTasbeehVibration = 'tasbeeh.vibration';
   static const String keyTasbeehSound = 'tasbeeh.sound';
+  static const String keyTasbeehPhrase = 'tasbeeh.phrase';
   static const String keyHijriAdjustment = 'hijri.adjustment';
 
   static const Set<String> allKeys = {
@@ -48,6 +49,7 @@ class PreferencesStore {
     keyNotifyPrayers,
     keyTasbeehVibration,
     keyTasbeehSound,
+    keyTasbeehPhrase,
     keyHijriAdjustment,
   };
 

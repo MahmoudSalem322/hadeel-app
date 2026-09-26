@@ -7,14 +7,15 @@ import '../../shared/widgets/responsive_body.dart';
 import '../../shared/widgets/section_header.dart';
 import '../prayer/providers/prayer_providers.dart';
 import '../quran/widgets/continue_reading_card.dart';
+import 'widgets/daily_content_card.dart';
 import 'widgets/home_header.dart';
 import 'widgets/next_prayer_card.dart';
 import 'widgets/prayer_times_strip.dart';
 import 'widgets/quick_actions_grid.dart';
 
 /// Home, ordered by what matters most day-to-day: next prayer, Quran,
-/// today's times, then quick access. Daily content, duas and hadith join in
-/// their own phases, once their verified local data exists.
+/// today's times, quick access (adhkar, tasbeeh, qibla, duas), then the day's
+/// ayah, dhikr, hadith and dua from verified local content.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -46,6 +47,7 @@ class HomeScreen extends ConsumerWidget {
               ],
               SectionHeader(title: l10n.homeQuickAccess),
               const QuickActionsGrid(),
+              const DailyContentSection(),
             ],
           ),
         ),

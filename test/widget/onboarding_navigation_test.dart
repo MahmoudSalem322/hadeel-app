@@ -91,7 +91,7 @@ void main() {
     await tester.tap(find.text('التسبيح'));
     await tester.pumpAndSettle();
     expect(find.byType(NavigationBar), findsNothing);
-    expect(find.text('قريبًا بإذن الله'), findsOneWidget);
+    expect(find.text('سبحان الله'), findsOneWidget); // the tasbeeh screen
 
     await tester.tap(find.byType(BackButton));
     await tester.pumpAndSettle();
