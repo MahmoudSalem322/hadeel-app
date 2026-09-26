@@ -30,7 +30,7 @@ void main() {
     });
 
     test('navigation, reset and restart', () {
-      var c = const AdhkarCounter(repeats: [3, 3, 3]).tap();
+      final c = const AdhkarCounter(repeats: [3, 3, 3]).tap();
       expect(c.next().index, 1);
       expect(c.next().count, 0);
       expect(c.previous().index, 0);
@@ -72,7 +72,7 @@ void main() {
     });
 
     test('reset keeps the total; changing target resets the count', () {
-      final t = const TasbeehCounter(phraseKey: 'x', count: 10, total: 50, target: 33);
+      const t = TasbeehCounter(phraseKey: 'x', count: 10, total: 50, target: 33);
       expect(t.reset().count, 0);
       expect(t.reset().total, 50);
       expect(t.withTarget(99).count, 0);
