@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "country": "PS",
+  "cities": [
+    { "id": "jerusalem", "name_ar": "القدس", "name_en": "Jerusalem", "lat": 31.7780, "lng": 35.2354, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "gaza", "name_ar": "غزة", "name_en": "Gaza", "lat": 31.5017, "lng": 34.4668, "tz": "Asia/Gaza", "region": "gaza_strip" },
+    { "id": "nablus", "name_ar": "نابلس", "name_en": "Nablus", "lat": 32.2211, "lng": 35.2544, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "ramallah", "name_ar": "رام الله", "name_en": "Ramallah", "lat": 31.9038, "lng": 35.2034, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "al_bireh", "name_ar": "البيرة", "name_en": "Al-Bireh", "lat": 31.9100, "lng": 35.2160, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "hebron", "name_ar": "الخليل", "name_en": "Hebron", "lat": 31.5326, "lng": 35.0998, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "jenin", "name_ar": "جنين", "name_en": "Jenin", "lat": 32.4610, "lng": 35.3000, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "tulkarm", "name_ar": "طولكرم", "name_en": "Tulkarm", "lat": 32.3104, "lng": 35.0286, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "qalqilya", "name_ar": "قلقيلية", "name_en": "Qalqilya", "lat": 32.1896, "lng": 34.9706, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "bethlehem", "name_ar": "بيت لحم", "name_en": "Bethlehem", "lat": 31.7054, "lng": 35.2024, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "jericho", "name_ar": "أريحا", "name_en": "Jericho", "lat": 31.8570, "lng": 35.4440, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "salfit", "name_ar": "سلفيت", "name_en": "Salfit", "lat": 32.0850, "lng": 35.1800, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "tubas", "name_ar": "طوباس", "name_en": "Tubas", "lat": 32.3209, "lng": 35.3699, "tz": "Asia/Hebron", "region": "west_bank" },
+    { "id": "rafah", "name_ar": "رفح", "name_en": "Rafah", "lat": 31.2969, "lng": 34.2455, "tz": "Asia/Gaza", "region": "gaza_strip" },
+    { "id": "khan_yunis", "name_ar": "خان يونس", "name_en": "Khan Yunis", "lat": 31.3462, "lng": 34.3060, "tz": "Asia/Gaza", "region": "gaza_strip" },
+    { "id": "deir_al_balah", "name_ar": "دير البلح", "name_en": "Deir al-Balah", "lat": 31.4170, "lng": 34.3510, "tz": "Asia/Gaza", "region": "gaza_strip" },
+    { "id": "beit_hanoun", "name_ar": "بيت حانون", "name_en": "Beit Hanoun", "lat": 31.5350, "lng": 34.5370, "tz": "Asia/Gaza", "region": "gaza_strip" },
+    { "id": "jabalia", "name_ar": "جباليا", "name_en": "Jabalia", "lat": 31.5280, "lng": 34.4830, "tz": "Asia/Gaza", "region": "gaza_strip" },
+    { "id": "jaffa", "name_ar": "يافا", "name_en": "Jaffa", "lat": 32.0500, "lng": 34.7500, "tz": "Asia/Jerusalem", "region": "interior" },
+    { "id": "haifa", "name_ar": "حيفا", "name_en": "Haifa", "lat": 32.7940, "lng": 34.9896, "tz": "Asia/Jerusalem", "region": "interior" },
+    { "id": "akka", "name_ar": "عكا", "name_en": "Acre", "lat": 32.9281, "lng": 35.0820, "tz": "Asia/Jerusalem", "region": "interior" },
+    { "id": "nazareth", "name_ar": "الناصرة", "name_en": "Nazareth", "lat": 32.6996, "lng": 35.3035, "tz": "Asia/Jerusalem", "region": "interior" },
+    { "id": "lydd", "name_ar": "اللد", "name_en": "Lydd", "lat": 31.9510, "lng": 34.8880, "tz": "Asia/Jerusalem", "region": "interior" },
+    { "id": "ramla", "name_ar": "الرملة", "name_en": "Ramla", "lat": 31.9270, "lng": 34.8620, "tz": "Asia/Jerusalem", "region": "interior" },
+    { "id": "safad", "name_ar": "صفد", "name_en": "Safed", "lat": 32.9646, "lng": 35.4960, "tz": "Asia/Jerusalem", "region": "interior" },
+    { "id": "beersheba", "name_ar": "بئر السبع", "name_en": "Beersheba", "lat": 31.2520, "lng": 34.7915, "tz": "Asia/Jerusalem", "region": "interior" }
+  ]
+}

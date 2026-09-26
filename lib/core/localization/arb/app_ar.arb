@@ -1,0 +1,134 @@
+{
+  "@@locale": "ar",
+
+  "appName": "هديل",
+  "appNameLatin": "Hadeel",
+  "appTagline": "رفيقك اليومي للقرآن والذكر",
+
+  "onboardingWelcomeTitle": "أهلًا بك في هديل",
+  "onboardingWelcomeBody": "رفيقك اليومي للقرآن والذكر والعبادة.",
+  "onboardingQuranTitle": "القرآن معك دائمًا",
+  "onboardingQuranBody": "اقرأ القرآن وتابع وردك حتى بدون اتصال بالإنترنت.",
+  "onboardingPrayerTitle": "صلاتك في وقتها",
+  "onboardingPrayerBody": "احسب مواقيت الصلاة حسب موقعك أو مدينتك.",
+  "onboardingStartTitle": "ابدأ رحلتك",
+  "onboardingStartBody": "حدّد موقعك لحساب مواقيت الصلاة بدقة. يمكنك تغييره لاحقًا من الإعدادات.",
+  "onboardingPageIndicator": "الصفحة {current} من {total}",
+  "@onboardingPageIndicator": {
+    "placeholders": { "current": { "type": "int" }, "total": { "type": "int" } }
+  },
+  "actionSkip": "تخطي",
+  "actionNext": "التالي",
+  "actionStartNow": "ابدأ الآن",
+  "actionContinue": "متابعة",
+  "actionRetry": "إعادة المحاولة",
+  "actionChange": "تغيير",
+  "actionClose": "إغلاق",
+  "actionExplore": "استكشف المحتوى",
+
+  "navHome": "الرئيسية",
+  "navQuran": "القرآن",
+  "navAdhkar": "الأذكار",
+  "navPrayer": "الصلاة",
+  "navMore": "المزيد",
+
+  "homeGreeting": "السلام عليكم",
+  "homeNextPrayer": "الصلاة القادمة",
+  "homeRemaining": "متبقي",
+  "homeTodayPrayerTimes": "مواقيت اليوم",
+  "homeQuickAccess": "وصول سريع",
+  "homeContinueReading": "متابعة القراءة",
+  "homeStartReading": "ابدأ القراءة",
+  "homeStartReadingBody": "ابدأ وردك من القرآن الكريم، وسنحفظ موضعك تلقائيًا.",
+  "homeReadingPosition": "سورة {surah} · آية {ayah}",
+  "@homeReadingPosition": {
+    "placeholders": { "surah": { "type": "String" }, "ayah": { "type": "String" } }
+  },
+  "nextPrayerSemantics": "الصلاة القادمة {prayer} الساعة {time}، متبقي {remaining}",
+  "@nextPrayerSemantics": {
+    "placeholders": {
+      "prayer": { "type": "String" },
+      "time": { "type": "String" },
+      "remaining": { "type": "String" }
+    }
+  },
+
+  "featureQuran": "القرآن الكريم",
+  "featureAdhkar": "الأذكار",
+  "featureTasbeeh": "التسبيح",
+  "featureQibla": "القبلة",
+  "featureDuas": "الأدعية",
+  "featureHadith": "الأحاديث",
+  "featurePrayerTimes": "مواقيت الصلاة",
+  "featureHijriCalendar": "التقويم الهجري",
+  "featureFavorites": "المفضلة",
+  "featureSearch": "البحث",
+  "featureSettings": "الإعدادات",
+  "featureAbout": "حول التطبيق",
+  "featureSources": "المصادر",
+  "featureMore": "المزيد",
+
+  "prayerName": "{prayer, select, fajr{الفجر} sunrise{الشروق} dhuhr{الظهر} asr{العصر} maghrib{المغرب} isha{العشاء} other{}}",
+  "@prayerName": {
+    "placeholders": { "prayer": { "type": "String" } }
+  },
+
+  "hijriMonth": "{month, select, m1{محرم} m2{صفر} m3{ربيع الأول} m4{ربيع الآخر} m5{جمادى الأولى} m6{جمادى الآخرة} m7{رجب} m8{شعبان} m9{رمضان} m10{شوال} m11{ذو القعدة} m12{ذو الحجة} other{}}",
+  "@hijriMonth": {
+    "placeholders": { "month": { "type": "String" } }
+  },
+  "hijriDate": "{day} {month} {year} هـ",
+  "@hijriDate": {
+    "placeholders": {
+      "day": { "type": "String" },
+      "month": { "type": "String" },
+      "year": { "type": "String" }
+    }
+  },
+
+  "locationUseMine": "استخدم موقعي",
+  "locationChooseCity": "اختر المدينة",
+  "locationChooseCityManually": "اختيار المدينة يدويًا",
+  "locationLocating": "جارٍ تحديد موقعك…",
+  "locationCurrent": "موقعي الحالي",
+  "locationSelectedCity": "المدينة: {city}",
+  "@locationSelectedCity": {
+    "placeholders": { "city": { "type": "String" } }
+  },
+  "locationSelectedGps": "تم تحديد موقعك بنجاح",
+  "locationMissingTitle": "حدّد موقعك",
+  "locationMissingBody": "اختر مدينتك أو استخدم موقعك لعرض مواقيت الصلاة.",
+  "locationErrorTitle": "تعذر الحصول على الموقع",
+  "locationErrorServiceDisabled": "خدمة الموقع متوقفة على جهازك.",
+  "locationErrorDenied": "لم يتم منح إذن الوصول إلى الموقع.",
+  "locationErrorDeniedForever": "إذن الموقع مرفوض. يمكنك تفعيله من إعدادات الجهاز.",
+  "locationErrorTimeout": "استغرق تحديد الموقع وقتًا أطول من المتوقع.",
+  "locationErrorUnknown": "حدث خطأ غير متوقع أثناء تحديد الموقع.",
+
+  "cityPickerTitle": "اختر مدينتك",
+  "citySearchHint": "ابحث عن مدينة",
+  "cityNoResults": "لا توجد مدينة بهذا الاسم",
+  "cityRegion": "{region, select, west_bank{الضفة الغربية} gaza_strip{قطاع غزة} interior{الداخل الفلسطيني} other{أخرى}}",
+  "@cityRegion": {
+    "placeholders": { "region": { "type": "String" } }
+  },
+
+  "comingSoonTitle": "قريبًا بإذن الله",
+  "comingSoonBody": "نعمل على تجهيز هذا القسم ليعمل بالكامل دون اتصال بالإنترنت.",
+
+  "themeModeLabel": "المظهر",
+  "themeLight": "فاتح",
+  "themeDark": "داكن",
+  "themeSystem": "حسب النظام",
+
+  "galleryTitle": "نظام التصميم",
+  "gallerySampleAyahLabel": "نموذج خط القرآن",
+  "galleryColors": "الألوان",
+  "galleryTypography": "الخطوط",
+  "galleryComponents": "المكونات",
+  "galleryStates": "الحالات",
+  "gallerySampleText": "نص تجريبي لعرض الخط العربي بوضوح وراحة في القراءة.",
+  "gallerySearchHint": "ابحث في القرآن والأذكار",
+  "emptyFavoritesTitle": "لا توجد عناصر محفوظة",
+  "emptyFavoritesBody": "لم تضف شيئًا للمفضلة بعد."
+}
