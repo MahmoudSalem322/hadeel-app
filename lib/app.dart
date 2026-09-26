@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -38,8 +38,8 @@ class _HadeelAppState extends ConsumerState<HadeelApp> {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) => AppLocalizations.of(context).appName,
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
+      theme: AppTheme.light(ref.watch(colorThemeProvider)),
+      darkTheme: AppTheme.dark(ref.watch(colorThemeProvider)),
       themeMode: ref.watch(themeModeProvider),
       locale: ref.watch(localeProvider),
       supportedLocales: AppLocalizations.supportedLocales,
@@ -53,3 +53,4 @@ class _HadeelAppState extends ConsumerState<HadeelApp> {
     );
   }
 }
+

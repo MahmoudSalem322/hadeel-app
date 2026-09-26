@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -65,7 +65,7 @@ void main() {
       expect(notifications.permissionRequests, 1);
       expect(container.read(settingsProvider).notifications.isOn(Prayer.maghrib), isTrue);
       expect(notifications.scheduled, isNotEmpty);
-      expect(notifications.scheduled.every((r) => r.planned.prayer == Prayer.maghrib), isTrue);
+      expect(notifications.scheduled.every((r) => r.title == Prayer.maghrib), isTrue);
       expect(notifications.scheduled.first.title, contains('المغرب'));
     });
 
@@ -245,3 +245,5 @@ void main() {
     });
   }
 }
+
+

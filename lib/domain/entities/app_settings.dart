@@ -1,4 +1,4 @@
-import 'package:meta/meta.dart';
+﻿import 'package:meta/meta.dart';
 
 import 'location_selection.dart';
 import 'prayer.dart';
@@ -6,6 +6,8 @@ import 'prayer_settings.dart';
 import 'quran_reading_settings.dart';
 
 enum AppThemeMode { system, light, dark }
+
+enum AppColorTheme { green, blue, brown, purple }
 
 /// Which prayers raise a local notification.
 @immutable
@@ -72,6 +74,7 @@ class TasbeehSettings {
 class AppSettings {
   const AppSettings({
     this.themeMode = AppThemeMode.system,
+    this.appColorTheme = AppColorTheme.green,
     this.languageCode = 'ar',
     this.onboardingDone = false,
     this.prayer = PrayerSettings.defaults,
@@ -86,6 +89,7 @@ class AppSettings {
   static const int maxHijriAdjustment = 2;
 
   final AppThemeMode themeMode;
+  final AppColorTheme appColorTheme;
   final String languageCode;
   final bool onboardingDone;
   final PrayerSettings prayer;
@@ -99,6 +103,7 @@ class AppSettings {
 
   AppSettings copyWith({
     AppThemeMode? themeMode,
+    AppColorTheme? appColorTheme,
     String? languageCode,
     bool? onboardingDone,
     PrayerSettings? prayer,
@@ -110,6 +115,7 @@ class AppSettings {
   }) {
     return AppSettings(
       themeMode: themeMode ?? this.themeMode,
+      appColorTheme: appColorTheme ?? this.appColorTheme,
       languageCode: languageCode ?? this.languageCode,
       onboardingDone: onboardingDone ?? this.onboardingDone,
       prayer: prayer ?? this.prayer,
@@ -125,6 +131,7 @@ class AppSettings {
   bool operator ==(Object other) =>
       other is AppSettings &&
       other.themeMode == themeMode &&
+      other.appColorTheme == appColorTheme &&
       other.languageCode == languageCode &&
       other.onboardingDone == onboardingDone &&
       other.prayer == prayer &&
@@ -137,6 +144,7 @@ class AppSettings {
   @override
   int get hashCode => Object.hash(
         themeMode,
+        appColorTheme,
         languageCode,
         onboardingDone,
         prayer,
@@ -147,3 +155,4 @@ class AppSettings {
         location,
       );
 }
+

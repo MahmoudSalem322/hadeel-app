@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -80,6 +80,37 @@ class SettingsScreen extends ConsumerWidget {
                     ],
                     selected: {s.languageCode},
                     onSelectionChanged: (v) => notifier.setLanguage(v.first),
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                  Text(l10n.languageArabic == 'العربية' ? 'لون التطبيق' : 'App Color', style: context.text.titleSmall),
+                  const SizedBox(height: AppSpacing.md),
+                  Wrap(
+                    spacing: 16,
+                    children: [
+                      for (final theme in AppColorTheme.values)
+                        GestureDetector(
+                          onTap: () => notifier.setColorTheme(theme),
+                          child: Container(
+                            width: 48,
+                            height: 48,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: switch (theme) {
+                                AppColorTheme.green => const Color(0xFF123C35),
+                                AppColorTheme.blue => const Color(0xFF1A5F7A),
+                                AppColorTheme.brown => const Color(0xFF795548),
+                                AppColorTheme.purple => const Color(0xFF673AB7),
+                              },
+                              border: s.appColorTheme == theme 
+                                ? Border.all(color: context.colors.onSurface, width: 3) 
+                                : null,
+                            ),
+                            child: s.appColorTheme == theme 
+                                ? Icon(Icons.check, color: Colors.white, size: 24)
+                                : null,
+                          ),
+                        ),
+                    ],
                   ),
                 ],
               ),
@@ -225,3 +256,4 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 }
+

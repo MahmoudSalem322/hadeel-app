@@ -49,8 +49,14 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       _page(Routes.splash, (_) => const SplashScreen()),
       _page(Routes.onboarding, (_) => const OnboardingScreen()),
-      StatefulShellRoute.indexedStack(
+      StatefulShellRoute(
         builder: (context, state, shell) => AppShell(shell: shell),
+        navigatorContainerBuilder: (context, shell, children) {
+          return AnimatedBranchContainer(
+            currentIndex: shell.currentIndex,
+            children: children,
+          );
+        },
         branches: [
           StatefulShellBranch(routes: [_page(Routes.home, (_) => const HomeScreen())]),
           StatefulShellBranch(

@@ -1,4 +1,4 @@
-import '../../domain/entities/app_settings.dart';
+﻿import '../../domain/entities/app_settings.dart';
 import '../../domain/entities/geo.dart';
 import '../../domain/entities/location_selection.dart';
 import '../../domain/entities/prayer.dart';
@@ -18,6 +18,11 @@ class SettingsRepositoryImpl implements SettingsRepository {
   @override
   AppSettings load() {
     return AppSettings(
+      appColorTheme: _enumByName(
+        AppColorTheme.values,
+        _store.getString(PreferencesStore.keyColorTheme),
+        AppColorTheme.green,
+      ),
       themeMode: _enumByName(
         AppThemeMode.values,
         _store.getString(PreferencesStore.keyThemeMode),
@@ -137,6 +142,10 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
+  Future<void> saveColorTheme(AppColorTheme theme) =>
+      _store.setString(PreferencesStore.keyColorTheme, theme.name);
+
+  @override
   Future<void> saveThemeMode(AppThemeMode mode) =>
       _store.setString(PreferencesStore.keyThemeMode, mode.name);
 
@@ -176,3 +185,4 @@ class SettingsRepositoryImpl implements SettingsRepository {
     return fallback;
   }
 }
+

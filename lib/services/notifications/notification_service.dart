@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+﻿import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -8,13 +8,14 @@ import '../../domain/usecases/plan_prayer_notifications.dart';
 @immutable
 class NotificationRequest {
   const NotificationRequest({
-    required this.planned,
+    required this.id, required this.time,
     required this.title,
     required this.body,
     required this.zone,
   });
 
-  final PlannedNotification planned;
+  final int id;
+  final DateTime time;
   final String title;
   final String body;
 
@@ -106,13 +107,14 @@ class LocalNotificationService implements NotificationService {
 
     for (final r in requests) {
       await _plugin.zonedSchedule(
-        id: r.planned.id,
+        id: r.id,
         title: r.title,
         body: r.body,
-        scheduledDate: tz.TZDateTime.from(r.planned.time, tz.getLocation(r.zone)),
+        scheduledDate: tz.TZDateTime.from(r.time, tz.getLocation(r.zone)),
         notificationDetails: details,
         androidScheduleMode: mode,
       );
     }
   }
 }
+

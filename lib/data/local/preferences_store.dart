@@ -1,4 +1,4 @@
-import 'package:shared_preferences/shared_preferences.dart';
+﻿import 'package:shared_preferences/shared_preferences.dart';
 
 /// Typed keys over [SharedPreferencesWithCache]. The only place that knows
 /// preference key names.
@@ -8,6 +8,7 @@ class PreferencesStore {
   final SharedPreferencesWithCache _prefs;
 
   static const String keyThemeMode = 'settings.themeMode';
+  static const String keyColorTheme = 'settings.colorTheme';
   static const String keyLanguage = 'settings.language';
   static const String keyOnboardingDone = 'onboarding.done';
   static const String keyCalcMethod = 'prayer.method';
@@ -31,6 +32,7 @@ class PreferencesStore {
 
   static const Set<String> allKeys = {
     keyThemeMode,
+    keyColorTheme,
     keyLanguage,
     keyOnboardingDone,
     keyCalcMethod,
@@ -73,3 +75,5 @@ class PreferencesStore {
   Future<void> setStringList(String key, List<String> value) => _prefs.setStringList(key, value);
   Future<void> remove(String key) => _prefs.remove(key);
 }
+
+

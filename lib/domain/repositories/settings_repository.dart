@@ -1,4 +1,4 @@
-import '../entities/app_settings.dart';
+﻿import '../entities/app_settings.dart';
 import '../entities/location_selection.dart';
 import '../entities/prayer_settings.dart';
 import '../entities/quran_reading_settings.dart';
@@ -8,6 +8,8 @@ abstract interface class SettingsRepository {
   AppSettings load();
 
   Future<void> saveThemeMode(AppThemeMode mode);
+
+  Future<void> saveColorTheme(AppColorTheme theme);
 
   Future<void> saveLanguage(String code);
 
@@ -25,3 +27,4 @@ abstract interface class SettingsRepository {
 
   Future<void> saveHijriAdjustment(int days);
 }
+

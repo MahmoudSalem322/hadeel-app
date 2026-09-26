@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers/core_providers.dart';
@@ -17,6 +17,11 @@ class SettingsNotifier extends Notifier<AppSettings> {
 
   @override
   AppSettings build() => ref.watch(settingsRepositoryProvider).load();
+
+  Future<void> setColorTheme(AppColorTheme theme) async {
+    state = state.copyWith(appColorTheme: theme);
+    await _repo.saveColorTheme(theme);
+  }
 
   Future<void> setThemeMode(AppThemeMode mode) async {
     state = state.copyWith(themeMode: mode);
@@ -82,6 +87,10 @@ final quranSettingsProvider = Provider<QuranReadingSettings>(
   (ref) => ref.watch(settingsProvider.select((s) => s.quran)),
 );
 
+final colorThemeProvider = Provider<AppColorTheme>(
+  (ref) => ref.watch(settingsProvider.select((s) => s.appColorTheme)),
+);
+
 final themeModeProvider = Provider<ThemeMode>((ref) {
   return switch (ref.watch(settingsProvider.select((s) => s.themeMode))) {
     AppThemeMode.system => ThemeMode.system,
@@ -89,3 +98,5 @@ final themeModeProvider = Provider<ThemeMode>((ref) {
     AppThemeMode.dark => ThemeMode.dark,
   };
 });
+
+

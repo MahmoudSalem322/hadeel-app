@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,22 +37,58 @@ final prayerNotificationSyncProvider = Provider<void>((ref) {
     }
     final f = AppFormatters(language);
     final place = location.city?.localizedName(language) ?? l10n.locationCurrent;
+    
+    final now = clock.now();
     final planned = planPrayerNotifications(
-      now: clock.now(),
+      now: now,
       location: location,
       settings: prayerSettings,
       enabled: enabled,
       calculator: calculator,
     );
-    await service.replaceAll([
-      for (final p in planned)
-        NotificationRequest(
-          planned: p,
-          title: l10n.notificationTitle(l10n.prayerName(p.prayer.name)),
-          body: l10n.notificationBody(place, f.time(p.time)),
-          zone: location.timezone,
-        ),
-    ]);
+    
+    final requests = <NotificationRequest>[];
+    
+    for (final p in planned) {
+      requests.add(NotificationRequest(
+        id: p.id,
+        time: p.time,
+        title: l10n.notificationTitle(l10n.prayerName(p.prayer.name)),
+        body: l10n.notificationBody(place, f.time(p.time)),
+        zone: location.timezone,
+      ));
+    }
+    
+    // Add Adhkar notifications
+    for (var d = 0; d < 5; d++) {
+      final morningTime = DateTime(now.year, now.month, now.day, 8, 0).add(Duration(days: d));
+      if (morningTime.isAfter(now)) {
+        requests.add(
+          NotificationRequest(
+            id: 1000 + d,
+            time: morningTime,
+            title: 'أذكار الصباح',
+            body: 'حان الآن موعد أذكار الصباح، فاذكروا الله يذكركم.',
+            zone: location.timezone,
+          ),
+        );
+      }
+      
+      final eveningTime = DateTime(now.year, now.month, now.day, 21, 0).add(Duration(days: d));
+      if (eveningTime.isAfter(now)) {
+        requests.add(
+          NotificationRequest(
+            id: 2000 + d,
+            time: eveningTime,
+            title: 'أذكار المساء',
+            body: 'حان الآن موعد أذكار المساء، لا تنسَ ذكر الله.',
+            zone: location.timezone,
+          ),
+        );
+      }
+    }
+    
+    await service.replaceAll(requests);
   }
 
   // Errors here must never affect the UI; notifications are best-effort.

@@ -1,72 +1,92 @@
-import 'package:flutter/cupertino.dart';
+﻿import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import '../../domain/entities/app_settings.dart';
 import 'app_colors.dart';
 import 'app_spacing.dart';
 import 'app_typography.dart';
 import 'hadeel_colors.dart';
 
-/// Builds the light and dark [ThemeData] from Hadeel tokens.
 abstract final class AppTheme {
-  static ThemeData light() => _build(
-        brightness: Brightness.light,
-        scheme: const ColorScheme(
-          brightness: Brightness.light,
-          primary: AppColors.primary,
-          onPrimary: AppColors.onHero,
-          primaryContainer: AppColors.primaryContainerLight,
-          onPrimaryContainer: AppColors.primary,
-          secondary: AppColors.goldDeep,
-          onSecondary: AppColors.surfaceLight,
-          secondaryContainer: Color(0xFFF1E7CF),
-          onSecondaryContainer: Color(0xFF4A3A14),
-          error: AppColors.error,
-          onError: AppColors.surfaceLight,
-          surface: AppColors.surfaceLight,
-          onSurface: AppColors.textPrimaryLight,
-          onSurfaceVariant: AppColors.textSecondaryLight,
-          surfaceContainerLowest: AppColors.surfaceLight,
-          surfaceContainerLow: AppColors.backgroundLight,
-          surfaceContainer: AppColors.surfaceMutedLight,
-          surfaceContainerHigh: Color(0xFFEAE7DD),
-          surfaceContainerHighest: Color(0xFFE4E1D6),
-          outline: Color(0xFFC9C5B8),
-          outlineVariant: AppColors.outlineLight,
-          shadow: Color(0x14000000),
-        ),
-        background: AppColors.backgroundLight,
-        brand: HadeelColors.light,
-      );
+  static Color _getSeedColor(AppColorTheme theme) {
+    switch (theme) {
+      case AppColorTheme.green:
+        return AppColors.primary;
+      case AppColorTheme.blue:
+        return const Color(0xFF1A5F7A);
+      case AppColorTheme.brown:
+        return const Color(0xFF795548);
+      case AppColorTheme.purple:
+        return const Color(0xFF673AB7);
+    }
+  }
 
-  static ThemeData dark() => _build(
+  static ThemeData light([AppColorTheme theme = AppColorTheme.green]) {
+    final seed = _getSeedColor(theme);
+    final isDefault = theme == AppColorTheme.green;
+    return _build(
+      brightness: Brightness.light,
+      scheme: (isDefault ? const ColorScheme(
+        brightness: Brightness.light,
+        primary: AppColors.primary,
+        onPrimary: Color(0xFFFFFFFF),
+        primaryContainer: AppColors.primaryContainerLight,
+        onPrimaryContainer: AppColors.primary,
+        secondary: AppColors.goldDeep,
+        onSecondary: Color(0xFFFFFFFF),
+        secondaryContainer: Color(0xFFF1E3BF),
+        onSecondaryContainer: Color(0xFF3A3220),
+        error: AppColors.error,
+        onError: Color(0xFFFFFFFF),
+        surface: AppColors.surfaceLight,
+        onSurface: AppColors.textPrimaryLight,
+        onSurfaceVariant: AppColors.textSecondaryLight,
+        surfaceContainerLowest: AppColors.surfaceLight,
+        surfaceContainerLow: Color(0xFFF5F4F0),
+        surfaceContainer: AppColors.surfaceMutedLight,
+        surfaceContainerHigh: Color(0xFFEBEAE5),
+        surfaceContainerHighest: Color(0xFFE3E2DD),
+        outline: AppColors.outlineLight,
+        outlineVariant: Color(0xFFC7C5BE),
+        shadow: Color(0x33000000),
+      ) : ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.light)),
+      background: (isDefault ? AppColors.backgroundLight : ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.light).surface),
+      brand: HadeelColors.light,
+    );
+  }
+
+  static ThemeData dark([AppColorTheme theme = AppColorTheme.green]) {
+    final seed = _getSeedColor(theme);
+    final isDefault = theme == AppColorTheme.green;
+    return _build(
+      brightness: Brightness.dark,
+      scheme: (isDefault ? const ColorScheme(
         brightness: Brightness.dark,
-        scheme: const ColorScheme(
-          brightness: Brightness.dark,
-          primary: AppColors.primaryDarkTheme,
-          onPrimary: AppColors.backgroundDark,
-          primaryContainer: AppColors.primaryContainerDark,
-          onPrimaryContainer: AppColors.textPrimaryDark,
-          secondary: AppColors.goldSoftDark,
-          onSecondary: AppColors.backgroundDark,
-          secondaryContainer: Color(0xFF3A3220),
-          onSecondaryContainer: Color(0xFFF1E3BF),
-          error: AppColors.errorDark,
-          onError: AppColors.backgroundDark,
-          surface: AppColors.surfaceDark,
-          onSurface: AppColors.textPrimaryDark,
-          onSurfaceVariant: AppColors.textSecondaryDark,
-          surfaceContainerLowest: AppColors.backgroundDark,
-          surfaceContainerLow: Color(0xFF111D1A),
-          surfaceContainer: AppColors.surfaceMutedDark,
-          surfaceContainerHigh: Color(0xFF203330),
-          surfaceContainerHighest: Color(0xFF273C38),
-          outline: Color(0xFF3A504A),
-          outlineVariant: AppColors.outlineDark,
-          shadow: Color(0x66000000),
-        ),
-        background: AppColors.backgroundDark,
-        brand: HadeelColors.dark,
-      );
+        primary: AppColors.primaryDarkTheme,
+        onPrimary: Color(0xFF003828),
+        primaryContainer: AppColors.primaryContainerDark,
+        onPrimaryContainer: AppColors.primaryDarkTheme,
+        secondary: AppColors.goldSoftDark,
+        onSecondary: Color(0xFF3A3220),
+        secondaryContainer: Color(0xFF3A3220),
+        onSecondaryContainer: Color(0xFFF1E3BF),
+        error: AppColors.errorDark,
+        onError: AppColors.backgroundDark,
+        surface: AppColors.surfaceDark,
+        onSurface: AppColors.textPrimaryDark,
+        onSurfaceVariant: AppColors.textSecondaryDark,
+        surfaceContainerLowest: AppColors.backgroundDark,
+        surfaceContainerLow: Color(0xFF111D1A),
+        surfaceContainer: AppColors.surfaceMutedDark,
+        surfaceContainerHigh: Color(0xFF203330),
+        surfaceContainerHighest: Color(0xFF273C38),
+        outline: Color(0xFF3A504A),
+        outlineVariant: AppColors.outlineDark,
+        shadow: Color(0x66000000),
+      ) : ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark)),
+      background: (isDefault ? AppColors.backgroundDark : ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark).surface),
+      brand: HadeelColors.dark,
+    );
+  }
 
   static ThemeData _build({
     required Brightness brightness,
@@ -238,8 +258,8 @@ abstract final class AppTheme {
         shape: const RoundedRectangleBorder(borderRadius: AppRadius.mdAll),
         contentTextStyle: textTheme.bodyMedium!.copyWith(color: scheme.surface),
       ),
-      pageTransitionsTheme: const PageTransitionsTheme(
-        builders: {
+      pageTransitionsTheme: PageTransitionsTheme(
+        builders: const {
           TargetPlatform.android: FadeForwardsPageTransitionsBuilder(),
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
         },
@@ -247,3 +267,6 @@ abstract final class AppTheme {
     );
   }
 }
+
+
+
