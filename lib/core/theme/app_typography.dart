@@ -40,14 +40,17 @@ abstract final class AppTypography {
     );
   }
 
-  /// Quran reading style — size and line height are user-adjustable later.
+  static const String quranFontAlt = 'ScheherazadeNew';
+
+  /// Quran reading style. Size, line height and family are user settings.
   static TextStyle quran({
     required Color color,
     double fontSize = 26,
     double height = 2.0,
+    String family = quranFont,
   }) {
     return TextStyle(
-      fontFamily: quranFont,
+      fontFamily: family,
       fontSize: fontSize,
       height: height,
       letterSpacing: 0,

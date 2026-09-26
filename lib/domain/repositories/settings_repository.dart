@@ -1,6 +1,7 @@
 import '../entities/app_settings.dart';
 import '../entities/location_selection.dart';
 import '../entities/prayer_settings.dart';
+import '../entities/quran_reading_settings.dart';
 
 /// Local persistence of user preferences. No network involved.
 abstract interface class SettingsRepository {
@@ -13,4 +14,6 @@ abstract interface class SettingsRepository {
   Future<void> savePrayerSettings(PrayerSettings settings);
 
   Future<void> saveLocation(LocationSelection selection);
+
+  Future<void> saveQuranSettings(QuranReadingSettings settings);
 }

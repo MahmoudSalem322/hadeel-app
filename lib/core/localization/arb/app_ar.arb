@@ -130,5 +130,82 @@
   "gallerySampleText": "نص تجريبي لعرض الخط العربي بوضوح وراحة في القراءة.",
   "gallerySearchHint": "ابحث في القرآن والأذكار",
   "emptyFavoritesTitle": "لا توجد عناصر محفوظة",
-  "emptyFavoritesBody": "لم تضف شيئًا للمفضلة بعد."
+  "emptyFavoritesBody": "لم تضف شيئًا للمفضلة بعد.",
+
+  "quranTabSurahs": "السور",
+  "quranTabJuz": "الأجزاء",
+  "quranTabFavorites": "المفضلة",
+  "surahTitle": "سورة {name}",
+  "@surahTitle": { "placeholders": { "name": { "type": "String" } } },
+  "revelationType": "{type, select, meccan{مكية} medinan{مدنية} other{}}",
+  "@revelationType": { "placeholders": { "type": { "type": "String" } } },
+  "ayahCount": "{count, plural, =1{آية واحدة} =2{آيتان} few{{count} آيات} other{{count} آية}}",
+  "@ayahCount": { "placeholders": { "count": { "type": "int" } } },
+  "juzTitle": "الجزء {number}",
+  "@juzTitle": { "placeholders": { "number": { "type": "String" } } },
+  "ayahPosition": "{surah} · آية {ayah}",
+  "@ayahPosition": {
+    "placeholders": { "surah": { "type": "String" }, "ayah": { "type": "String" } }
+  },
+  "ayahNumberLabel": "آية {number}",
+  "@ayahNumberLabel": { "placeholders": { "number": { "type": "String" } } },
+  "ayahCitation": "﴿{text}﴾ [{surah}: {ayah}]",
+  "@ayahCitation": {
+    "placeholders": {
+      "text": { "type": "String" },
+      "surah": { "type": "String" },
+      "ayah": { "type": "String" }
+    }
+  },
+  "sajdaMark": "موضع سجدة",
+  "quranLoadError": "تعذر تحميل نص القرآن",
+
+  "ayahActionBookmark": "علامة",
+  "ayahActionFavorite": "المفضلة",
+  "ayahActionCopy": "نسخ",
+  "ayahActionShare": "مشاركة",
+  "toastCopied": "تم نسخ الآية",
+  "toastBookmarkAdded": "تم حفظ العلامة",
+  "toastBookmarkRemoved": "أزيلت العلامة",
+  "toastFavoriteAdded": "أضيفت إلى المفضلة",
+  "toastFavoriteRemoved": "أزيلت من المفضلة",
+
+  "readingSettingsTitle": "إعدادات القراءة",
+  "readingFontSize": "حجم الخط",
+  "readingLineHeight": "تباعد الأسطر",
+  "readingFont": "نوع الخط",
+  "readingFontAmiri": "أميري قرآن",
+  "readingFontScheherazade": "شهرزاد",
+  "readingMode": "وضع القراءة",
+  "readingModeVerses": "آية آية",
+  "readingModeContinuous": "متصل",
+  "nextSurah": "السورة التالية",
+
+  "quranSearchHint": "ابحث بكلمة من القرآن الكريم",
+  "searchMinChars": "اكتب حرفين على الأقل للبحث",
+  "searchNoResults": "لا توجد نتائج مطابقة",
+  "searchNoResultsBody": "جرّب كلمة أخرى أو تأكد من الإملاء.",
+  "searchSurahsSection": "السور",
+  "searchAyatSection": "{count, plural, =0{الآيات} =1{الآيات · نتيجة واحدة} =2{الآيات · نتيجتان} few{الآيات · {count} نتائج} other{الآيات · {count} نتيجة}}",
+  "@searchAyatSection": { "placeholders": { "count": { "type": "int" } } },
+  "searchCapped": "تُعرض أول {shown} نتيجة. حدّد البحث بكلمات أكثر.",
+  "@searchCapped": { "placeholders": { "shown": { "type": "String" } } },
+
+  "quranBookmarksSection": "العلامات",
+  "quranFavoritesSection": "الآيات المفضلة",
+  "quranFavoritesEmptyTitle": "لا توجد آيات محفوظة",
+  "quranFavoritesEmptyBody": "اضغط على أي آية أثناء القراءة لإضافتها إلى المفضلة أو وضع علامة عليها.",
+  "actionStartReading": "ابدأ القراءة",
+
+  "sourcesIntro": "يحرص هديل على أن يكون كل محتوى ديني فيه من مصدر موثوق ومعلن، دون أي تعديل أو توليد آلي.",
+  "sourceQuranTitle": "نص القرآن الكريم",
+  "sourceQuranBody": "مشروع تنزيل (Tanzil) — النص العثماني والنص الإملائي المبسّط، الإصدار 1.1. يُنقل النص كما هو دون أي تغيير، وفق شروط الاستخدام وترخيص المشاع الإبداعي (نسب المصنف 3.0).",
+  "sourceQuranMetaTitle": "بيانات السور والأجزاء",
+  "sourceQuranMetaBody": "مشروع تنزيل — ملف بيانات المصحف (أسماء السور، عدد الآيات، مواضع الأجزاء والأحزاب والسجدات).",
+  "sourceFontsTitle": "الخطوط",
+  "sourceFontsBody": "أميري قرآن، شهرزاد الجديد، وIBM Plex Sans Arabic — جميعها برخصة SIL Open Font License.",
+  "sourcePrayerTitle": "مواقيت الصلاة",
+  "sourcePrayerBody": "تُحسب على جهازك باستخدام خوارزمية Adhan، وفق طريقة الحساب والمذهب المختارين.",
+  "sourceHijriTitle": "التاريخ الهجري",
+  "sourceHijriBody": "تقويم أم القرى."
 }

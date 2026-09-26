@@ -6,7 +6,7 @@ import '../../../core/routing/routes.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../shared/extensions/context_x.dart';
 import '../../../shared/widgets/hadeel_card.dart';
-import '../providers/home_providers.dart';
+import '../providers/quran_providers.dart';
 
 class ContinueReadingCard extends ConsumerWidget {
   const ContinueReadingCard({super.key});
@@ -21,10 +21,12 @@ class ContinueReadingCard extends ConsumerWidget {
     final subtitle = progress == null
         ? l10n.homeStartReadingBody
         : l10n.homeReadingPosition(progress.surahName, f.number(progress.ayahNumber));
-    final target = progress == null ? Routes.quran : Routes.surah(progress.surahNumber);
+    void open() => progress == null
+        ? context.go(Routes.quran)
+        : context.push(Routes.surah(progress.surahNumber, ayah: progress.ayahNumber));
 
     return HadeelCard(
-      onTap: () => context.go(target),
+      onTap: open,
       semanticLabel: '$title. $subtitle',
       child: ExcludeSemantics(
         child: Column(

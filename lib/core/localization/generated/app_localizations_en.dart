@@ -327,4 +327,208 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get emptyFavoritesBody =>
       'You haven\'t added anything to your favorites.';
+
+  @override
+  String get quranTabSurahs => 'Surahs';
+
+  @override
+  String get quranTabJuz => 'Juz\'';
+
+  @override
+  String get quranTabFavorites => 'Favorites';
+
+  @override
+  String surahTitle(String name) {
+    return 'Surah $name';
+  }
+
+  @override
+  String revelationType(String type) {
+    String _temp0 = intl.Intl.selectLogic(type, {
+      'meccan': 'Meccan',
+      'medinan': 'Medinan',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ayahCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ayat',
+      one: '1 ayah',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String juzTitle(String number) {
+    return 'Juz\' $number';
+  }
+
+  @override
+  String ayahPosition(String surah, String ayah) {
+    return '$surah · Ayah $ayah';
+  }
+
+  @override
+  String ayahNumberLabel(String number) {
+    return 'Ayah $number';
+  }
+
+  @override
+  String ayahCitation(String text, String surah, String ayah) {
+    return '﴿$text﴾ [$surah: $ayah]';
+  }
+
+  @override
+  String get sajdaMark => 'Prostration';
+
+  @override
+  String get quranLoadError => 'Couldn\'t load the Quran text';
+
+  @override
+  String get ayahActionBookmark => 'Bookmark';
+
+  @override
+  String get ayahActionFavorite => 'Favorite';
+
+  @override
+  String get ayahActionCopy => 'Copy';
+
+  @override
+  String get ayahActionShare => 'Share';
+
+  @override
+  String get toastCopied => 'Ayah copied';
+
+  @override
+  String get toastBookmarkAdded => 'Bookmark saved';
+
+  @override
+  String get toastBookmarkRemoved => 'Bookmark removed';
+
+  @override
+  String get toastFavoriteAdded => 'Added to favorites';
+
+  @override
+  String get toastFavoriteRemoved => 'Removed from favorites';
+
+  @override
+  String get readingSettingsTitle => 'Reading settings';
+
+  @override
+  String get readingFontSize => 'Font size';
+
+  @override
+  String get readingLineHeight => 'Line spacing';
+
+  @override
+  String get readingFont => 'Font';
+
+  @override
+  String get readingFontAmiri => 'Amiri Quran';
+
+  @override
+  String get readingFontScheherazade => 'Scheherazade';
+
+  @override
+  String get readingMode => 'Reading mode';
+
+  @override
+  String get readingModeVerses => 'Ayah by ayah';
+
+  @override
+  String get readingModeContinuous => 'Continuous';
+
+  @override
+  String get nextSurah => 'Next surah';
+
+  @override
+  String get quranSearchHint => 'Search the Quran';
+
+  @override
+  String get searchMinChars => 'Type at least two letters';
+
+  @override
+  String get searchNoResults => 'No matches';
+
+  @override
+  String get searchNoResultsBody => 'Try another word or check the spelling.';
+
+  @override
+  String get searchSurahsSection => 'Surahs';
+
+  @override
+  String searchAyatSection(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Ayat · $count results',
+      one: 'Ayat · 1 result',
+      zero: 'Ayat',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String searchCapped(String shown) {
+    return 'Showing the first $shown results. Add more words to narrow down.';
+  }
+
+  @override
+  String get quranBookmarksSection => 'Bookmarks';
+
+  @override
+  String get quranFavoritesSection => 'Favorite ayat';
+
+  @override
+  String get quranFavoritesEmptyTitle => 'No saved ayat';
+
+  @override
+  String get quranFavoritesEmptyBody =>
+      'Tap any ayah while reading to favorite or bookmark it.';
+
+  @override
+  String get actionStartReading => 'Start reading';
+
+  @override
+  String get sourcesIntro =>
+      'Every piece of religious content in Hadeel comes from a trusted, stated source — never altered or machine-generated.';
+
+  @override
+  String get sourceQuranTitle => 'Quran text';
+
+  @override
+  String get sourceQuranBody =>
+      'Tanzil Project — Uthmani and Simple Clean texts, version 1.1, reproduced verbatim under its terms of use and CC BY 3.0.';
+
+  @override
+  String get sourceQuranMetaTitle => 'Surah and juz\' data';
+
+  @override
+  String get sourceQuranMetaBody =>
+      'Tanzil Project — Quran metadata (surah names, ayah counts, juz\', hizb and sajdah positions).';
+
+  @override
+  String get sourceFontsTitle => 'Fonts';
+
+  @override
+  String get sourceFontsBody =>
+      'Amiri Quran, Scheherazade New and IBM Plex Sans Arabic — all under the SIL Open Font License.';
+
+  @override
+  String get sourcePrayerTitle => 'Prayer times';
+
+  @override
+  String get sourcePrayerBody =>
+      'Calculated on your device with the Adhan algorithm, using your chosen method and madhab.';
+
+  @override
+  String get sourceHijriTitle => 'Hijri date';
+
+  @override
+  String get sourceHijriBody => 'Umm al-Qura calendar.';
 }

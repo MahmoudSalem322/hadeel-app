@@ -619,6 +619,330 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'لم تضف شيئًا للمفضلة بعد.'**
   String get emptyFavoritesBody;
+
+  /// No description provided for @quranTabSurahs.
+  ///
+  /// In ar, this message translates to:
+  /// **'السور'**
+  String get quranTabSurahs;
+
+  /// No description provided for @quranTabJuz.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأجزاء'**
+  String get quranTabJuz;
+
+  /// No description provided for @quranTabFavorites.
+  ///
+  /// In ar, this message translates to:
+  /// **'المفضلة'**
+  String get quranTabFavorites;
+
+  /// No description provided for @surahTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'سورة {name}'**
+  String surahTitle(String name);
+
+  /// No description provided for @revelationType.
+  ///
+  /// In ar, this message translates to:
+  /// **'{type, select, meccan{مكية} medinan{مدنية} other{}}'**
+  String revelationType(String type);
+
+  /// No description provided for @ayahCount.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count, plural, =1{آية واحدة} =2{آيتان} few{{count} آيات} other{{count} آية}}'**
+  String ayahCount(int count);
+
+  /// No description provided for @juzTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الجزء {number}'**
+  String juzTitle(String number);
+
+  /// No description provided for @ayahPosition.
+  ///
+  /// In ar, this message translates to:
+  /// **'{surah} · آية {ayah}'**
+  String ayahPosition(String surah, String ayah);
+
+  /// No description provided for @ayahNumberLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'آية {number}'**
+  String ayahNumberLabel(String number);
+
+  /// No description provided for @ayahCitation.
+  ///
+  /// In ar, this message translates to:
+  /// **'﴿{text}﴾ [{surah}: {ayah}]'**
+  String ayahCitation(String text, String surah, String ayah);
+
+  /// No description provided for @sajdaMark.
+  ///
+  /// In ar, this message translates to:
+  /// **'موضع سجدة'**
+  String get sajdaMark;
+
+  /// No description provided for @quranLoadError.
+  ///
+  /// In ar, this message translates to:
+  /// **'تعذر تحميل نص القرآن'**
+  String get quranLoadError;
+
+  /// No description provided for @ayahActionBookmark.
+  ///
+  /// In ar, this message translates to:
+  /// **'علامة'**
+  String get ayahActionBookmark;
+
+  /// No description provided for @ayahActionFavorite.
+  ///
+  /// In ar, this message translates to:
+  /// **'المفضلة'**
+  String get ayahActionFavorite;
+
+  /// No description provided for @ayahActionCopy.
+  ///
+  /// In ar, this message translates to:
+  /// **'نسخ'**
+  String get ayahActionCopy;
+
+  /// No description provided for @ayahActionShare.
+  ///
+  /// In ar, this message translates to:
+  /// **'مشاركة'**
+  String get ayahActionShare;
+
+  /// No description provided for @toastCopied.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم نسخ الآية'**
+  String get toastCopied;
+
+  /// No description provided for @toastBookmarkAdded.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حفظ العلامة'**
+  String get toastBookmarkAdded;
+
+  /// No description provided for @toastBookmarkRemoved.
+  ///
+  /// In ar, this message translates to:
+  /// **'أزيلت العلامة'**
+  String get toastBookmarkRemoved;
+
+  /// No description provided for @toastFavoriteAdded.
+  ///
+  /// In ar, this message translates to:
+  /// **'أضيفت إلى المفضلة'**
+  String get toastFavoriteAdded;
+
+  /// No description provided for @toastFavoriteRemoved.
+  ///
+  /// In ar, this message translates to:
+  /// **'أزيلت من المفضلة'**
+  String get toastFavoriteRemoved;
+
+  /// No description provided for @readingSettingsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'إعدادات القراءة'**
+  String get readingSettingsTitle;
+
+  /// No description provided for @readingFontSize.
+  ///
+  /// In ar, this message translates to:
+  /// **'حجم الخط'**
+  String get readingFontSize;
+
+  /// No description provided for @readingLineHeight.
+  ///
+  /// In ar, this message translates to:
+  /// **'تباعد الأسطر'**
+  String get readingLineHeight;
+
+  /// No description provided for @readingFont.
+  ///
+  /// In ar, this message translates to:
+  /// **'نوع الخط'**
+  String get readingFont;
+
+  /// No description provided for @readingFontAmiri.
+  ///
+  /// In ar, this message translates to:
+  /// **'أميري قرآن'**
+  String get readingFontAmiri;
+
+  /// No description provided for @readingFontScheherazade.
+  ///
+  /// In ar, this message translates to:
+  /// **'شهرزاد'**
+  String get readingFontScheherazade;
+
+  /// No description provided for @readingMode.
+  ///
+  /// In ar, this message translates to:
+  /// **'وضع القراءة'**
+  String get readingMode;
+
+  /// No description provided for @readingModeVerses.
+  ///
+  /// In ar, this message translates to:
+  /// **'آية آية'**
+  String get readingModeVerses;
+
+  /// No description provided for @readingModeContinuous.
+  ///
+  /// In ar, this message translates to:
+  /// **'متصل'**
+  String get readingModeContinuous;
+
+  /// No description provided for @nextSurah.
+  ///
+  /// In ar, this message translates to:
+  /// **'السورة التالية'**
+  String get nextSurah;
+
+  /// No description provided for @quranSearchHint.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابحث بكلمة من القرآن الكريم'**
+  String get quranSearchHint;
+
+  /// No description provided for @searchMinChars.
+  ///
+  /// In ar, this message translates to:
+  /// **'اكتب حرفين على الأقل للبحث'**
+  String get searchMinChars;
+
+  /// No description provided for @searchNoResults.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد نتائج مطابقة'**
+  String get searchNoResults;
+
+  /// No description provided for @searchNoResultsBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'جرّب كلمة أخرى أو تأكد من الإملاء.'**
+  String get searchNoResultsBody;
+
+  /// No description provided for @searchSurahsSection.
+  ///
+  /// In ar, this message translates to:
+  /// **'السور'**
+  String get searchSurahsSection;
+
+  /// No description provided for @searchAyatSection.
+  ///
+  /// In ar, this message translates to:
+  /// **'{count, plural, =0{الآيات} =1{الآيات · نتيجة واحدة} =2{الآيات · نتيجتان} few{الآيات · {count} نتائج} other{الآيات · {count} نتيجة}}'**
+  String searchAyatSection(int count);
+
+  /// No description provided for @searchCapped.
+  ///
+  /// In ar, this message translates to:
+  /// **'تُعرض أول {shown} نتيجة. حدّد البحث بكلمات أكثر.'**
+  String searchCapped(String shown);
+
+  /// No description provided for @quranBookmarksSection.
+  ///
+  /// In ar, this message translates to:
+  /// **'العلامات'**
+  String get quranBookmarksSection;
+
+  /// No description provided for @quranFavoritesSection.
+  ///
+  /// In ar, this message translates to:
+  /// **'الآيات المفضلة'**
+  String get quranFavoritesSection;
+
+  /// No description provided for @quranFavoritesEmptyTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد آيات محفوظة'**
+  String get quranFavoritesEmptyTitle;
+
+  /// No description provided for @quranFavoritesEmptyBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'اضغط على أي آية أثناء القراءة لإضافتها إلى المفضلة أو وضع علامة عليها.'**
+  String get quranFavoritesEmptyBody;
+
+  /// No description provided for @actionStartReading.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابدأ القراءة'**
+  String get actionStartReading;
+
+  /// No description provided for @sourcesIntro.
+  ///
+  /// In ar, this message translates to:
+  /// **'يحرص هديل على أن يكون كل محتوى ديني فيه من مصدر موثوق ومعلن، دون أي تعديل أو توليد آلي.'**
+  String get sourcesIntro;
+
+  /// No description provided for @sourceQuranTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'نص القرآن الكريم'**
+  String get sourceQuranTitle;
+
+  /// No description provided for @sourceQuranBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'مشروع تنزيل (Tanzil) — النص العثماني والنص الإملائي المبسّط، الإصدار 1.1. يُنقل النص كما هو دون أي تغيير، وفق شروط الاستخدام وترخيص المشاع الإبداعي (نسب المصنف 3.0).'**
+  String get sourceQuranBody;
+
+  /// No description provided for @sourceQuranMetaTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'بيانات السور والأجزاء'**
+  String get sourceQuranMetaTitle;
+
+  /// No description provided for @sourceQuranMetaBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'مشروع تنزيل — ملف بيانات المصحف (أسماء السور، عدد الآيات، مواضع الأجزاء والأحزاب والسجدات).'**
+  String get sourceQuranMetaBody;
+
+  /// No description provided for @sourceFontsTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'الخطوط'**
+  String get sourceFontsTitle;
+
+  /// No description provided for @sourceFontsBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'أميري قرآن، شهرزاد الجديد، وIBM Plex Sans Arabic — جميعها برخصة SIL Open Font License.'**
+  String get sourceFontsBody;
+
+  /// No description provided for @sourcePrayerTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'مواقيت الصلاة'**
+  String get sourcePrayerTitle;
+
+  /// No description provided for @sourcePrayerBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'تُحسب على جهازك باستخدام خوارزمية Adhan، وفق طريقة الحساب والمذهب المختارين.'**
+  String get sourcePrayerBody;
+
+  /// No description provided for @sourceHijriTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'التاريخ الهجري'**
+  String get sourceHijriTitle;
+
+  /// No description provided for @sourceHijriBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'تقويم أم القرى.'**
+  String get sourceHijriBody;
 }
 
 class _AppLocalizationsDelegate

@@ -17,6 +17,10 @@ class PreferencesStore {
   static const String keyLocationLng = 'location.lng';
   static const String keyLocationTz = 'location.tz';
   static const String keyLocationCapturedAt = 'location.capturedAt';
+  static const String keyQuranFontSize = 'quran.fontSize';
+  static const String keyQuranLineHeight = 'quran.lineHeight';
+  static const String keyQuranFont = 'quran.font';
+  static const String keyQuranMode = 'quran.mode';
 
   static const Set<String> allKeys = {
     keyThemeMode,
@@ -29,6 +33,10 @@ class PreferencesStore {
     keyLocationLng,
     keyLocationTz,
     keyLocationCapturedAt,
+    keyQuranFontSize,
+    keyQuranLineHeight,
+    keyQuranFont,
+    keyQuranMode,
   };
 
   static Future<PreferencesStore> open() async {

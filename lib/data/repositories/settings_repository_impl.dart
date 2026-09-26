@@ -2,6 +2,7 @@ import '../../domain/entities/app_settings.dart';
 import '../../domain/entities/geo.dart';
 import '../../domain/entities/location_selection.dart';
 import '../../domain/entities/prayer_settings.dart';
+import '../../domain/entities/quran_reading_settings.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../local/preferences_store.dart';
 
@@ -34,8 +35,31 @@ class SettingsRepositoryImpl implements SettingsRepository {
           PrayerSettings.defaults.madhab,
         ),
       ),
+      quran: _loadQuran(),
       location: _loadLocation(),
     );
+  }
+
+  QuranReadingSettings _loadQuran() {
+    const defaults = QuranReadingSettings();
+    return defaults.copyWith(
+      fontSize: _store.getDouble(PreferencesStore.keyQuranFontSize),
+      lineHeight: _store.getDouble(PreferencesStore.keyQuranLineHeight),
+      font: _enumByName(QuranFont.values, _store.getString(PreferencesStore.keyQuranFont), defaults.font),
+      mode: _enumByName(
+        QuranReadingMode.values,
+        _store.getString(PreferencesStore.keyQuranMode),
+        defaults.mode,
+      ),
+    );
+  }
+
+  @override
+  Future<void> saveQuranSettings(QuranReadingSettings settings) async {
+    await _store.setDouble(PreferencesStore.keyQuranFontSize, settings.fontSize);
+    await _store.setDouble(PreferencesStore.keyQuranLineHeight, settings.lineHeight);
+    await _store.setString(PreferencesStore.keyQuranFont, settings.font.name);
+    await _store.setString(PreferencesStore.keyQuranMode, settings.mode.name);
   }
 
   LocationSelection? _loadLocation() {

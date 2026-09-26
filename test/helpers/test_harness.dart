@@ -1,18 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:drift/drift.dart' show driftRuntimeOptions;
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hadeel/app.dart';
+import 'package:hadeel/core/database/app_database.dart';
 import 'package:hadeel/core/errors/failures.dart';
 import 'package:hadeel/core/providers/core_providers.dart';
 import 'package:hadeel/core/utils/clock.dart';
 import 'package:hadeel/data/local/preferences_store.dart';
 import 'package:hadeel/data/models/city_model.dart';
+import 'package:hadeel/data/models/quran_models.dart';
+import 'package:hadeel/data/repositories/asset_quran_repository.dart';
 import 'package:hadeel/domain/entities/city.dart';
 import 'package:hadeel/domain/entities/geo.dart';
+import 'package:hadeel/domain/entities/quran.dart';
+import 'package:hadeel/domain/repositories/quran_repository.dart';
 import 'package:hadeel/services/location/device_timezone_service.dart';
 import 'package:hadeel/services/location/location_service.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -41,6 +48,38 @@ Future<PreferencesStore> openTestStore([Map<String, Object> initial = const {}])
 List<City> loadBundledCities() {
   final raw = File('assets/data/cities_ps.json').readAsStringSync();
   return CityModel.listFromJson(jsonDecode(raw) as Map<String, dynamic>);
+}
+
+// Parsed once per test run; the files are large and immutable.
+QuranMeta? _meta;
+QuranText? _reading;
+QuranText? _search;
+
+QuranMeta loadQuranMeta() =>
+    _meta ??= QuranModels.metaFromJson(File(AssetQuranRepository.metaAsset).readAsStringSync());
+QuranText loadQuranReadingText() =>
+    _reading ??= QuranModels.textFromJson(File(AssetQuranRepository.readingAsset).readAsStringSync());
+QuranText loadQuranSearchText() =>
+    _search ??= QuranModels.textFromJson(File(AssetQuranRepository.searchAsset).readAsStringSync());
+
+/// Serves the bundled Quran files synchronously from disk — no isolates,
+/// so it plays well with widget tests' fake async.
+class FileQuranRepository implements QuranRepository {
+  const FileQuranRepository();
+
+  @override
+  Future<QuranMeta> loadMeta() async => loadQuranMeta();
+
+  @override
+  Future<QuranText> loadReadingText() async => loadQuranReadingText();
+
+  @override
+  Future<QuranText> loadSearchText() async => loadQuranSearchText();
+}
+
+AppDatabase openTestDatabase() {
+  driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
+  return AppDatabase(NativeDatabase.memory());
 }
 
 /// An instant given as wall-clock time in [zone].
@@ -81,10 +120,14 @@ Future<ProviderContainer> pumpHadeelApp(
 }) async {
   await initTestEnvironment();
   final store = await openTestStore(prefs);
+  final db = openTestDatabase();
   final container = ProviderContainer(
     overrides: [
       preferencesStoreProvider.overrideWithValue(store),
       citiesProvider.overrideWithValue(loadBundledCities()),
+      quranMetaProvider.overrideWithValue(loadQuranMeta()),
+      quranRepositoryProvider.overrideWithValue(const FileQuranRepository()),
+      appDatabaseProvider.overrideWithValue(db),
       clockProvider.overrideWithValue(clock),
       locationServiceProvider.overrideWithValue(
         locationService ?? FakeLocationService(const Err(LocationFailure.permissionDenied)),
@@ -93,7 +136,10 @@ Future<ProviderContainer> pumpHadeelApp(
       ...extraOverrides,
     ],
   );
-  addTearDown(container.dispose);
+  addTearDown(() async {
+    container.dispose();
+    await db.close();
+  });
 
   await tester.pumpWidget(UncontrolledProviderScope(container: container, child: const HadeelApp()));
   if (skipSplash) {

@@ -6,7 +6,7 @@ import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/responsive_body.dart';
 import '../../shared/widgets/section_header.dart';
 import '../prayer/providers/prayer_providers.dart';
-import 'widgets/continue_reading_card.dart';
+import '../quran/widgets/continue_reading_card.dart';
 import 'widgets/home_header.dart';
 import 'widgets/next_prayer_card.dart';
 import 'widgets/prayer_times_strip.dart';

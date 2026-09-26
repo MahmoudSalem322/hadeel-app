@@ -8,7 +8,11 @@ import '../../features/home/home_screen.dart';
 import '../../features/more/more_screen.dart';
 import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/placeholder/coming_soon_screen.dart';
+import '../../features/quran/quran_home_screen.dart';
+import '../../features/quran/quran_reader_screen.dart';
+import '../../features/quran/quran_search_screen.dart';
 import '../../features/settings/providers/settings_provider.dart';
+import '../../features/settings/sources_screen.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../shared/widgets/app_shell.dart';
 import '../localization/generated/app_localizations.dart';
@@ -50,12 +54,25 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
           StatefulShellBranch(
             routes: [
-              _placeholder(
-                Routes.quran,
-                (l) => l.featureQuran,
+              GoRoute(
+                path: Routes.quran,
+                builder: (context, state) => const QuranHomeScreen(),
                 routes: [
-                  _placeholder('surah/:id', (l) => l.featureQuran),
-                  _placeholder('search', (l) => l.featureSearch),
+                  // Reading and search open full-screen, above the tab bar.
+                  GoRoute(
+                    path: 'surah/:id',
+                    parentNavigatorKey: _rootKey,
+                    builder: (context, state) => QuranReaderScreen(
+                      key: ValueKey(state.uri.toString()),
+                      surahNumber: int.tryParse(state.pathParameters['id'] ?? '') ?? 0,
+                      initialAyah: int.tryParse(state.uri.queryParameters['ayah'] ?? ''),
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'search',
+                    parentNavigatorKey: _rootKey,
+                    builder: (context, state) => const QuranSearchScreen(),
+                  ),
                 ],
               ),
             ],
@@ -86,7 +103,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       _placeholder(Routes.search, (l) => l.featureSearch),
       _placeholder(Routes.settings, (l) => l.featureSettings),
       _placeholder(Routes.about, (l) => l.featureAbout),
-      _placeholder(Routes.sources, (l) => l.featureSources),
+      GoRoute(path: Routes.sources, builder: (context, state) => const SourcesScreen()),
       if (kDebugMode)
         GoRoute(
           path: Routes.designGallery,

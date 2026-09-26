@@ -1,13 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/local/preferences_store.dart';
+import '../../data/repositories/asset_quran_repository.dart';
+import '../../data/repositories/library_repository_impl.dart';
 import '../../data/repositories/settings_repository_impl.dart';
 import '../../domain/entities/city.dart';
+import '../../domain/entities/quran.dart';
+import '../../domain/repositories/library_repository.dart';
 import '../../domain/repositories/prayer_time_calculator.dart';
+import '../../domain/repositories/quran_repository.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../../services/location/device_timezone_service.dart';
 import '../../services/location/location_service.dart';
 import '../../services/prayer/adhan_prayer_calculator.dart';
+import '../database/app_database.dart';
 import '../utils/clock.dart';
 
 /// Opened once at startup (see `bootstrap.dart`) and injected via override.
@@ -19,6 +25,24 @@ final preferencesStoreProvider = Provider<PreferencesStore>(
 final citiesProvider = Provider<List<City>>(
   (ref) => throw UnimplementedError('citiesProvider must be overridden at bootstrap'),
 );
+
+/// Structural Quran metadata (~24 KB), loaded once at startup.
+final quranMetaProvider = Provider<QuranMeta>(
+  (ref) => throw UnimplementedError('quranMetaProvider must be overridden at bootstrap'),
+);
+
+/// Local SQLite database for user data. Overridden at bootstrap (and with an
+/// in-memory database in tests).
+final appDatabaseProvider = Provider<AppDatabase>(
+  (ref) => throw UnimplementedError('appDatabaseProvider must be overridden at bootstrap'),
+);
+
+final libraryRepositoryProvider = Provider<LibraryRepository>((ref) {
+  final clock = ref.watch(clockProvider);
+  return LibraryRepositoryImpl(ref.watch(appDatabaseProvider), now: clock.now);
+});
+
+final quranRepositoryProvider = Provider<QuranRepository>((ref) => AssetQuranRepository());
 
 final settingsRepositoryProvider = Provider<SettingsRepository>(
   (ref) => SettingsRepositoryImpl(ref.watch(preferencesStoreProvider)),

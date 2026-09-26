@@ -323,4 +323,212 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get emptyFavoritesBody => 'لم تضف شيئًا للمفضلة بعد.';
+
+  @override
+  String get quranTabSurahs => 'السور';
+
+  @override
+  String get quranTabJuz => 'الأجزاء';
+
+  @override
+  String get quranTabFavorites => 'المفضلة';
+
+  @override
+  String surahTitle(String name) {
+    return 'سورة $name';
+  }
+
+  @override
+  String revelationType(String type) {
+    String _temp0 = intl.Intl.selectLogic(type, {
+      'meccan': 'مكية',
+      'medinan': 'مدنية',
+      'other': '',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String ayahCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count آية',
+      few: '$count آيات',
+      two: 'آيتان',
+      one: 'آية واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String juzTitle(String number) {
+    return 'الجزء $number';
+  }
+
+  @override
+  String ayahPosition(String surah, String ayah) {
+    return '$surah · آية $ayah';
+  }
+
+  @override
+  String ayahNumberLabel(String number) {
+    return 'آية $number';
+  }
+
+  @override
+  String ayahCitation(String text, String surah, String ayah) {
+    return '﴿$text﴾ [$surah: $ayah]';
+  }
+
+  @override
+  String get sajdaMark => 'موضع سجدة';
+
+  @override
+  String get quranLoadError => 'تعذر تحميل نص القرآن';
+
+  @override
+  String get ayahActionBookmark => 'علامة';
+
+  @override
+  String get ayahActionFavorite => 'المفضلة';
+
+  @override
+  String get ayahActionCopy => 'نسخ';
+
+  @override
+  String get ayahActionShare => 'مشاركة';
+
+  @override
+  String get toastCopied => 'تم نسخ الآية';
+
+  @override
+  String get toastBookmarkAdded => 'تم حفظ العلامة';
+
+  @override
+  String get toastBookmarkRemoved => 'أزيلت العلامة';
+
+  @override
+  String get toastFavoriteAdded => 'أضيفت إلى المفضلة';
+
+  @override
+  String get toastFavoriteRemoved => 'أزيلت من المفضلة';
+
+  @override
+  String get readingSettingsTitle => 'إعدادات القراءة';
+
+  @override
+  String get readingFontSize => 'حجم الخط';
+
+  @override
+  String get readingLineHeight => 'تباعد الأسطر';
+
+  @override
+  String get readingFont => 'نوع الخط';
+
+  @override
+  String get readingFontAmiri => 'أميري قرآن';
+
+  @override
+  String get readingFontScheherazade => 'شهرزاد';
+
+  @override
+  String get readingMode => 'وضع القراءة';
+
+  @override
+  String get readingModeVerses => 'آية آية';
+
+  @override
+  String get readingModeContinuous => 'متصل';
+
+  @override
+  String get nextSurah => 'السورة التالية';
+
+  @override
+  String get quranSearchHint => 'ابحث بكلمة من القرآن الكريم';
+
+  @override
+  String get searchMinChars => 'اكتب حرفين على الأقل للبحث';
+
+  @override
+  String get searchNoResults => 'لا توجد نتائج مطابقة';
+
+  @override
+  String get searchNoResultsBody => 'جرّب كلمة أخرى أو تأكد من الإملاء.';
+
+  @override
+  String get searchSurahsSection => 'السور';
+
+  @override
+  String searchAyatSection(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'الآيات · $count نتيجة',
+      few: 'الآيات · $count نتائج',
+      two: 'الآيات · نتيجتان',
+      one: 'الآيات · نتيجة واحدة',
+      zero: 'الآيات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String searchCapped(String shown) {
+    return 'تُعرض أول $shown نتيجة. حدّد البحث بكلمات أكثر.';
+  }
+
+  @override
+  String get quranBookmarksSection => 'العلامات';
+
+  @override
+  String get quranFavoritesSection => 'الآيات المفضلة';
+
+  @override
+  String get quranFavoritesEmptyTitle => 'لا توجد آيات محفوظة';
+
+  @override
+  String get quranFavoritesEmptyBody =>
+      'اضغط على أي آية أثناء القراءة لإضافتها إلى المفضلة أو وضع علامة عليها.';
+
+  @override
+  String get actionStartReading => 'ابدأ القراءة';
+
+  @override
+  String get sourcesIntro =>
+      'يحرص هديل على أن يكون كل محتوى ديني فيه من مصدر موثوق ومعلن، دون أي تعديل أو توليد آلي.';
+
+  @override
+  String get sourceQuranTitle => 'نص القرآن الكريم';
+
+  @override
+  String get sourceQuranBody =>
+      'مشروع تنزيل (Tanzil) — النص العثماني والنص الإملائي المبسّط، الإصدار 1.1. يُنقل النص كما هو دون أي تغيير، وفق شروط الاستخدام وترخيص المشاع الإبداعي (نسب المصنف 3.0).';
+
+  @override
+  String get sourceQuranMetaTitle => 'بيانات السور والأجزاء';
+
+  @override
+  String get sourceQuranMetaBody =>
+      'مشروع تنزيل — ملف بيانات المصحف (أسماء السور، عدد الآيات، مواضع الأجزاء والأحزاب والسجدات).';
+
+  @override
+  String get sourceFontsTitle => 'الخطوط';
+
+  @override
+  String get sourceFontsBody =>
+      'أميري قرآن، شهرزاد الجديد، وIBM Plex Sans Arabic — جميعها برخصة SIL Open Font License.';
+
+  @override
+  String get sourcePrayerTitle => 'مواقيت الصلاة';
+
+  @override
+  String get sourcePrayerBody =>
+      'تُحسب على جهازك باستخدام خوارزمية Adhan، وفق طريقة الحساب والمذهب المختارين.';
+
+  @override
+  String get sourceHijriTitle => 'التاريخ الهجري';
+
+  @override
+  String get sourceHijriBody => 'تقويم أم القرى.';
 }

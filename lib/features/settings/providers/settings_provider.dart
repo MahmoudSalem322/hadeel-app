@@ -5,6 +5,7 @@ import '../../../core/providers/core_providers.dart';
 import '../../../domain/entities/app_settings.dart';
 import '../../../domain/entities/location_selection.dart';
 import '../../../domain/entities/prayer_settings.dart';
+import '../../../domain/entities/quran_reading_settings.dart';
 import '../../../domain/repositories/settings_repository.dart';
 
 final settingsProvider = NotifierProvider<SettingsNotifier, AppSettings>(SettingsNotifier.new);
@@ -35,7 +36,18 @@ class SettingsNotifier extends Notifier<AppSettings> {
     state = state.copyWith(location: selection);
     await _repo.saveLocation(selection);
   }
+
+  Future<void> updateQuranSettings(QuranReadingSettings Function(QuranReadingSettings) change) async {
+    final next = change(state.quran);
+    if (next == state.quran) return;
+    state = state.copyWith(quran: next);
+    await _repo.saveQuranSettings(next);
+  }
 }
+
+final quranSettingsProvider = Provider<QuranReadingSettings>(
+  (ref) => ref.watch(settingsProvider.select((s) => s.quran)),
+);
 
 final themeModeProvider = Provider<ThemeMode>((ref) {
   return switch (ref.watch(settingsProvider.select((s) => s.themeMode))) {

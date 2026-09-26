@@ -28,6 +28,7 @@ abstract final class Routes {
   static const String sources = '/sources';
   static const String designGallery = '/dev/gallery';
 
-  static String surah(int id) => '/quran/surah/$id';
+  static String surah(int id, {int? ayah}) =>
+      ayah == null ? '/quran/surah/$id' : '/quran/surah/$id?ayah=$ayah';
   static String azkarOf(String category) => '/azkar/$category';
 }
