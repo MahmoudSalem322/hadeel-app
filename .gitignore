@@ -49,3 +49,4 @@ app.*.map.json
 
 # Local run logs
 build_web_run.log
+build_apk.log
