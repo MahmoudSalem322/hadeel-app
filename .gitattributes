@@ -1,0 +1,6 @@
+# Religious source data must stay byte-for-byte identical.
+tool/*/raw/** -text
+assets/quran/** -text
+assets/tafsir/** -text
+assets/adhkar/** -text
+assets/hadith/** -text
