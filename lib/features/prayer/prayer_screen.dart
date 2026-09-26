@@ -37,11 +37,11 @@ class PrayerScreen extends ConsumerWidget {
       appBar: AppBar(title: Text(l10n.featurePrayerTimes)),
       body: ResponsiveBody(
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(
+          padding: EdgeInsets.fromLTRB(
             AppSpacing.screenGutter,
             0,
             AppSpacing.screenGutter,
-            AppSpacing.xxl,
+            AppSpacing.lg + context.navBarInset,
           ),
           children: [
             Text(l10n.hijriLabel(hijri, f), style: context.text.titleSmall!.copyWith(color: context.brand.goldText)),

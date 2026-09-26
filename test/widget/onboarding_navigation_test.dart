@@ -88,6 +88,9 @@ void main() {
     await pumpHadeelApp(tester, clock: clock, prefs: onboardedWithCity('jerusalem'));
 
     await tester.scrollUntilVisible(find.text('التسبيح'), 200);
+    // Bring it clear of the floating tab bar before tapping.
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, -250));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('التسبيح'));
     await tester.pumpAndSettle();
     expect(find.byType(NavigationBar), findsNothing);

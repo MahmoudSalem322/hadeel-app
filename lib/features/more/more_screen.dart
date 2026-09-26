@@ -35,7 +35,12 @@ class MoreScreen extends StatelessWidget {
       appBar: AppBar(title: Text(l10n.featureMore)),
       body: ResponsiveBody(
         child: ListView(
-          padding: const EdgeInsets.all(AppSpacing.screenGutter),
+          padding: EdgeInsets.fromLTRB(
+            AppSpacing.screenGutter,
+            AppSpacing.screenGutter,
+            AppSpacing.screenGutter,
+            AppSpacing.screenGutter + context.navBarInset,
+          ),
           children: [
             for (final group in groups) ...[
               HadeelCard(

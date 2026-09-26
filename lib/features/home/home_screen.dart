@@ -29,11 +29,11 @@ class HomeScreen extends ConsumerWidget {
         bottom: false,
         child: ResponsiveBody(
           child: ListView(
-            padding: const EdgeInsetsDirectional.fromSTEB(
+            padding: EdgeInsetsDirectional.fromSTEB(
               AppSpacing.screenGutter,
               AppSpacing.md,
               AppSpacing.screenGutter,
-              AppSpacing.xxl,
+              AppSpacing.lg + context.navBarInset,
             ),
             children: [
               const HomeHeader(),

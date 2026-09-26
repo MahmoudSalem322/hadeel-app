@@ -91,7 +91,7 @@ class _AdhkarHomeScreenState extends ConsumerState<AdhkarHomeScreen> {
                     );
                   },
                 ),
-                const SliverToBoxAdapter(child: SizedBox(height: AppSpacing.xxl)),
+                SliverToBoxAdapter(child: SizedBox(height: AppSpacing.md + context.navBarInset)),
               ],
             );
           },

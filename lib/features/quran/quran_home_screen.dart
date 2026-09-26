@@ -107,7 +107,7 @@ class _SurahsTab extends ConsumerWidget {
     final offset = hasProgress ? 1 : 0;
 
     return ListView.builder(
-      padding: const EdgeInsets.only(bottom: AppSpacing.xl),
+      padding: EdgeInsets.only(bottom: AppSpacing.md + context.navBarInset),
       itemCount: surahs.length + offset,
       itemBuilder: (context, index) {
         if (hasProgress && index == 0) {
@@ -136,7 +136,7 @@ class _JuzTab extends ConsumerWidget {
     final f = context.formatters;
 
     return ListView.builder(
-      padding: const EdgeInsets.only(bottom: AppSpacing.xl),
+      padding: EdgeInsets.only(bottom: AppSpacing.md + context.navBarInset),
       itemCount: meta.juzs.length,
       itemBuilder: (context, index) {
         final juz = meta.juzs[index];
@@ -171,7 +171,7 @@ class _FavoritesTab extends ConsumerWidget {
     }
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.xl),
+      padding: EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.md + context.navBarInset),
       children: [
         if (bookmarks.isNotEmpty) ...[
           SectionHeader(title: l10n.quranBookmarksSection),

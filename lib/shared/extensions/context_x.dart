@@ -14,6 +14,11 @@ extension BuildContextX on BuildContext {
   HadeelColors get brand => Theme.of(this).extension<HadeelColors>()!;
   String get languageCode => Localizations.localeOf(this).languageCode;
   AppFormatters get formatters => AppFormatters(Localizations.localeOf(this).toLanguageTag());
+
+  /// Space taken by the floating tab bar (plus the system inset) at the
+  /// bottom of tab screens. Add it to scroll padding so the last item can
+  /// scroll clear of the bar. Zero on screens without the bar.
+  double get navBarInset => MediaQuery.paddingOf(this).bottom;
 }
 
 extension PrayerL10n on AppLocalizations {
