@@ -11,6 +11,7 @@ import '../../domain/entities/library.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/content_actions.dart';
 import '../../shared/widgets/hadeel_card.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/responsive_body.dart';
 import '../../shared/widgets/search_field.dart';
 import '../../shared/widgets/state_views.dart';
@@ -27,7 +28,10 @@ class HadithBooksScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.featureHadith)),
+      appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
+        title: Text(l10n.featureHadith),
+      ),
       body: ResponsiveBody(
         child: ContentAsync<HadithLibrary>(
           value: ref.watch(hadithLibraryProvider),
@@ -40,15 +44,22 @@ class HadithBooksScreen extends ConsumerWidget {
               final b = lib.books[i];
               return HadeelCard(
                 onTap: () => context.push(Routes.hadithBook(b.key)),
-                semanticLabel: '${b.title}، ${l10n.hadithCount(b.hadiths.length)}',
+                semanticLabel:
+                    '${b.title}، ${l10n.hadithCount(b.hadiths.length)}',
                 child: ExcludeSemantics(
                   child: Row(
                     children: [
                       Container(
                         width: 48,
                         height: 48,
-                        decoration: BoxDecoration(color: context.colors.secondaryContainer, borderRadius: AppRadius.mdAll),
-                        child: Icon(Icons.format_quote_rounded, color: context.brand.goldText),
+                        decoration: BoxDecoration(
+                          color: context.colors.secondaryContainer,
+                          borderRadius: AppRadius.mdAll,
+                        ),
+                        child: Icon(
+                          Icons.format_quote_rounded,
+                          color: context.brand.goldText,
+                        ),
                       ),
                       const SizedBox(width: AppSpacing.sm),
                       Expanded(
@@ -59,12 +70,17 @@ class HadithBooksScreen extends ConsumerWidget {
                             Text(b.author, style: context.text.bodySmall),
                             Text(
                               l10n.hadithCount(b.hadiths.length),
-                              style: context.text.labelSmall!.copyWith(color: context.brand.goldText),
+                              style: context.text.labelSmall!.copyWith(
+                                color: context.brand.goldText,
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      Icon(Icons.chevron_right_rounded, color: context.brand.textSecondary),
+                      Icon(
+                        Icons.chevron_right_rounded,
+                        color: context.brand.textSecondary,
+                      ),
                     ],
                   ),
                 ),
@@ -97,55 +113,99 @@ class _HadithBookScreenState extends ConsumerState<HadithBookScreen> {
     final book = lib.value?.book(widget.bookKey);
 
     return Scaffold(
-      appBar: AppBar(title: Text(book?.title ?? l10n.featureHadith)),
+      appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
+        title: Text(book?.title ?? l10n.featureHadith),
+      ),
       body: ResponsiveBody(
         child: ContentAsync<HadithLibrary>(
           value: lib,
           onRetry: () => ref.invalidate(hadithLibraryProvider),
           data: (_) {
-            if (book == null) return EmptyState(icon: Icons.search_off_rounded, title: l10n.contentLoadError);
+            if (book == null) {
+              return EmptyState(
+                icon: Icons.search_off_rounded,
+                title: l10n.contentLoadError,
+              );
+            }
             final q = normalizeArabic(_query);
             final hadiths = book.hadiths
                 .where((h) => _chapter == null || h.chapterId == _chapter)
-                .where((h) => q.length < 2 || normalizeArabic(h.text).contains(q))
+                .where(
+                  (h) => q.length < 2 || normalizeArabic(h.text).contains(q),
+                )
                 .toList();
 
             return Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.xs),
-                  child: SearchField(hint: l10n.hadithSearchHint, onChanged: (v) => setState(() => _query = v)),
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpacing.md,
+                    0,
+                    AppSpacing.md,
+                    AppSpacing.xs,
+                  ),
+                  child: SearchField(
+                    hint: l10n.hadithSearchHint,
+                    onChanged: (v) => setState(() => _query = v),
+                  ),
                 ),
                 if (book.chapters.length > 1)
                   SizedBox(
                     height: 48,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.md,
+                      ),
                       children: [
-                        _chip(l10n.hadithAllChapters, _chapter == null, () => setState(() => _chapter = null)),
+                        _chip(
+                          l10n.hadithAllChapters,
+                          _chapter == null,
+                          () => setState(() => _chapter = null),
+                        ),
                         for (final c in book.chapters)
-                          _chip(c.title, _chapter == c.id, () => setState(() => _chapter = c.id)),
+                          _chip(
+                            c.title,
+                            _chapter == c.id,
+                            () => setState(() => _chapter = c.id),
+                          ),
                       ],
                     ),
                   ),
                 Expanded(
                   child: hadiths.isEmpty
-                      ? EmptyState(icon: Icons.search_off_rounded, title: l10n.searchNoResults)
+                      ? EmptyState(
+                          icon: Icons.search_off_rounded,
+                          title: l10n.searchNoResults,
+                        )
                       : ListView.separated(
-                          padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.xs, AppSpacing.md, AppSpacing.xl),
+                          padding: const EdgeInsets.fromLTRB(
+                            AppSpacing.md,
+                            AppSpacing.xs,
+                            AppSpacing.md,
+                            AppSpacing.xl,
+                          ),
                           itemCount: hadiths.length,
                           separatorBuilder: (_, _) => const Divider(),
                           itemBuilder: (context, i) {
                             final h = hadiths[i];
                             return InkWell(
-                              onTap: () => context.push(Routes.hadithItem(book.key, h.number)),
+                              onTap: () => context.push(
+                                Routes.hadithItem(book.key, h.number),
+                              ),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: AppSpacing.sm,
+                                ),
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    NumberMedallion(label: context.formatters.number(h.number)),
+                                    NumberMedallion(
+                                      label: context.formatters.number(
+                                        h.number,
+                                      ),
+                                    ),
                                     const SizedBox(width: AppSpacing.sm),
                                     Expanded(
                                       child: Text(
@@ -171,13 +231,21 @@ class _HadithBookScreenState extends ConsumerState<HadithBookScreen> {
   }
 
   Widget _chip(String label, bool selected, VoidCallback onTap) => Padding(
-        padding: const EdgeInsetsDirectional.only(end: AppSpacing.xs),
-        child: ChoiceChip(label: Text(label), selected: selected, onSelected: (_) => onTap()),
-      );
+    padding: const EdgeInsetsDirectional.only(end: AppSpacing.xs),
+    child: ChoiceChip(
+      label: Text(label),
+      selected: selected,
+      onSelected: (_) => onTap(),
+    ),
+  );
 }
 
 class HadithDetailScreen extends ConsumerWidget {
-  const HadithDetailScreen({super.key, required this.bookKey, required this.number});
+  const HadithDetailScreen({
+    super.key,
+    required this.bookKey,
+    required this.number,
+  });
 
   final String bookKey;
   final int number;
@@ -187,7 +255,10 @@ class HadithDetailScreen extends ConsumerWidget {
     final l10n = context.l10n;
     final f = context.formatters;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.hadithNumber(f.number(number)))),
+      appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
+        title: Text(l10n.hadithNumber(f.number(number))),
+      ),
       body: ResponsiveBody(
         child: ContentAsync<HadithLibrary>(
           value: ref.watch(hadithLibraryProvider),
@@ -196,7 +267,10 @@ class HadithDetailScreen extends ConsumerWidget {
             final book = lib.book(bookKey);
             final hadith = lib.byKey('$bookKey:$number');
             if (book == null || hadith == null) {
-              return EmptyState(icon: Icons.search_off_rounded, title: l10n.contentLoadError);
+              return EmptyState(
+                icon: Icons.search_off_rounded,
+                title: l10n.contentLoadError,
+              );
             }
             final chapter = book.chapterTitle(hadith.chapterId);
             return ListView(
@@ -204,12 +278,22 @@ class HadithDetailScreen extends ConsumerWidget {
               children: [
                 HadeelCard(
                   padding: const EdgeInsets.all(AppSpacing.lg),
-                  child: SelectableText(hadith.text, style: contentTextStyle(context)),
+                  child: SelectableText(
+                    hadith.text,
+                    style: contentTextStyle(context),
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.md),
-                Text(l10n.hadithSourceLine(book.title, book.author), style: context.text.titleSmall),
-                if (chapter.isNotEmpty && chapter != book.title) Text(chapter, style: context.text.bodySmall),
-                Text(l10n.hadithNumber(f.number(hadith.number)), style: context.text.bodySmall),
+                Text(
+                  l10n.hadithSourceLine(book.title, book.author),
+                  style: context.text.titleSmall,
+                ),
+                if (chapter.isNotEmpty && chapter != book.title)
+                  Text(chapter, style: context.text.bodySmall),
+                Text(
+                  l10n.hadithNumber(f.number(hadith.number)),
+                  style: context.text.bodySmall,
+                ),
                 const SizedBox(height: AppSpacing.sm),
                 Align(
                   alignment: AlignmentDirectional.centerStart,

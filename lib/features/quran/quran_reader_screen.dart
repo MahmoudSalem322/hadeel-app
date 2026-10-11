@@ -14,6 +14,7 @@ import '../../domain/entities/quran.dart';
 import '../../domain/entities/quran_reading_settings.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/buttons.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/state_views.dart';
 import '../settings/providers/settings_provider.dart';
 import 'providers/quran_providers.dart';
@@ -24,7 +25,11 @@ import 'widgets/quran_style.dart';
 import 'widgets/reading_settings_sheet.dart';
 
 class QuranReaderScreen extends ConsumerStatefulWidget {
-  const QuranReaderScreen({super.key, required this.surahNumber, this.initialAyah});
+  const QuranReaderScreen({
+    super.key,
+    required this.surahNumber,
+    this.initialAyah,
+  });
 
   final int surahNumber;
   final int? initialAyah;
@@ -64,7 +69,9 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
   void _onPositionsChanged() {
     final layout = _layout;
     if (layout == null) return;
-    final visible = _positions.itemPositions.value.where((p) => p.itemTrailingEdge > 0.15);
+    final visible = _positions.itemPositions.value.where(
+      (p) => p.itemTrailingEdge > 0.15,
+    );
     if (visible.isEmpty) return;
     final top = visible.map((p) => p.index).reduce((a, b) => a < b ? a : b);
     _recorder.report(AyahRef(widget.surahNumber, layout.ayahAtIndex(top)));
@@ -81,7 +88,9 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
       _positions.itemPositions.removeListener(_onPositionsChanged);
       _positions = ItemPositionsListener.create();
     }
-    if (_mode != mode) _positions.itemPositions.addListener(_onPositionsChanged);
+    if (_mode != mode) {
+      _positions.itemPositions.addListener(_onPositionsChanged);
+    }
     _mode = mode;
     return layout.indexOfAyah(ayah);
   }
@@ -93,7 +102,9 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
 
     if (widget.surahNumber < 1 || widget.surahNumber > meta.surahs.length) {
       return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
+        ),
         body: ErrorState(title: l10n.quranLoadError),
       );
     }
@@ -104,6 +115,7 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
         title: Text(l10n.surahTitle(surah.nameAr)),
         actions: [
           IconButton(
@@ -121,7 +133,10 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
           onAction: () => ref.invalidate(quranTextProvider),
         ),
         data: (text) {
-          final layout = ReaderLayout(ayahCount: surah.ayahCount, mode: settings.mode);
+          final layout = ReaderLayout(
+            ayahCount: surah.ayahCount,
+            mode: settings.mode,
+          );
           _layout = layout;
           final initialIndex = _initialIndexFor(layout, settings.mode);
           return ScrollablePositionedList.builder(
@@ -135,7 +150,9 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
               if (index == 0) {
                 return _SurahHeader(
                   surah: surah,
-                  basmala: showsBasmalaHeader(surah.number) ? text.bismillah : null,
+                  basmala: showsBasmalaHeader(surah.number)
+                      ? text.bismillah
+                      : null,
                 );
               }
               if (index == layout.footerIndex) return _Footer(surah: surah);
@@ -150,7 +167,10 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
               return _ContinuousBlock(
                 surah: surah.number,
                 first: first,
-                ayat: [for (var a = first; a <= last; a++) text.ayah(AyahRef(surah.number, a))],
+                ayat: [
+                  for (var a = first; a <= last; a++)
+                    text.ayah(AyahRef(surah.number, a)),
+                ],
                 highlightAyah: _highlightAyah,
               );
             },
@@ -171,23 +191,33 @@ class _SurahHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.xs, AppSpacing.md, AppSpacing.md),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg, horizontal: AppSpacing.md),
-        decoration: BoxDecoration(
-          color: context.brand.hero,
-          borderRadius: AppRadius.xlAll,
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.md,
+        AppSpacing.xs,
+        AppSpacing.md,
+        AppSpacing.md,
+      ),
+      child: LiquidGlass(
+        tint: context.brand.hero,
+        radius: 36,
+        padding: const EdgeInsets.symmetric(
+          vertical: AppSpacing.lg,
+          horizontal: AppSpacing.md,
         ),
         child: Column(
           children: [
             Text(
               l10n.surahTitle(surah.nameAr),
-              style: context.text.headlineSmall!.copyWith(color: context.brand.onHero),
+              style: context.text.headlineSmall!.copyWith(
+                color: context.brand.onHero,
+              ),
             ),
             const SizedBox(height: AppSpacing.xxs),
             Text(
               '${l10n.revelationType(surah.revelationType.name)} · ${l10n.ayahCount(surah.ayahCount)}',
-              style: context.text.labelMedium!.copyWith(color: context.brand.onHeroMuted),
+              style: context.text.labelMedium!.copyWith(
+                color: context.brand.onHeroMuted,
+              ),
             ),
             if (basmala != null) ...[
               const SizedBox(height: AppSpacing.md),
@@ -208,7 +238,11 @@ class _SurahHeader extends StatelessWidget {
 }
 
 class _AyahBlock extends ConsumerWidget {
-  const _AyahBlock({required this.ayah, required this.text, required this.highlighted});
+  const _AyahBlock({
+    required this.ayah,
+    required this.text,
+    required this.highlighted,
+  });
 
   final AyahRef ayah;
   final String text;
@@ -217,8 +251,12 @@ class _AyahBlock extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(quranSettingsProvider);
-    final bookmarked = ref.watch(bookmarkedRefsProvider.select((s) => s.contains(ayah)));
-    final favorite = ref.watch(favoriteAyahRefsProvider.select((s) => s.contains(ayah)));
+    final bookmarked = ref.watch(
+      bookmarkedRefsProvider.select((s) => s.contains(ayah)),
+    );
+    final favorite = ref.watch(
+      favoriteAyahRefsProvider.select((s) => s.contains(ayah)),
+    );
     final sajda = ref.watch(quranMetaProvider).sajdas.contains(ayah);
     final number = context.formatters.number(ayah.ayah);
 
@@ -231,7 +269,12 @@ class _AyahBlock extends ConsumerWidget {
         child: AnimatedContainer(
           duration: AppMotion.slow,
           color: highlighted ? context.brand.highlight : Colors.transparent,
-          padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, AppSpacing.md),
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.md,
+            AppSpacing.sm,
+            AppSpacing.md,
+            AppSpacing.md,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -242,12 +285,24 @@ class _AyahBlock extends ConsumerWidget {
                   if (sajda) ...[
                     Text(
                       context.l10n.sajdaMark,
-                      style: context.text.labelSmall!.copyWith(color: context.brand.goldText),
+                      style: context.text.labelSmall!.copyWith(
+                        color: context.brand.goldText,
+                      ),
                     ),
                     const SizedBox(width: AppSpacing.xs),
                   ],
-                  if (favorite) Icon(Icons.favorite_rounded, size: 18, color: context.brand.goldText),
-                  if (bookmarked) Icon(Icons.bookmark_rounded, size: 18, color: context.brand.goldText),
+                  if (favorite)
+                    Icon(
+                      Icons.favorite_rounded,
+                      size: 18,
+                      color: context.brand.goldText,
+                    ),
+                  if (bookmarked)
+                    Icon(
+                      Icons.bookmark_rounded,
+                      size: 18,
+                      color: context.brand.goldText,
+                    ),
                 ],
               ),
               const SizedBox(height: AppSpacing.xs),
@@ -284,7 +339,12 @@ class _InlineTafsir extends ConsumerWidget {
         color: context.brand.surfaceMuted,
         borderRadius: AppRadius.mdAll,
       ),
-      child: Text(text, style: context.text.bodyMedium!.copyWith(color: context.brand.textSecondary)),
+      child: Text(
+        text,
+        style: context.text.bodyMedium!.copyWith(
+          color: context.brand.textSecondary,
+        ),
+      ),
     );
   }
 }
@@ -334,27 +394,44 @@ class _ContinuousBlockState extends ConsumerState<_ContinuousBlock> {
     for (var i = 0; i < widget.ayat.length; i++) {
       final ref = AyahRef(widget.surah, widget.first + i);
       final text = widget.ayat[i];
-      final recognizer = TapGestureRecognizer()..onTap = () => showAyahActions(context, ref: ref, text: text);
+      final recognizer = TapGestureRecognizer()
+        ..onTap = () => showAyahActions(context, ref: ref, text: text);
       _recognizers.add(recognizer);
       final highlighted = widget.highlightAyah == ref.ayah;
       spans
-        ..add(TextSpan(
-          text: text,
-          recognizer: recognizer,
-          style: highlighted ? TextStyle(backgroundColor: context.brand.highlight) : null,
-        ))
-        ..add(TextSpan(
-          text: ' ${ayahEndMarker(ref.ayah)} ',
-          recognizer: recognizer,
-          style: TextStyle(
-            color: bookmarks.contains(ref) ? context.colors.primary : context.brand.goldText,
+        ..add(
+          TextSpan(
+            text: text,
+            recognizer: recognizer,
+            style: highlighted
+                ? TextStyle(backgroundColor: context.brand.highlight)
+                : null,
           ),
-        ));
+        )
+        ..add(
+          TextSpan(
+            text: ' ${ayahEndMarker(ref.ayah)} ',
+            recognizer: recognizer,
+            style: TextStyle(
+              color: bookmarks.contains(ref)
+                  ? context.colors.primary
+                  : context.brand.goldText,
+            ),
+          ),
+        );
     }
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.xs),
-      child: Text.rich(TextSpan(style: base, children: spans), textAlign: TextAlign.justify),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        0,
+        AppSpacing.lg,
+        AppSpacing.xs,
+      ),
+      child: Text.rich(
+        TextSpan(style: base, children: spans),
+        textAlign: TextAlign.justify,
+      ),
     );
   }
 }

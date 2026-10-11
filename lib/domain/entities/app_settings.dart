@@ -1,4 +1,4 @@
-﻿import 'package:meta/meta.dart';
+import 'package:meta/meta.dart';
 
 import 'location_selection.dart';
 import 'prayer.dart';
@@ -12,29 +12,63 @@ enum AppColorTheme { green, blue, brown, purple }
 /// Which prayers raise a local notification.
 @immutable
 class NotificationSettings {
-  const NotificationSettings({this.enabled = const {}});
+  const NotificationSettings({
+    this.enabled = const {},
+    this.hourlyDhikr = true,
+    this.dailyContent = true,
+  });
 
   /// All five obligatory prayers on.
-  static final NotificationSettings allOn = NotificationSettings(enabled: Prayer.obligatory.toSet());
+  static final NotificationSettings allOn = NotificationSettings(
+    enabled: Prayer.obligatory.toSet(),
+  );
 
   final Set<Prayer> enabled;
+
+  /// Hourly "remember Allah" reminder between 07:00 and midnight.
+  final bool hourlyDhikr;
+  final bool dailyContent;
 
   bool isOn(Prayer p) => enabled.contains(p);
 
   NotificationSettings toggled(Prayer p, {required bool on}) =>
-      NotificationSettings(enabled: {...enabled.where((e) => e != p), if (on) p});
+      NotificationSettings(
+        enabled: {...enabled.where((e) => e != p), if (on) p},
+        hourlyDhikr: hourlyDhikr,
+        dailyContent: dailyContent,
+      );
+
+  NotificationSettings withHourlyDhikr(bool on) => NotificationSettings(
+    enabled: enabled,
+    hourlyDhikr: on,
+    dailyContent: dailyContent,
+  );
+  NotificationSettings withDailyContent(bool on) => NotificationSettings(
+    enabled: enabled,
+    hourlyDhikr: hourlyDhikr,
+    dailyContent: on,
+  );
 
   @override
   bool operator ==(Object other) =>
-      other is NotificationSettings && other.enabled.length == enabled.length && other.enabled.containsAll(enabled);
+      other is NotificationSettings &&
+      other.hourlyDhikr == hourlyDhikr &&
+      other.dailyContent == dailyContent &&
+      other.enabled.length == enabled.length &&
+      other.enabled.containsAll(enabled);
 
   @override
-  int get hashCode => Object.hashAllUnordered(enabled);
+  int get hashCode =>
+      Object.hash(hourlyDhikr, dailyContent, Object.hashAllUnordered(enabled));
 }
 
 @immutable
 class TasbeehSettings {
-  const TasbeehSettings({this.vibration = true, this.sound = false, this.phraseKey = defaultPhrase});
+  const TasbeehSettings({
+    this.vibration = true,
+    this.sound = false,
+    this.phraseKey = defaultPhrase,
+  });
 
   /// Phrase keys offered in the tasbeeh screen (labels live in the ARB files).
   static const List<String> phrases = [
@@ -55,7 +89,8 @@ class TasbeehSettings {
   /// The dhikr currently selected for counting.
   final String phraseKey;
 
-  TasbeehSettings copyWith({bool? vibration, bool? sound, String? phraseKey}) => TasbeehSettings(
+  TasbeehSettings copyWith({bool? vibration, bool? sound, String? phraseKey}) =>
+      TasbeehSettings(
         vibration: vibration ?? this.vibration,
         sound: sound ?? this.sound,
         phraseKey: phraseKey ?? this.phraseKey,
@@ -63,7 +98,10 @@ class TasbeehSettings {
 
   @override
   bool operator ==(Object other) =>
-      other is TasbeehSettings && other.vibration == vibration && other.sound == sound && other.phraseKey == phraseKey;
+      other is TasbeehSettings &&
+      other.vibration == vibration &&
+      other.sound == sound &&
+      other.phraseKey == phraseKey;
 
   @override
   int get hashCode => Object.hash(vibration, sound, phraseKey);
@@ -122,7 +160,10 @@ class AppSettings {
       quran: quran ?? this.quran,
       notifications: notifications ?? this.notifications,
       tasbeeh: tasbeeh ?? this.tasbeeh,
-      hijriAdjustment: (hijriAdjustment ?? this.hijriAdjustment).clamp(-maxHijriAdjustment, maxHijriAdjustment),
+      hijriAdjustment: (hijriAdjustment ?? this.hijriAdjustment).clamp(
+        -maxHijriAdjustment,
+        maxHijriAdjustment,
+      ),
       location: location ?? this.location,
     );
   }
@@ -143,16 +184,15 @@ class AppSettings {
 
   @override
   int get hashCode => Object.hash(
-        themeMode,
-        appColorTheme,
-        languageCode,
-        onboardingDone,
-        prayer,
-        quran,
-        notifications,
-        tasbeeh,
-        hijriAdjustment,
-        location,
-      );
+    themeMode,
+    appColorTheme,
+    languageCode,
+    onboardingDone,
+    prayer,
+    quran,
+    notifications,
+    tasbeeh,
+    hijriAdjustment,
+    location,
+  );
 }
-

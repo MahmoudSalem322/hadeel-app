@@ -12,6 +12,7 @@ import '../../domain/entities/quran.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/content_actions.dart';
 import '../../shared/widgets/hadeel_card.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/responsive_body.dart';
 import '../../shared/widgets/state_views.dart';
 import '../duas/dua_category_screen.dart';
@@ -31,6 +32,7 @@ class FavoritesScreen extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
           title: Text(l10n.featureFavorites),
           bottom: TabBar(
             isScrollable: true,
@@ -45,7 +47,12 @@ class FavoritesScreen extends StatelessWidget {
         ),
         body: const ResponsiveBody(
           child: TabBarView(
-            children: [_QuranFavorites(), _AdhkarFavorites(), _DuaFavorites(), _HadithFavorites()],
+            children: [
+              _QuranFavorites(),
+              _AdhkarFavorites(),
+              _DuaFavorites(),
+              _HadithFavorites(),
+            ],
           ),
         ),
       ),
@@ -54,19 +61,20 @@ class FavoritesScreen extends StatelessWidget {
 }
 
 Widget _empty(BuildContext context, String route) => EmptyState(
-      icon: Icons.favorite_outline_rounded,
-      title: context.l10n.emptyFavoritesTitle,
-      message: context.l10n.emptyFavoritesBody,
-      actionLabel: context.l10n.actionExplore,
-      onAction: () => context.push(route),
-    );
+  icon: Icons.favorite_outline_rounded,
+  title: context.l10n.emptyFavoritesTitle,
+  message: context.l10n.emptyFavoritesBody,
+  actionLabel: context.l10n.actionExplore,
+  onAction: () => context.push(route),
+);
 
 class _QuranFavorites extends ConsumerWidget {
   const _QuranFavorites();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final items = ref.watch(favoritesProvider(FavoriteKind.ayah)).value ?? const [];
+    final items =
+        ref.watch(favoritesProvider(FavoriteKind.ayah)).value ?? const [];
     if (items.isEmpty) return _empty(context, Routes.quran);
     final meta = ref.watch(quranMetaProvider);
     final quran = ref.watch(quranTextProvider).value;
@@ -80,23 +88,41 @@ class _QuranFavorites extends ConsumerWidget {
       itemBuilder: (context, i) {
         final ref0 = AyahRef.tryParse(items[i].key);
         if (ref0 == null || !meta.isValid(ref0)) return const SizedBox.shrink();
-        final label = context.l10n.ayahPosition(meta.surah(ref0.surah).nameAr, f.number(ref0.ayah));
+        final label = context.l10n.ayahPosition(
+          meta.surah(ref0.surah).nameAr,
+          f.number(ref0.ayah),
+        );
         final text = quran?.ayah(ref0);
         return HadeelCard(
           onTap: () => context.push(Routes.surah(ref0.surah, ayah: ref0.ayah)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(label, style: context.text.labelMedium!.copyWith(color: context.brand.goldText)),
+              Text(
+                label,
+                style: context.text.labelMedium!.copyWith(
+                  color: context.brand.goldText,
+                ),
+              ),
               if (text != null)
-                Text(text, style: quranTextStyle(settings.copyWith(fontSize: 22, lineHeight: 1.9), context.colors.onSurface)),
+                Text(
+                  text,
+                  style: quranTextStyle(
+                    settings.copyWith(fontSize: 22, lineHeight: 1.9),
+                    context.colors.onSurface,
+                  ),
+                ),
               if (text != null)
                 Align(
                   alignment: AlignmentDirectional.centerEnd,
                   child: ContentActions(
                     kind: FavoriteKind.ayah,
                     favoriteKey: items[i].key,
-                    shareText: context.l10n.ayahCitation(text, meta.surah(ref0.surah).nameAr, f.number(ref0.ayah)),
+                    shareText: context.l10n.ayahCitation(
+                      text,
+                      meta.surah(ref0.surah).nameAr,
+                      f.number(ref0.ayah),
+                    ),
                   ),
                 ),
             ],
@@ -112,7 +138,8 @@ class _AdhkarFavorites extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final items = ref.watch(favoritesProvider(FavoriteKind.dhikr)).value ?? const [];
+    final items =
+        ref.watch(favoritesProvider(FavoriteKind.dhikr)).value ?? const [];
     if (items.isEmpty) return _empty(context, Routes.azkar);
     return ContentAsync<HisnLibrary>(
       value: ref.watch(hisnProvider),
@@ -135,7 +162,8 @@ class _DuaFavorites extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final items = ref.watch(favoritesProvider(FavoriteKind.dua)).value ?? const [];
+    final items =
+        ref.watch(favoritesProvider(FavoriteKind.dua)).value ?? const [];
     if (items.isEmpty) return _empty(context, Routes.duas);
     return ContentAsync<HisnLibrary>(
       value: ref.watch(hisnProvider),
@@ -160,7 +188,8 @@ class _HadithFavorites extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final items = ref.watch(favoritesProvider(FavoriteKind.hadith)).value ?? const [];
+    final items =
+        ref.watch(favoritesProvider(FavoriteKind.hadith)).value ?? const [];
     if (items.isEmpty) return _empty(context, Routes.hadith);
     return ContentAsync<HadithLibrary>(
       value: ref.watch(hadithLibraryProvider),
@@ -171,15 +200,23 @@ class _HadithFavorites extends ConsumerWidget {
             if (lib.byKey(f.key) case final h?)
               if (lib.book(h.bookKey) case final book?) ...[
                 HadeelCard(
-                  onTap: () => context.push(Routes.hadithItem(h.bookKey, h.number)),
+                  onTap: () =>
+                      context.push(Routes.hadithItem(h.bookKey, h.number)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
                         '${book.title} · ${context.l10n.hadithNumber(context.formatters.number(h.number))}',
-                        style: context.text.labelMedium!.copyWith(color: context.brand.goldText),
+                        style: context.text.labelMedium!.copyWith(
+                          color: context.brand.goldText,
+                        ),
                       ),
-                      Text(h.text, maxLines: 5, overflow: TextOverflow.ellipsis, style: contentTextStyle(context, size: 19)),
+                      Text(
+                        h.text,
+                        maxLines: 5,
+                        overflow: TextOverflow.ellipsis,
+                        style: contentTextStyle(context, size: 19),
+                      ),
                       Align(
                         alignment: AlignmentDirectional.centerEnd,
                         child: ContentActions(

@@ -6,6 +6,16 @@
 
 ## Features
 
+### Update 0.3.1
+
+Quran bookmarks now have their own **العلامات / Bookmarks** tab, separate from favorites. Each saved ayah shows the local date and time when the bookmark was created and opens directly in the reader. The launcher and in-app identity now use the simpler crescent-and-ripple artwork in `assets/branding/icon_v4.png`.
+
+### Update 0.3.0
+
+The visual refresh combines solid reading cards with glass navigation and sheets, a teal/blue/violet prayer hero, and individually colored quick actions. Light and dark palettes use cool backgrounds and lavender controls. The app, launcher, splash, and web surfaces share one current brand asset; `tool/generate_brand_assets_test.dart` renders the platform-safe variants.
+
+Performance safeguards remain: ordinary cards have no backdrop sampling, and inactive navigation branches neither paint nor tick. Targeted layout tests cover Arabic at 200% text scaling on 320px and 390px phones in both themes, alongside the existing blur-budget, navigation and reminder tests. Physical-device frame-rate measurements are still needed for device-specific performance claims.
+
 | Area | What's included |
 |---|---|
 | Home | Greeting, Hijri + Gregorian date, next prayer with live countdown (auto-advances), continue reading, today's times, quick access, daily ayah/dhikr/hadith/dua |
@@ -22,6 +32,42 @@
 | Settings | Light/dark/system, Arabic/English, Quran, prayer, notifications, tasbeeh, Hijri, About, Sources, Privacy |
 
 ## Run
+
+### Update 0.2.0
+
+Performance follow-up **0.2.1**: scrolling cards and icon lenses retain their
+translucent gradients and reflective edges without independent live backdrop
+filters. Live blur is limited to the navigation bar and modal sheet. Tabs keep
+their state while only the selected branch paints and ticks; whole-page fades
+and slides are removed. Regression tests measured 13 → 1 backdrop layers for
+the same grid and verified that the outgoing tab no longer paints on a switch.
+This verifies rendering work, not frame rate on a physical phone.
+
+- A shared liquid-glass visual system: luminous backdrop, frosted cards and search,
+  reflective rounded edges, floating navigation, glass headers, reader surfaces,
+  tasbeeh counter and modal sheets, in light and dark modes.
+- Dhikr and salawat at every hour from **07:00 through midnight** (18 daily repeating
+  reminders), using the device timezone even before a prayer city is selected.
+- Three daily reminders selected from bundled, complete Arabic dhikr and hadith,
+  with different choices on successive dates and times away from the hourly reminders.
+- Settings → Notifications → **Allow Hadeel notifications** requests OS permission
+  and precise alarms. Hourly and daily content have separate persistent switches.
+- Hourly and morning/evening reminders repeat daily. Variable content is scheduled
+  30 days ahead on Android and five days on iOS; opening/resuming the app refreshes
+  the window. An open app also refreshes after midnight. Prayer reminders retain
+  their five-day window. This is local scheduling, so open the app periodically
+  to replenish changing content; it does not use a server or a background worker.
+- The iOS plan contains at most 60 pending entries, within the plugin's documented
+  [64-entry limit](https://pub.dev/packages/flutter_local_notifications#ios-pending-notifications-limit).
+  Exact delivery requires OS permission; without it Android uses inexact scheduling.
+
+Validation: `flutter analyze` reported no issues; the focused reminder, persistence,
+service and content tests passed (33 tests). Browser previews were checked at
+320 and 390 pixels, in both themes, including Quran navigation and modal sheets.
+The full native suite could not finish on this Windows host because Application
+Control blocked `sqlite3.dll` (4551), affecting the database tests and preventing
+the app widget tests from progressing. Device delivery of notifications still
+needs a real Android/iOS device test.
 
 ```bash
 flutter pub get

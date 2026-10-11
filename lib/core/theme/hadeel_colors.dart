@@ -55,7 +55,7 @@ class HadeelColors extends ThemeExtension<HadeelColors> {
     goldText: AppColors.goldSoftDark,
     hero: AppColors.heroDark,
     onHero: AppColors.textPrimaryDark,
-    onHeroMuted: AppColors.textSecondaryDark,
+    onHeroMuted: AppColors.onHeroMuted,
     surfaceMuted: AppColors.surfaceMutedDark,
     textSecondary: AppColors.textSecondaryDark,
     divider: AppColors.outlineDark,

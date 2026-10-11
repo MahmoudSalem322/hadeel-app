@@ -7,6 +7,7 @@ import '../../core/routing/routes.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../domain/entities/quran.dart';
 import '../../shared/extensions/context_x.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/responsive_body.dart';
 import '../../shared/widgets/section_header.dart';
 import '../../shared/widgets/state_views.dart';
@@ -24,9 +25,10 @@ class QuranHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
           title: Text(l10n.featureQuran),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(56 + 48 + AppSpacing.sm),
@@ -34,13 +36,16 @@ class QuranHomeScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: AppSpacing.screenPadding,
-                  child: _SearchLauncher(onTap: () => context.push(Routes.quranSearch)),
+                  child: _SearchLauncher(
+                    onTap: () => context.push(Routes.quranSearch),
+                  ),
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 TabBar(
                   tabs: [
                     Tab(text: l10n.quranTabSurahs),
                     Tab(text: l10n.quranTabJuz),
+                    Tab(text: l10n.quranTabBookmarks),
                     Tab(text: l10n.quranTabFavorites),
                   ],
                 ),
@@ -49,7 +54,14 @@ class QuranHomeScreen extends StatelessWidget {
           ),
         ),
         body: const ResponsiveBody(
-          child: TabBarView(children: [_SurahsTab(), _JuzTab(), _FavoritesTab()]),
+          child: TabBarView(
+            children: [
+              _SurahsTab(),
+              _JuzTab(),
+              _BookmarksTab(),
+              _FavoritesTab(),
+            ],
+          ),
         ),
       ),
     );
@@ -68,9 +80,8 @@ class _SearchLauncher extends StatelessWidget {
       button: true,
       label: context.l10n.quranSearchHint,
       excludeSemantics: true,
-      child: Material(
-        color: context.brand.surfaceMuted,
-        borderRadius: AppRadius.mdAll,
+      child: LiquidGlass(
+        radius: 22,
         child: InkWell(
           onTap: onTap,
           borderRadius: AppRadius.mdAll,
@@ -84,7 +95,9 @@ class _SearchLauncher extends StatelessWidget {
                 Expanded(
                   child: Text(
                     context.l10n.quranSearchHint,
-                    style: context.text.bodyMedium!.copyWith(color: context.brand.textSecondary),
+                    style: context.text.bodyMedium!.copyWith(
+                      color: context.brand.textSecondary,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -112,7 +125,12 @@ class _SurahsTab extends ConsumerWidget {
       itemBuilder: (context, index) {
         if (hasProgress && index == 0) {
           return const Padding(
-            padding: EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.md, AppSpacing.md, AppSpacing.xs),
+            padding: EdgeInsets.fromLTRB(
+              AppSpacing.md,
+              AppSpacing.md,
+              AppSpacing.md,
+              AppSpacing.xs,
+            ),
             child: ContinueReadingCard(),
           );
         }
@@ -144,10 +162,48 @@ class _JuzTab extends ConsumerWidget {
         return ListTile(
           leading: NumberMedallion(label: f.number(juz.number)),
           title: Text(l10n.juzTitle(f.number(juz.number))),
-          subtitle: Text(l10n.ayahPosition(start.nameAr, f.number(juz.start.ayah))),
-          onTap: () => context.push(Routes.surah(juz.start.surah, ayah: juz.start.ayah)),
+          subtitle: Text(
+            l10n.ayahPosition(start.nameAr, f.number(juz.start.ayah)),
+          ),
+          onTap: () =>
+              context.push(Routes.surah(juz.start.surah, ayah: juz.start.ayah)),
         );
       },
+    );
+  }
+}
+
+class _BookmarksTab extends ConsumerWidget {
+  const _BookmarksTab();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final bookmarks = ref.watch(bookmarksProvider).value ?? const [];
+    if (bookmarks.isEmpty) {
+      return EmptyState(
+        icon: Icons.bookmark_border_rounded,
+        title: l10n.quranBookmarksEmptyTitle,
+        message: l10n.quranBookmarksEmptyBody,
+      );
+    }
+
+    return ListView(
+      padding: EdgeInsets.fromLTRB(
+        AppSpacing.md,
+        0,
+        AppSpacing.md,
+        AppSpacing.md + context.navBarInset,
+      ),
+      children: [
+        SectionHeader(title: l10n.quranBookmarksSection),
+        for (final b in bookmarks)
+          _SavedAyahTile(
+            ayah: b.ref,
+            icon: Icons.bookmark_rounded,
+            savedAt: b.createdAt,
+          ),
+      ],
     );
   }
 }
@@ -158,39 +214,37 @@ class _FavoritesTab extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final bookmarks = ref.watch(bookmarksProvider).value ?? const [];
     final favorites = ref.watch(favoriteAyatProvider).value ?? const [];
     final favoriteRefs = [for (final f in favorites) ?AyahRef.tryParse(f.key)];
-
-    if (bookmarks.isEmpty && favoriteRefs.isEmpty) {
+    if (favoriteRefs.isEmpty) {
       return EmptyState(
-        icon: Icons.bookmark_border_rounded,
+        icon: Icons.favorite_border_rounded,
         title: l10n.quranFavoritesEmptyTitle,
         message: l10n.quranFavoritesEmptyBody,
       );
     }
-
     return ListView(
-      padding: EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.md + context.navBarInset),
+      padding: EdgeInsets.fromLTRB(
+        AppSpacing.md,
+        0,
+        AppSpacing.md,
+        AppSpacing.md + context.navBarInset,
+      ),
       children: [
-        if (bookmarks.isNotEmpty) ...[
-          SectionHeader(title: l10n.quranBookmarksSection),
-          for (final b in bookmarks) _SavedAyahTile(ayah: b.ref, icon: Icons.bookmark_rounded),
-        ],
-        if (favoriteRefs.isNotEmpty) ...[
-          SectionHeader(title: l10n.quranFavoritesSection),
-          for (final r in favoriteRefs) _SavedAyahTile(ayah: r, icon: Icons.favorite_rounded),
-        ],
+        SectionHeader(title: l10n.quranFavoritesSection),
+        for (final r in favoriteRefs)
+          _SavedAyahTile(ayah: r, icon: Icons.favorite_rounded),
       ],
     );
   }
 }
 
 class _SavedAyahTile extends ConsumerWidget {
-  const _SavedAyahTile({required this.ayah, required this.icon});
+  const _SavedAyahTile({required this.ayah, required this.icon, this.savedAt});
 
   final AyahRef ayah;
   final IconData icon;
+  final DateTime? savedAt;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -203,21 +257,42 @@ class _SavedAyahTile extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: AppSpacing.xs),
       child: ListTile(
+        isThreeLine: savedAt != null,
         tileColor: context.colors.surface,
         shape: RoundedRectangleBorder(
           borderRadius: AppRadius.mdAll,
           side: BorderSide(color: context.brand.divider),
         ),
         leading: Icon(icon, color: context.brand.goldText),
-        title: Text(context.l10n.ayahPosition(surah.nameAr, context.formatters.number(ayah.ayah))),
-        subtitle: text == null
-            ? null
-            : Text(
+        title: Text(
+          context.l10n.ayahPosition(
+            surah.nameAr,
+            context.formatters.number(ayah.ayah),
+          ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (savedAt != null)
+              Text(
+                context.formatters.dateAndTime(savedAt!),
+                style: context.text.labelSmall!.copyWith(
+                  color: context.colors.primary,
+                ),
+              ),
+            if (text != null)
+              Text(
                 text,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontFamily: quranFontFamily(font), fontSize: 18, height: 1.8),
+                style: TextStyle(
+                  fontFamily: quranFontFamily(font),
+                  fontSize: 18,
+                  height: 1.8,
+                ),
               ),
+          ],
+        ),
         onTap: () => context.push(Routes.surah(ayah.surah, ayah: ayah.ayah)),
       ),
     );

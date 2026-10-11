@@ -21,13 +21,25 @@ void main() {
   final reading = loadQuranReadingText();
   final search = loadQuranSearchText();
 
-  Future<ProviderContainer> start(WidgetTester tester, {Map<String, Object> prefs = const {}}) {
+  Future<ProviderContainer> start(
+    WidgetTester tester, {
+    Map<String, Object> prefs = const {},
+  }) {
     final clock = ManualClock(zoned('Asia/Hebron', 2026, 9, 26, 10));
-    return pumpHadeelApp(tester, clock: clock, prefs: {...onboardedWithCity('jerusalem'), ...prefs});
+    return pumpHadeelApp(
+      tester,
+      clock: clock,
+      prefs: {...onboardedWithCity('jerusalem'), ...prefs},
+    );
   }
 
   Future<void> openTab(WidgetTester tester, String label) async {
-    await tester.tap(find.descendant(of: find.byType(NavigationBar), matching: find.text(label)));
+    await tester.tap(
+      find.descendant(
+        of: find.byType(NavigationBar),
+        matching: find.text(label),
+      ),
+    );
     await tester.pumpAndSettle();
   }
 
@@ -35,7 +47,9 @@ void main() {
     GoRouter.of(tester.element(find.byType(Scaffold).first)).push(location);
   }
 
-  testWidgets('Quran tab lists surahs, juz and an empty favorites tab', (tester) async {
+  testWidgets('Quran tab lists surahs, juz and an empty favorites tab', (
+    tester,
+  ) async {
     await start(tester);
     await openTab(tester, 'القرآن');
 
@@ -53,20 +67,31 @@ void main() {
     expect(find.text('لا توجد آيات محفوظة'), findsOneWidget);
   });
 
-  testWidgets('reader shows the source text of every ayah in order', (tester) async {
+  testWidgets('reader shows the source text of every ayah in order', (
+    tester,
+  ) async {
     await start(tester);
     go(tester, Routes.surah(1));
     await tester.pumpAndSettle();
 
-    expect(find.text('سورة ${meta.surah(1).nameAr}'), findsWidgets); // app bar + header
+    expect(
+      find.text('سورة ${meta.surah(1).nameAr}'),
+      findsWidgets,
+    ); // app bar + header
     for (var a = 1; a <= 4; a++) {
-      expect(find.text(reading.ayah(AyahRef(1, a))), findsOneWidget, reason: 'ayah $a');
+      expect(
+        find.text(reading.ayah(AyahRef(1, a))),
+        findsOneWidget,
+        reason: 'ayah $a',
+      );
     }
     // Al-Fatiha has no separate Basmala header; its first ayah is the Basmala.
     expect(find.text(reading.bismillah!), findsOneWidget);
   });
 
-  testWidgets('other surahs show the Basmala header, except At-Tawbah', (tester) async {
+  testWidgets('other surahs show the Basmala header, except At-Tawbah', (
+    tester,
+  ) async {
     await start(tester);
     go(tester, Routes.surah(112));
     await tester.pumpAndSettle();
@@ -79,7 +104,9 @@ void main() {
     expect(find.text(reading.bismillah!), findsNothing);
   });
 
-  testWidgets('bookmark and favorite an ayah from its action sheet', (tester) async {
+  testWidgets('bookmark and favorite an ayah from its action sheet', (
+    tester,
+  ) async {
     final container = await start(tester);
     go(tester, Routes.surah(112));
     await tester.pumpAndSettle();
@@ -96,6 +123,24 @@ void main() {
     expect(container.read(bookmarkedRefsProvider), {const AyahRef(112, 2)});
     expect(container.read(favoriteAyahRefsProvider), {const AyahRef(112, 2)});
     expect(find.text('أضيفت إلى المفضلة'), findsOneWidget);
+  });
+
+  testWidgets('bookmarks have a separate tab with the saved date and time', (
+    tester,
+  ) async {
+    final container = await start(tester);
+    await container
+        .read(libraryRepositoryProvider)
+        .toggleBookmark(const AyahRef(112, 2));
+    await openTab(tester, 'القرآن');
+
+    await tester.tap(find.text('العلامات'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('الإخلاص · آية 2'), findsOneWidget);
+    expect(find.textContaining('26 سبتمبر 2026'), findsOneWidget);
+    expect(find.textContaining('10:00 ص'), findsOneWidget);
+    expect(find.byIcon(Icons.bookmark_rounded), findsWidgets);
   });
 
   testWidgets('reading position is saved and offered on Home', (tester) async {
@@ -115,7 +160,10 @@ void main() {
     expect(saved!.ref.surah, 2);
     expect(saved.ref.ayah, inInclusiveRange(44, 46));
     expect(find.text('متابعة القراءة'), findsOneWidget);
-    expect(find.textContaining('سورة ${meta.surah(2).nameAr} · آية'), findsOneWidget);
+    expect(
+      find.textContaining('سورة ${meta.surah(2).nameAr} · آية'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('search finds an ayah and opens it', (tester) async {
@@ -123,20 +171,29 @@ void main() {
     go(tester, Routes.quranSearch);
     await tester.pumpAndSettle();
 
-    final word = search.ayah(const AyahRef(2, 255)).split(' ').reduce((a, b) => b.length > a.length ? b : a);
+    final word = search
+        .ayah(const AyahRef(2, 255))
+        .split(' ')
+        .reduce((a, b) => b.length > a.length ? b : a);
     await tester.enterText(find.byType(TextField), word);
     await tester.pump(const Duration(milliseconds: 300));
     await tester.pumpAndSettle();
 
     final label = '${meta.surah(2).nameAr} · آية 255';
-    await tester.scrollUntilVisible(find.text(label), 300, scrollable: find.byType(Scrollable).last);
+    await tester.scrollUntilVisible(
+      find.text(label),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
     await tester.tap(find.text(label));
     await tester.pumpAndSettle();
     expect(find.text('سورة ${meta.surah(2).nameAr}'), findsOneWidget);
     expect(find.text(reading.ayah(const AyahRef(2, 255))), findsOneWidget);
   });
 
-  testWidgets('search explains short queries and empty results', (tester) async {
+  testWidgets('search explains short queries and empty results', (
+    tester,
+  ) async {
     await start(tester);
     go(tester, Routes.quranSearch);
     await tester.pumpAndSettle();
@@ -153,7 +210,8 @@ void main() {
     go(tester, Routes.surah(112));
     await tester.pumpAndSettle();
 
-    final paragraph = tester.widgetList<RichText>(find.byType(RichText))
+    final paragraph = tester
+        .widgetList<RichText>(find.byType(RichText))
         .map((r) => r.text.toPlainText())
         .firstWhere((t) => t.contains(ayahEndMarker(1)));
     expect(paragraph, contains(reading.ayah(const AyahRef(112, 1))));
@@ -170,33 +228,49 @@ void main() {
     expect(find.text('حجم الخط'), findsOneWidget);
 
     final before = container.read(settingsProvider).quran.fontSize;
-    await tester.drag(find.byType(Slider).first, const Offset(-200, 0)); // RTL: left = larger
+    await tester.drag(
+      find.byType(Slider).first,
+      const Offset(-200, 0),
+    ); // RTL: left = larger
     await tester.pumpAndSettle();
     expect(container.read(settingsProvider).quran.fontSize, isNot(before));
   });
 
   for (final dark in [false, true]) {
-    testWidgets('Quran screens fit 320 px at 200% text (${dark ? 'dark' : 'light'})', (tester) async {
-      setSurface(tester, const Size(320, 640), textScale: 2);
-      await start(tester, prefs: {PreferencesStore.keyThemeMode: dark ? 'dark' : 'light'});
-      await openTab(tester, 'القرآن');
-      expect(tester.takeException(), isNull);
+    testWidgets(
+      'Quran screens fit 320 px at 200% text (${dark ? 'dark' : 'light'})',
+      (tester) async {
+        setSurface(tester, const Size(320, 640), textScale: 2);
+        await start(
+          tester,
+          prefs: {PreferencesStore.keyThemeMode: dark ? 'dark' : 'light'},
+        );
+        await openTab(tester, 'القرآن');
+        expect(tester.takeException(), isNull);
 
-      go(tester, Routes.surah(2));
-      await tester.pumpAndSettle();
-      await tester.drag(find.byType(Scrollable).last, const Offset(0, -1500));
-      await tester.pumpAndSettle();
-      expect(tester.takeException(), isNull);
-    });
+        go(tester, Routes.surah(2));
+        await tester.pumpAndSettle();
+        await tester.drag(find.byType(Scrollable).last, const Offset(0, -1500));
+        await tester.pumpAndSettle();
+        expect(tester.takeException(), isNull);
+      },
+    );
   }
 
   test('reading progress provider derives the overall fraction', () {
-    final container = ProviderContainer(overrides: [
-      quranMetaProvider.overrideWithValue(meta),
-      lastReadingPositionProvider.overrideWithValue(
-        AsyncData(ReadingPosition(ref: const AyahRef(114, 6), updatedAt: DateTime.utc(2026))),
-      ),
-    ]);
+    final container = ProviderContainer(
+      overrides: [
+        quranMetaProvider.overrideWithValue(meta),
+        lastReadingPositionProvider.overrideWithValue(
+          AsyncData(
+            ReadingPosition(
+              ref: const AyahRef(114, 6),
+              updatedAt: DateTime.utc(2026),
+            ),
+          ),
+        ),
+      ],
+    );
     addTearDown(container.dispose);
     final p = container.read(readingProgressProvider)!;
     expect(p.fraction, 1);

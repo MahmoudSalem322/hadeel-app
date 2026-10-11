@@ -338,6 +338,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quranTabFavorites => 'Favorites';
 
   @override
+  String get quranTabBookmarks => 'Bookmarks';
+
+  @override
   String surahTitle(String name) {
     return 'Surah $name';
   }
@@ -480,6 +483,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quranBookmarksSection => 'Bookmarks';
+
+  @override
+  String get quranBookmarksEmptyTitle => 'No bookmarks yet';
+
+  @override
+  String get quranBookmarksEmptyBody =>
+      'Bookmark any ayah to find it here with the time it was saved.';
 
   @override
   String get quranFavoritesSection => 'Favorite ayat';
@@ -820,6 +830,16 @@ class AppLocalizationsEn extends AppLocalizations {
       'Alerts when each prayer time begins';
 
   @override
+  String get hourlyDhikrLabel => 'Hourly dhikr reminder';
+
+  @override
+  String get hourlyDhikrTitle => 'Dhikr reminder';
+
+  @override
+  String get hourlyDhikrBody =>
+      'Remember Allah and send blessings upon the Prophet ﷺ';
+
+  @override
   String get qiblaDirectionLabel => 'Qibla direction';
 
   @override
@@ -1023,4 +1043,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dailyDua => 'Dua of the day';
+
+  @override
+  String get hourlyDhikrSchedule => 'Every hour from 7 AM through midnight';
+
+  @override
+  String get dailyContentReminderLabel => 'Daily dhikr and hadith';
+
+  @override
+  String get dailyContentReminderDescription =>
+      '3 varied reminders each day, plus morning and evening adhkar';
+
+  @override
+  String get notificationPermissionLabel => 'Allow Hadeel notifications';
+
+  @override
+  String get notificationPermissionDescription =>
+      'Allow notifications and precise alarms on your device';
+
+  @override
+  String get notificationPermissionGranted =>
+      'Notifications allowed and reminders rescheduled';
 }

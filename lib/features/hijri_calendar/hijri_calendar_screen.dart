@@ -9,6 +9,7 @@ import '../../domain/entities/hijri_date.dart';
 import '../../services/hijri/hijri_converter.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/hadeel_card.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/responsive_body.dart';
 import '../home/providers/home_providers.dart';
 import '../prayer/providers/prayer_providers.dart';
@@ -19,7 +20,8 @@ class HijriCalendarScreen extends ConsumerStatefulWidget {
   const HijriCalendarScreen({super.key});
 
   @override
-  ConsumerState<HijriCalendarScreen> createState() => _HijriCalendarScreenState();
+  ConsumerState<HijriCalendarScreen> createState() =>
+      _HijriCalendarScreenState();
 }
 
 class _HijriCalendarScreenState extends ConsumerState<HijriCalendarScreen> {
@@ -39,20 +41,29 @@ class _HijriCalendarScreenState extends ConsumerState<HijriCalendarScreen> {
     final length = converter.monthLength(year, month);
     final firstG = converter.toGregorian(HijriDate(year, month, 1));
     // Weeks start on Saturday. DateTime.weekday: Mon=1 … Sat=6, Sun=7.
-    final firstWeekday = DateTime(firstG.year, firstG.month, firstG.day).weekday;
+    final firstWeekday = DateTime(
+      firstG.year,
+      firstG.month,
+      firstG.day,
+    ).weekday;
     final leading = (firstWeekday - DateTime.saturday) % 7;
 
     final weekdayFormat = DateFormat.E(context.languageCode);
     final weekdayNames = [
-      for (var i = 0; i < 7; i++) weekdayFormat.format(DateTime(2026, 1, 3).add(Duration(days: i))), // a Saturday
+      for (var i = 0; i < 7; i++)
+        weekdayFormat.format(
+          DateTime(2026, 1, 3).add(Duration(days: i)),
+        ), // a Saturday
     ];
 
-    void shift(int delta) => setState(() => _month = HijriConverter.shiftMonth(year, month, delta));
+    void shift(int delta) =>
+        setState(() => _month = HijriConverter.shiftMonth(year, month, delta));
 
     final selectedG = converter.toGregorian(selected);
 
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
         title: Text(l10n.featureHijriCalendar),
         actions: [
           TextButton(
@@ -87,7 +98,11 @@ class _HijriCalendarScreenState extends ConsumerState<HijriCalendarScreen> {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        _gregorianSpan(context, firstG, converter.toGregorian(HijriDate(year, month, length))),
+                        _gregorianSpan(
+                          context,
+                          firstG,
+                          converter.toGregorian(HijriDate(year, month, length)),
+                        ),
                         style: context.text.bodySmall,
                         textAlign: TextAlign.center,
                       ),
@@ -111,8 +126,14 @@ class _HijriCalendarScreenState extends ConsumerState<HijriCalendarScreen> {
                       for (final w in weekdayNames)
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
-                            child: Text(w, textAlign: TextAlign.center, style: context.text.labelSmall),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: AppSpacing.xs,
+                            ),
+                            child: Text(
+                              w,
+                              textAlign: TextAlign.center,
+                              style: context.text.labelSmall,
+                            ),
                           ),
                         ),
                     ],
@@ -122,7 +143,8 @@ class _HijriCalendarScreenState extends ConsumerState<HijriCalendarScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 7,
-                      mainAxisExtent: 44 + 12 * MediaQuery.textScalerOf(context).scale(1),
+                      mainAxisExtent:
+                          44 + 12 * MediaQuery.textScalerOf(context).scale(1),
                     ),
                     itemCount: leading + length,
                     itemBuilder: (context, i) {
@@ -135,7 +157,8 @@ class _HijriCalendarScreenState extends ConsumerState<HijriCalendarScreen> {
                         gregorianDay: f.number(g.day),
                         isToday: g == todayG,
                         isSelected: h == selected,
-                        semantics: '${l10n.hijriLabel(h, f)}، ${f.gregorianDate(g)}',
+                        semantics:
+                            '${l10n.hijriLabel(h, f)}، ${f.gregorianDate(g)}',
                         onTap: () => setState(() => _selected = h),
                       );
                     },
@@ -148,8 +171,14 @@ class _HijriCalendarScreenState extends ConsumerState<HijriCalendarScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(l10n.hijriLabel(selected, f), style: context.text.titleMedium),
-                  Text(f.gregorianDate(selectedG), style: context.text.bodyMedium),
+                  Text(
+                    l10n.hijriLabel(selected, f),
+                    style: context.text.titleMedium,
+                  ),
+                  Text(
+                    f.gregorianDate(selectedG),
+                    style: context.text.bodyMedium,
+                  ),
                 ],
               ),
             ),
@@ -212,10 +241,15 @@ class _DayCell extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(hijriDay, style: context.text.titleSmall!.copyWith(color: fg)),
+                Text(
+                  hijriDay,
+                  style: context.text.titleSmall!.copyWith(color: fg),
+                ),
                 Text(
                   gregorianDay,
-                  style: context.text.labelSmall!.copyWith(color: isToday ? brand.onHeroMuted : brand.textSecondary),
+                  style: context.text.labelSmall!.copyWith(
+                    color: isToday ? brand.onHeroMuted : brand.textSecondary,
+                  ),
                 ),
               ],
             ),
@@ -234,7 +268,9 @@ class _AdjustmentCard extends ConsumerWidget {
     final l10n = context.l10n;
     final days = ref.watch(settingsProvider.select((s) => s.hijriAdjustment));
     final notifier = ref.read(settingsProvider.notifier);
-    final label = days == 0 ? l10n.hijriNoAdjustment : l10n.hijriAdjustmentValue(days > 0 ? '+$days' : '$days');
+    final label = days == 0
+        ? l10n.hijriNoAdjustment
+        : l10n.hijriAdjustmentValue(days > 0 ? '+$days' : '$days');
     return HadeelCard(
       child: Row(
         children: [
@@ -248,12 +284,20 @@ class _AdjustmentCard extends ConsumerWidget {
             ),
           ),
           IconButton(
-            onPressed: days <= -AppSettings.maxHijriAdjustment ? null : () => notifier.setHijriAdjustment(days - 1),
+            onPressed: days <= -AppSettings.maxHijriAdjustment
+                ? null
+                : () => notifier.setHijriAdjustment(days - 1),
             icon: const Icon(Icons.remove_circle_outline_rounded),
           ),
-          Text(label, style: context.text.labelLarge, textDirection: TextDirection.ltr),
+          Text(
+            label,
+            style: context.text.labelLarge,
+            textDirection: TextDirection.ltr,
+          ),
           IconButton(
-            onPressed: days >= AppSettings.maxHijriAdjustment ? null : () => notifier.setHijriAdjustment(days + 1),
+            onPressed: days >= AppSettings.maxHijriAdjustment
+                ? null
+                : () => notifier.setHijriAdjustment(days + 1),
             icon: const Icon(Icons.add_circle_outline_rounded),
           ),
         ],

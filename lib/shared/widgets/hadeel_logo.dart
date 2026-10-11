@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
 
-/// The Hadeel mark: a crescent cradling a single dove wing (هديل is the
-/// cooing of doves). Drawn in code so one source feeds the app, the splash
-/// and the generated launcher icons.
+/// The crescent-and-ripple artwork shared by the app and launcher.
 class HadeelLogo extends StatelessWidget {
   const HadeelLogo({
     super.key,
@@ -29,12 +27,22 @@ class HadeelLogo extends StatelessWidget {
       excludeSemantics: true,
       child: SizedBox.square(
         dimension: size,
-        child: CustomPaint(
-          painter: HadeelLogoPainter(
-            markColor: markColor,
-            backgroundColor: withBackground ? backgroundColor : null,
-          ),
-        ),
+        child: withBackground
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(size * .24),
+                child: Image.asset(
+                  'assets/branding/icon_v4.png',
+                  fit: BoxFit.cover,
+                  cacheWidth: (size * MediaQuery.devicePixelRatioOf(context))
+                      .round(),
+                ),
+              )
+            : CustomPaint(
+                painter: HadeelLogoPainter(
+                  markColor: markColor,
+                  backgroundColor: null,
+                ),
+              ),
       ),
     );
   }
@@ -61,7 +69,10 @@ class HadeelLogoPainter extends CustomPainter {
     final u = s / 100; // design grid: 100 × 100
 
     if (backgroundColor != null) {
-      final tile = RRect.fromRectAndRadius(Offset.zero & Size.square(s), Radius.circular(22 * u));
+      final tile = RRect.fromRectAndRadius(
+        Offset.zero & Size.square(s),
+        Radius.circular(22 * u),
+      );
       canvas.drawRRect(tile, Paint()..color = backgroundColor!);
     }
 
@@ -74,31 +85,41 @@ class HadeelLogoPainter extends CustomPainter {
       ..color = markColor
       ..isAntiAlias = true;
 
-    // Crescent: outer disc minus an offset disc, opening towards the
-    // upper-leading corner.
-    final outer = Path()..addOval(Rect.fromCircle(center: Offset(47 * u, 53 * u), radius: 31 * u));
-    final inner = Path()..addOval(Rect.fromCircle(center: Offset(60 * u, 43 * u), radius: 26 * u));
-    canvas.drawPath(Path.combine(PathOperation.difference, outer, inner), paint);
+    // Crescent opening toward a remembrance dot and two gentle sound waves.
+    final outer = Path()
+      ..addOval(
+        Rect.fromCircle(center: Offset(45 * u, 51 * u), radius: 35 * u),
+      );
+    final inner = Path()
+      ..addOval(
+        Rect.fromCircle(center: Offset(57 * u, 41 * u), radius: 30 * u),
+      );
+    canvas.drawPath(
+      Path.combine(PathOperation.difference, outer, inner),
+      paint,
+    );
 
-    // Dove wing: a long leaf rising from the crescent's inner curve...
-    // Both shapes float in the crescent's hollow with a small gap, so the
-    // mark stays crisp at launcher-icon sizes.
-    final wing = Path()
-      ..moveTo(52 * u, 60 * u)
-      ..cubicTo(59 * u, 47 * u, 70 * u, 35 * u, 86 * u, 24 * u)
-      ..cubicTo(81 * u, 40 * u, 72 * u, 52 * u, 57 * u, 62 * u)
-      ..quadraticBezierTo(53 * u, 63 * u, 52 * u, 60 * u)
-      ..close();
-    canvas.drawPath(wing, paint);
-
-    // ...and a shorter second feather beneath it for a sense of flight.
-    final feather = Path()
-      ..moveTo(60 * u, 64 * u)
-      ..cubicTo(66 * u, 58 * u, 74 * u, 53 * u, 84 * u, 49 * u)
-      ..cubicTo(79 * u, 57 * u, 72 * u, 63 * u, 64 * u, 66 * u)
-      ..quadraticBezierTo(60 * u, 67 * u, 60 * u, 64 * u)
-      ..close();
-    canvas.drawPath(feather, paint);
+    canvas.drawCircle(Offset(57 * u, 52 * u), 7 * u, paint);
+    final wavePaint = Paint()
+      ..color = markColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 5 * u
+      ..strokeCap = StrokeCap.round
+      ..isAntiAlias = true;
+    canvas.drawArc(
+      Rect.fromCircle(center: Offset(57 * u, 52 * u), radius: 18 * u),
+      -0.95,
+      1.9,
+      false,
+      wavePaint,
+    );
+    canvas.drawArc(
+      Rect.fromCircle(center: Offset(57 * u, 52 * u), radius: 29 * u),
+      -0.9,
+      1.8,
+      false,
+      wavePaint,
+    );
 
     canvas.restore();
   }

@@ -26,10 +26,10 @@ abstract final class AppSpacing {
 
 /// Corner radius scale: 8 · 12 · 16 · 20.
 abstract final class AppRadius {
-  static const double sm = 8;
-  static const double md = 12;
-  static const double lg = 16;
-  static const double xl = 20;
+  static const double sm = 14;
+  static const double md = 20;
+  static const double lg = 28;
+  static const double xl = 36;
 
   static const BorderRadius smAll = BorderRadius.all(Radius.circular(sm));
   static const BorderRadius mdAll = BorderRadius.all(Radius.circular(md));

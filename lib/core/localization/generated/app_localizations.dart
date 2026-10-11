@@ -638,6 +638,12 @@ abstract class AppLocalizations {
   /// **'المفضلة'**
   String get quranTabFavorites;
 
+  /// No description provided for @quranTabBookmarks.
+  ///
+  /// In ar, this message translates to:
+  /// **'العلامات'**
+  String get quranTabBookmarks;
+
   /// No description provided for @surahTitle.
   ///
   /// In ar, this message translates to:
@@ -853,6 +859,18 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'العلامات'**
   String get quranBookmarksSection;
+
+  /// No description provided for @quranBookmarksEmptyTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا توجد علامات بعد'**
+  String get quranBookmarksEmptyTitle;
+
+  /// No description provided for @quranBookmarksEmptyBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'ضع علامة على أي آية لتجدها هنا مع وقت إضافتها.'**
+  String get quranBookmarksEmptyBody;
 
   /// No description provided for @quranFavoritesSection.
   ///
@@ -1268,6 +1286,24 @@ abstract class AppLocalizations {
   /// **'تنبيه عند دخول وقت كل صلاة'**
   String get notificationChannelDescription;
 
+  /// No description provided for @hourlyDhikrLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'تذكير بذكر الله كل ساعة'**
+  String get hourlyDhikrLabel;
+
+  /// No description provided for @hourlyDhikrTitle.
+  ///
+  /// In ar, this message translates to:
+  /// **'تذكير بذكر الله'**
+  String get hourlyDhikrTitle;
+
+  /// No description provided for @hourlyDhikrBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'أَذْكُرِ اللهَ وَصَلِّ عَلَى نَبِيِّهِ محمد ﷺ'**
+  String get hourlyDhikrBody;
+
   /// No description provided for @qiblaDirectionLabel.
   ///
   /// In ar, this message translates to:
@@ -1609,6 +1645,42 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'دعاء اليوم'**
   String get dailyDua;
+
+  /// No description provided for @hourlyDhikrSchedule.
+  ///
+  /// In ar, this message translates to:
+  /// **'كل رأس ساعة من ٧ صباحاً حتى ١٢ منتصف الليل'**
+  String get hourlyDhikrSchedule;
+
+  /// No description provided for @dailyContentReminderLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'نفحات يومية من الذكر والحديث'**
+  String get dailyContentReminderLabel;
+
+  /// No description provided for @dailyContentReminderDescription.
+  ///
+  /// In ar, this message translates to:
+  /// **'٣ تنبيهات متنوّعة يومياً، مع تذكير بأذكار الصباح والمساء'**
+  String get dailyContentReminderDescription;
+
+  /// No description provided for @notificationPermissionLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'السماح بإشعارات هديل'**
+  String get notificationPermissionLabel;
+
+  /// No description provided for @notificationPermissionDescription.
+  ///
+  /// In ar, this message translates to:
+  /// **'فعّل إذن الإشعارات والتنبيهات الدقيقة من جهازك'**
+  String get notificationPermissionDescription;
+
+  /// No description provided for @notificationPermissionGranted.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم تفعيل الإشعارات وإعادة جدولة التذكيرات'**
+  String get notificationPermissionGranted;
 }
 
 class _AppLocalizationsDelegate

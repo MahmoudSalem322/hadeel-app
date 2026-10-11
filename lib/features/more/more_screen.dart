@@ -6,6 +6,7 @@ import '../../core/routing/routes.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/hadeel_card.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/responsive_body.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -18,8 +19,16 @@ class MoreScreen extends StatelessWidget {
       [
         (Icons.explore_outlined, l10n.featureQibla, Routes.qibla),
         (Icons.fingerprint_rounded, l10n.featureTasbeeh, Routes.tasbeeh),
-        (Icons.calendar_month_outlined, l10n.featureHijriCalendar, Routes.hijriCalendar),
-        (Icons.favorite_outline_rounded, l10n.featureFavorites, Routes.favorites),
+        (
+          Icons.calendar_month_outlined,
+          l10n.featureHijriCalendar,
+          Routes.hijriCalendar,
+        ),
+        (
+          Icons.favorite_outline_rounded,
+          l10n.featureFavorites,
+          Routes.favorites,
+        ),
         (Icons.volunteer_activism_outlined, l10n.featureDuas, Routes.duas),
         (Icons.format_quote_outlined, l10n.featureHadith, Routes.hadith),
       ],
@@ -27,12 +36,16 @@ class MoreScreen extends StatelessWidget {
         (Icons.settings_outlined, l10n.featureSettings, Routes.settings),
         (Icons.info_outline_rounded, l10n.featureAbout, Routes.about),
         (Icons.library_books_outlined, l10n.featureSources, Routes.sources),
-        if (kDebugMode) (Icons.palette_outlined, l10n.galleryTitle, Routes.designGallery),
+        if (kDebugMode)
+          (Icons.palette_outlined, l10n.galleryTitle, Routes.designGallery),
       ],
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.featureMore)),
+      appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
+        title: Text(l10n.featureMore),
+      ),
       body: ResponsiveBody(
         child: ListView(
           padding: EdgeInsets.fromLTRB(
@@ -52,7 +65,10 @@ class MoreScreen extends StatelessWidget {
                       ListTile(
                         leading: Icon(group[i].$1),
                         title: Text(group[i].$2),
-                        trailing: Icon(Icons.chevron_right_rounded, color: context.brand.textSecondary),
+                        trailing: Icon(
+                          Icons.chevron_right_rounded,
+                          color: context.brand.textSecondary,
+                        ),
                         onTap: () => context.push(group[i].$3),
                       ),
                     ],

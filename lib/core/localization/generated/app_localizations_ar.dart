@@ -334,6 +334,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quranTabFavorites => 'المفضلة';
 
   @override
+  String get quranTabBookmarks => 'العلامات';
+
+  @override
   String surahTitle(String name) {
     return 'سورة $name';
   }
@@ -480,6 +483,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get quranBookmarksSection => 'العلامات';
+
+  @override
+  String get quranBookmarksEmptyTitle => 'لا توجد علامات بعد';
+
+  @override
+  String get quranBookmarksEmptyBody =>
+      'ضع علامة على أي آية لتجدها هنا مع وقت إضافتها.';
 
   @override
   String get quranFavoritesSection => 'الآيات المفضلة';
@@ -826,6 +836,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get notificationChannelDescription => 'تنبيه عند دخول وقت كل صلاة';
 
   @override
+  String get hourlyDhikrLabel => 'تذكير بذكر الله كل ساعة';
+
+  @override
+  String get hourlyDhikrTitle => 'تذكير بذكر الله';
+
+  @override
+  String get hourlyDhikrBody => 'أَذْكُرِ اللهَ وَصَلِّ عَلَى نَبِيِّهِ محمد ﷺ';
+
+  @override
   String get qiblaDirectionLabel => 'اتجاه القبلة';
 
   @override
@@ -1028,4 +1047,26 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dailyDua => 'دعاء اليوم';
+
+  @override
+  String get hourlyDhikrSchedule =>
+      'كل رأس ساعة من ٧ صباحاً حتى ١٢ منتصف الليل';
+
+  @override
+  String get dailyContentReminderLabel => 'نفحات يومية من الذكر والحديث';
+
+  @override
+  String get dailyContentReminderDescription =>
+      '٣ تنبيهات متنوّعة يومياً، مع تذكير بأذكار الصباح والمساء';
+
+  @override
+  String get notificationPermissionLabel => 'السماح بإشعارات هديل';
+
+  @override
+  String get notificationPermissionDescription =>
+      'فعّل إذن الإشعارات والتنبيهات الدقيقة من جهازك';
+
+  @override
+  String get notificationPermissionGranted =>
+      'تم تفعيل الإشعارات وإعادة جدولة التذكيرات';
 }

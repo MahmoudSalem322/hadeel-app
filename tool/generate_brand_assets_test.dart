@@ -1,75 +1,62 @@
-// Renders the HadeelLogo painter to the PNGs consumed by
-// flutter_launcher_icons and flutter_native_splash.
-//
+// Builds splash and web artwork from the launcher source.
 // Run: flutter test tool/generate_brand_assets_test.dart
-// Then: dart run flutter_launcher_icons && dart run flutter_native_splash:create
 import 'dart:io';
 import 'dart:ui' as ui;
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hadeel/core/theme/app_colors.dart';
-import 'package:hadeel/shared/widgets/hadeel_logo.dart';
-
-Future<void> _render(String path, int size, CustomPainter painter) async {
-  final recorder = ui.PictureRecorder();
-  final canvas = Canvas(recorder);
-  painter.paint(canvas, Size.square(size.toDouble()));
-  final image = await recorder.endRecording().toImage(size, size);
-  final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
-  final file = File(path)..createSync(recursive: true);
-  file.writeAsBytesSync(bytes!.buffer.asUint8List());
-}
 
 void main() {
-  test('generate brand assets', () async {
-    // iOS / legacy Android: full-bleed square (iOS applies its own mask).
-    await _render(
-      'assets/branding/icon_1024.png',
-      1024,
-      const _FullBleedIconPainter(),
+  test('generate splash and web icons from current brand artwork', () async {
+    final codec = await ui.instantiateImageCodec(
+      await File('assets/branding/icon_v4.png').readAsBytes(),
     );
-    // Android adaptive foreground: mark inside the 66% safe zone.
-    await _render(
-      'assets/branding/icon_foreground.png',
-      1024,
-      const HadeelLogoPainter(markColor: AppColors.gold, markScale: 0.62),
+    final frame = await codec.getNextFrame();
+    final source = frame.image;
+    final recorder = ui.PictureRecorder();
+    final canvas = ui.Canvas(recorder);
+    // Keep the complete tile within Android 12's circular splash safe area.
+    canvas.drawImageRect(
+      source,
+      ui.Rect.fromLTWH(0, 0, source.width.toDouble(), source.height.toDouble()),
+      const ui.Rect.fromLTWH(192, 192, 384, 384),
+      ui.Paint()..filterQuality = ui.FilterQuality.high,
     );
-    // Native splash: the tile at a comfortable size on a transparent canvas.
-    await _render(
-      'assets/branding/splash_logo.png',
-      768,
-      const _SplashPainter(),
-    );
+    final picture = recorder.endRecording();
+    final image = await picture.toImage(768, 768);
+    final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    File('assets/branding/splash_logo.png')
+        .writeAsBytesSync(bytes!.buffer.asUint8List());
+    image.dispose();
+
+    Future<void> renderWebIcon(String path, int size) async {
+      final iconRecorder = ui.PictureRecorder();
+      final iconCanvas = ui.Canvas(iconRecorder);
+      iconCanvas.drawImageRect(
+        source,
+        ui.Rect.fromLTWH(
+          0,
+          0,
+          source.width.toDouble(),
+          source.height.toDouble(),
+        ),
+        ui.Rect.fromLTWH(0, 0, size.toDouble(), size.toDouble()),
+        ui.Paint()..filterQuality = ui.FilterQuality.high,
+      );
+      final iconPicture = iconRecorder.endRecording();
+      final icon = await iconPicture.toImage(size, size);
+      final iconBytes = await icon.toByteData(format: ui.ImageByteFormat.png);
+      File(path).writeAsBytesSync(iconBytes!.buffer.asUint8List());
+      icon.dispose();
+      iconPicture.dispose();
+    }
+
+    await renderWebIcon('web/favicon.png', 32);
+    await renderWebIcon('web/icons/Icon-192.png', 192);
+    await renderWebIcon('web/icons/Icon-512.png', 512);
+    await renderWebIcon('web/icons/Icon-maskable-192.png', 192);
+    await renderWebIcon('web/icons/Icon-maskable-512.png', 512);
+    source.dispose();
+    picture.dispose();
+    codec.dispose();
   });
-}
-
-class _FullBleedIconPainter extends CustomPainter {
-  const _FullBleedIconPainter();
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    canvas.drawRect(Offset.zero & size, Paint()..color = AppColors.primary);
-    const HadeelLogoPainter(markColor: AppColors.gold, markScale: 0.8).paint(canvas, size);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _SplashPainter extends CustomPainter {
-  const _SplashPainter();
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Android 12 crops the splash icon to a circle of 2/3 the canvas, so
-    // the tile sits well inside that.
-    final tile = size.shortestSide * 0.5;
-    canvas.translate((size.width - tile) / 2, (size.height - tile) / 2);
-    const HadeelLogoPainter(markColor: AppColors.gold, backgroundColor: AppColors.primary)
-        .paint(canvas, Size.square(tile));
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

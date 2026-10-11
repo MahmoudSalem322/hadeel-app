@@ -1,10 +1,8 @@
 {
   "@@locale": "en",
-
   "appName": "Hadeel",
   "appNameLatin": "Hadeel",
   "appTagline": "Your daily companion for Quran and dhikr",
-
   "onboardingWelcomeTitle": "Welcome to Hadeel",
   "onboardingWelcomeBody": "Your daily companion for Quran, dhikr and worship.",
   "onboardingQuranTitle": "The Quran, always with you",
@@ -22,13 +20,11 @@
   "actionChange": "Change",
   "actionClose": "Close",
   "actionExplore": "Explore content",
-
   "navHome": "Home",
   "navQuran": "Quran",
   "navAdhkar": "Adhkar",
   "navPrayer": "Prayer",
   "navMore": "More",
-
   "homeGreeting": "Assalamu alaikum",
   "homeNextPrayer": "Next prayer",
   "homeRemaining": "Remaining",
@@ -39,7 +35,6 @@
   "homeStartReadingBody": "Begin your Quran wird and we will remember your place.",
   "homeReadingPosition": "Surah {surah} · Ayah {ayah}",
   "nextPrayerSemantics": "Next prayer {prayer} at {time}, {remaining} remaining",
-
   "featureQuran": "The Holy Quran",
   "featureAdhkar": "Adhkar",
   "featureTasbeeh": "Tasbeeh",
@@ -54,11 +49,9 @@
   "featureAbout": "About",
   "featureSources": "Sources",
   "featureMore": "More",
-
   "prayerName": "{prayer, select, fajr{Fajr} sunrise{Sunrise} dhuhr{Dhuhr} asr{Asr} maghrib{Maghrib} isha{Isha} other{}}",
   "hijriMonth": "{month, select, m1{Muharram} m2{Safar} m3{Rabi al-Awwal} m4{Rabi al-Akhir} m5{Jumada al-Ula} m6{Jumada al-Akhirah} m7{Rajab} m8{Shaban} m9{Ramadan} m10{Shawwal} m11{Dhu al-Qadah} m12{Dhu al-Hijjah} other{}}",
   "hijriDate": "{day} {month} {year} AH",
-
   "locationUseMine": "Use my location",
   "locationChooseCity": "Choose city",
   "locationChooseCityManually": "Choose city manually",
@@ -74,20 +67,16 @@
   "locationErrorDeniedForever": "Location permission is denied. You can enable it in device settings.",
   "locationErrorTimeout": "Getting your location took too long.",
   "locationErrorUnknown": "An unexpected error occurred while locating you.",
-
   "cityPickerTitle": "Choose your city",
   "citySearchHint": "Search for a city",
   "cityNoResults": "No city matches that name",
   "cityRegion": "{region, select, west_bank{West Bank} gaza_strip{Gaza Strip} interior{Interior} other{Other}}",
-
   "comingSoonTitle": "Coming soon",
   "comingSoonBody": "We're preparing this section to work fully offline.",
-
   "themeModeLabel": "Appearance",
   "themeLight": "Light",
   "themeDark": "Dark",
   "themeSystem": "System",
-
   "galleryTitle": "Design system",
   "gallerySampleAyahLabel": "Quran font sample",
   "galleryColors": "Colors",
@@ -98,10 +87,10 @@
   "gallerySearchHint": "Search the Quran and adhkar",
   "emptyFavoritesTitle": "Nothing saved yet",
   "emptyFavoritesBody": "You haven't added anything to your favorites.",
-
   "quranTabSurahs": "Surahs",
   "quranTabJuz": "Juz'",
   "quranTabFavorites": "Favorites",
+  "quranTabBookmarks": "Bookmarks",
   "surahTitle": "Surah {name}",
   "revelationType": "{type, select, meccan{Meccan} medinan{Medinan} other{}}",
   "ayahCount": "{count, plural, =1{1 ayah} other{{count} ayat}}",
@@ -111,7 +100,6 @@
   "ayahCitation": "﴿{text}﴾ [{surah}: {ayah}]",
   "sajdaMark": "Prostration",
   "quranLoadError": "Couldn't load the Quran text",
-
   "ayahActionBookmark": "Bookmark",
   "ayahActionFavorite": "Favorite",
   "ayahActionCopy": "Copy",
@@ -121,7 +109,6 @@
   "toastBookmarkRemoved": "Bookmark removed",
   "toastFavoriteAdded": "Added to favorites",
   "toastFavoriteRemoved": "Removed from favorites",
-
   "readingSettingsTitle": "Reading settings",
   "readingFontSize": "Font size",
   "readingLineHeight": "Line spacing",
@@ -132,7 +119,6 @@
   "readingModeVerses": "Ayah by ayah",
   "readingModeContinuous": "Continuous",
   "nextSurah": "Next surah",
-
   "quranSearchHint": "Search the Quran",
   "searchMinChars": "Type at least two letters",
   "searchNoResults": "No matches",
@@ -140,13 +126,13 @@
   "searchSurahsSection": "Surahs",
   "searchAyatSection": "{count, plural, =0{Ayat} =1{Ayat · 1 result} other{Ayat · {count} results}}",
   "searchCapped": "Showing the first {shown} results. Add more words to narrow down.",
-
   "quranBookmarksSection": "Bookmarks",
+  "quranBookmarksEmptyTitle": "No bookmarks yet",
+  "quranBookmarksEmptyBody": "Bookmark any ayah to find it here with the time it was saved.",
   "quranFavoritesSection": "Favorite ayat",
   "quranFavoritesEmptyTitle": "No saved ayat",
   "quranFavoritesEmptyBody": "Tap any ayah while reading to favorite or bookmark it.",
   "actionStartReading": "Start reading",
-
   "sourcesIntro": "Every piece of religious content in Hadeel comes from a trusted, stated source — never altered or machine-generated.",
   "sourceQuranTitle": "Quran text",
   "sourceQuranBody": "Tanzil Project — Uthmani and Simple Clean texts, version 1.1, reproduced verbatim under its terms of use and CC BY 3.0.",
@@ -164,13 +150,11 @@
   "sourceAdhkarBody": "Hisn al-Muslim — Sa'id ibn Ali ibn Wahf al-Qahtani (hisnmuslim.com). Quranic duas are shown straight from the mushaf text.",
   "sourceHadithTitle": "Hadith",
   "sourceHadithBody": "Imam an-Nawawi's Forty Hadith and Riyad as-Salihin — Arabic text as published by Sunnah.com, including the takhrij given in the book.",
-
   "ayahActionTafsir": "Tafsir",
   "tafsirTitle": "Al-Tafsir al-Muyassar",
   "tafsirSource": "Source: Al-Tafsir al-Muyassar — King Fahd Complex",
   "readingShowTafsir": "Show tafsir under each ayah",
   "tafsirLoadError": "Couldn't load the tafsir",
-
   "adhkarCategory": "{key, select, morning_evening{Morning & evening} after_prayer{After prayer} sleep{Before sleep} waking{On waking} home_leave{Leaving home} home_enter{Entering home} mosque{Mosque} adhan{Adhan} wudu{Wudu} food{Eating} travel{Travel} tasbih{Tasbih & praise} other{Adhkar}}",
   "adhkarDaily": "Daily adhkar",
   "adhkarAllChapters": "All chapters of Hisn al-Muslim",
@@ -187,20 +171,17 @@
   "adhkarSource": "Source: Hisn al-Muslim",
   "itemsCount": "{count, plural, =1{1 dhikr} other{{count} adhkar}}",
   "contentLoadError": "Couldn't load the content",
-
   "duaCategory": "{key, select, quranic{Quranic duas} prophets{Duas of the prophets} rizq{Provision & debt} tawbah{Repentance} travel{Travel} healing{Illness & healing} distress{Worry & distress} morning_evening{Morning & evening} general{Comprehensive duas} other{Duas}}",
   "prophetName": "{key, select, adam{Adam (AS)} nuh{Nuh (AS)} ibrahim{Ibrahim (AS)} shuayb{Shu'ayb (AS)} lut{Lut (AS)} yusuf{Yusuf (AS)} musa{Musa (AS)} ayyub{Ayyub (AS)} yunus{Yunus (AS)} sulayman{Sulayman (AS)} zakariya{Zakariya (AS)} other{}}",
   "quranReference": "[{surah}: {ayat}]",
   "duasCount": "{count, plural, =1{1 dua} other{{count} duas}}",
   "toastCopiedText": "Copied",
-
   "hadithBooks": "Hadith books",
   "hadithNumber": "Hadith {number}",
   "hadithCount": "{count, plural, =1{1 hadith} other{{count} hadith}}",
   "hadithAllChapters": "All books",
   "hadithSourceLine": "{book} — {author}",
   "hadithSearchHint": "Search hadith",
-
   "prayerMethod": "Calculation method",
   "prayerMadhab": "Asr juristic method",
   "calcMethodName": "{key, select, egyptian{Egyptian General Authority} muslimWorldLeague{Muslim World League} ummAlQura{Umm al-Qura} karachi{University of Islamic Sciences, Karachi} northAmerica{North America (ISNA)} dubai{Dubai} kuwait{Kuwait} qatar{Qatar} turkey{Turkey} singapore{Singapore} moonSightingCommittee{Moonsighting Committee} other{}}",
@@ -209,7 +190,6 @@
   "locationUpdate": "Update location",
   "locationChangeCity": "Change city",
   "prayerCalcNote": "Times are calculated on your device, no internet needed.",
-
   "notificationsTitle": "Prayer notifications",
   "notificationsEnableAll": "Turn on prayer notifications",
   "notificationForPrayer": "{prayer} notification",
@@ -218,7 +198,9 @@
   "notificationBody": "{place} · {time}",
   "notificationChannelName": "Prayer times",
   "notificationChannelDescription": "Alerts when each prayer time begins",
-
+  "hourlyDhikrLabel": "Hourly dhikr reminder",
+  "hourlyDhikrTitle": "Dhikr reminder",
+  "hourlyDhikrBody": "Remember Allah and send blessings upon the Prophet ﷺ",
   "qiblaDirectionLabel": "Qibla direction",
   "qiblaBearing": "{degrees}° from north",
   "qiblaDistance": "Distance to the Kaaba: {km} km",
@@ -230,7 +212,6 @@
   "qiblaNoSensor": "This device has no compass sensor. Use the angle shown with another compass.",
   "qiblaNeedsLocation": "Set your location to calculate the qibla.",
   "qiblaHeading": "Phone heading: {degrees}°",
-
   "tasbeehTarget": "Target",
   "tasbeehUnlimited": "No limit",
   "tasbeehChangeDhikr": "Change dhikr",
@@ -241,7 +222,6 @@
   "tasbeehVibration": "Vibrate on each count",
   "tasbeehSound": "Sound on each count",
   "tasbeehPhrase": "{key, select, subhanallah{SubhanAllah} alhamdulillah{Alhamdulillah} allahuakbar{Allahu Akbar} tahlil{La ilaha illallah} istighfar{Astaghfirullah} hawqala{La hawla wa la quwwata illa billah} subhanallah_wabihamdihi{SubhanAllahi wa bihamdihi} salawat{Allahumma salli ala Muhammad} other{}}",
-
   "hijriToday": "Today",
   "hijriMonthTitle": "{month} {year} AH",
   "hijriAdjustment": "Hijri date adjustment",
@@ -250,18 +230,15 @@
   "hijriAdjustmentHint": "To match the moon sighting in your country.",
   "previousMonth": "Previous month",
   "nextMonth": "Next month",
-
   "favoritesTabQuran": "Quran",
   "favoritesTabAdhkar": "Adhkar",
   "favoritesTabDuas": "Duas",
   "favoritesTabHadith": "Hadith",
-
   "globalSearchHint": "Search the Quran, adhkar, duas and hadith",
   "searchSectionQuran": "The Holy Quran",
   "searchSectionAdhkar": "Adhkar",
   "searchSectionHadith": "Hadith",
   "searchShowAll": "Show all results",
-
   "settingsAppearance": "Appearance",
   "settingsLanguage": "Language",
   "languageArabic": "العربية",
@@ -276,10 +253,15 @@
   "privacyBody": "Hadeel collects no personal data, sends nothing to any server and needs no account. Your location is used on your device only, to calculate prayer times and the qibla. Favorites, bookmarks and settings are stored locally.",
   "aboutBody": "Hadeel is your daily companion for Quran and dhikr: the Holy Quran with tafsir, adhkar and duas, hadith, prayer times, qibla, tasbeeh and the Hijri calendar — all working fully offline.",
   "aboutVersion": "Version {version}",
-
   "dailyContent": "Today's reflection",
   "dailyAyah": "Ayah of the day",
   "dailyDhikr": "Dhikr of the day",
   "dailyHadith": "Hadith of the day",
-  "dailyDua": "Dua of the day"
+  "dailyDua": "Dua of the day",
+  "hourlyDhikrSchedule": "Every hour from 7 AM through midnight",
+  "dailyContentReminderLabel": "Daily dhikr and hadith",
+  "dailyContentReminderDescription": "3 varied reminders each day, plus morning and evening adhkar",
+  "notificationPermissionLabel": "Allow Hadeel notifications",
+  "notificationPermissionDescription": "Allow notifications and precise alarms on your device",
+  "notificationPermissionGranted": "Notifications allowed and reminders rescheduled"
 }

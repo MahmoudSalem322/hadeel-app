@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'liquid_glass.dart';
+
 class SearchField extends StatelessWidget {
   const SearchField({
     super.key,
@@ -16,14 +18,18 @@ class SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      onChanged: onChanged,
-      autofocus: autofocus,
-      textInputAction: TextInputAction.search,
-      decoration: InputDecoration(
-        hintText: hint,
-        prefixIcon: const Icon(Icons.search_rounded),
+    return LiquidGlass(
+      radius: 22,
+      child: TextField(
+        controller: controller,
+        onChanged: onChanged,
+        autofocus: autofocus,
+        textInputAction: TextInputAction.search,
+        decoration: InputDecoration(
+          fillColor: Colors.transparent,
+          hintText: hint,
+          prefixIcon: const Icon(Icons.search_rounded),
+        ),
       ),
     );
   }

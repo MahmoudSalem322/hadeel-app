@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_spacing.dart';
 import '../../../shared/extensions/context_x.dart';
+import '../../../shared/widgets/liquid_glass.dart';
 
 /// One onboarding page: a quiet emblem, a title and a short line of text.
 class OnboardingPage extends StatelessWidget {
@@ -44,7 +45,9 @@ class OnboardingPage extends StatelessWidget {
                   const SizedBox(height: AppSpacing.sm),
                   Text(
                     body,
-                    style: context.text.bodyLarge!.copyWith(color: context.brand.textSecondary),
+                    style: context.text.bodyLarge!.copyWith(
+                      color: context.brand.textSecondary,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   if (footer != null) ...[
@@ -69,15 +72,13 @@ class OnboardingEmblem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 132,
       height: 132,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: context.colors.primaryContainer,
-        border: Border.all(color: context.brand.gold.withValues(alpha: 0.5), width: 1.5),
+      child: LiquidGlass(
+        radius: 66,
+        child: Icon(icon, size: 56, color: context.colors.primary),
       ),
-      child: Icon(icon, size: 56, color: context.colors.primary),
     );
   }
 }

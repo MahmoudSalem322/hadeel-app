@@ -6,6 +6,7 @@ import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../domain/entities/next_prayer.dart';
 import '../../../shared/extensions/context_x.dart';
+import '../../../shared/widgets/colorful_hero.dart';
 import '../../../shared/widgets/hadeel_card.dart';
 import '../../../shared/widgets/progress_ring.dart';
 import '../../prayer/providers/location_setup_provider.dart';
@@ -34,7 +35,9 @@ class _NextPrayerHero extends ConsumerWidget {
 
   Future<void> _changeCity(BuildContext context, WidgetRef ref) async {
     final city = await showCityPicker(context);
-    if (city != null) await ref.read(locationSetupProvider.notifier).chooseCity(city);
+    if (city != null) {
+      await ref.read(locationSetupProvider.notifier).chooseCity(city);
+    }
   }
 
   @override
@@ -53,11 +56,7 @@ class _NextPrayerHero extends ConsumerWidget {
       next: next,
       prayerName: prayerName,
       timeText: timeText,
-      child: Container(
-        decoration: BoxDecoration(
-          color: brand.hero,
-          borderRadius: AppRadius.xlAll,
-        ),
+      child: ColorfulHero(
         padding: const EdgeInsetsDirectional.fromSTEB(
           AppSpacing.lg,
           AppSpacing.lg,
@@ -76,7 +75,9 @@ class _NextPrayerHero extends ConsumerWidget {
                     children: [
                       Text(
                         l10n.homeNextPrayer,
-                        style: context.text.labelMedium!.copyWith(color: brand.onHeroMuted),
+                        style: context.text.labelMedium!.copyWith(
+                          color: brand.onHeroMuted,
+                        ),
                       ),
                       const SizedBox(height: AppSpacing.xxs),
                       AnimatedSwitcher(
@@ -84,13 +85,15 @@ class _NextPrayerHero extends ConsumerWidget {
                         child: Text(
                           prayerName,
                           key: ValueKey(next.prayer),
-                          style: context.text.displaySmall!.copyWith(color: brand.onHero),
+                          style: context.text.displaySmall!.copyWith(
+                            color: brand.onHero,
+                          ),
                         ),
                       ),
                       Text(
                         timeText,
                         style: context.text.titleMedium!.copyWith(
-                          color: brand.gold,
+                          color: brand.onHero,
                           fontFeatures: AppTypography.tabularFigures,
                         ),
                       ),
@@ -108,7 +111,9 @@ class _NextPrayerHero extends ConsumerWidget {
               children: [
                 Text(
                   l10n.homeRemaining,
-                  style: context.text.labelMedium!.copyWith(color: brand.onHeroMuted),
+                  style: context.text.labelMedium!.copyWith(
+                    color: brand.onHeroMuted,
+                  ),
                 ),
                 const SizedBox(width: AppSpacing.xs),
                 _Countdown(next: next),
@@ -119,16 +124,22 @@ class _NextPrayerHero extends ConsumerWidget {
                     onPressed: () => _changeCity(context, ref),
                     style: TextButton.styleFrom(
                       foregroundColor: brand.onHeroMuted,
-                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.xs,
+                      ),
                     ),
                     icon: Icon(
-                      location?.isGps ?? false ? Icons.my_location_rounded : Icons.location_on_outlined,
+                      location?.isGps ?? false
+                          ? Icons.my_location_rounded
+                          : Icons.location_on_outlined,
                       size: 18,
                     ),
                     label: Text(
                       locationLabel,
                       overflow: TextOverflow.ellipsis,
-                      style: context.text.labelMedium!.copyWith(color: brand.onHeroMuted),
+                      style: context.text.labelMedium!.copyWith(
+                        color: brand.onHeroMuted,
+                      ),
                     ),
                   ),
                 ),
@@ -169,7 +180,9 @@ class _ProgressBadge extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Minute resolution is plenty for a ring and saves repaints.
-    final minute = ref.watch(nowProvider.select((n) => n.millisecondsSinceEpoch ~/ 60000));
+    final minute = ref.watch(
+      nowProvider.select((n) => n.millisecondsSinceEpoch ~/ 60000),
+    );
     final now = DateTime.fromMillisecondsSinceEpoch(minute * 60000);
     final brand = context.brand;
     return ExcludeSemantics(
@@ -201,8 +214,12 @@ class _MinuteSemantics extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final minute = ref.watch(nowProvider.select((n) => n.millisecondsSinceEpoch ~/ 60000));
-    final remaining = next.remaining(DateTime.fromMillisecondsSinceEpoch(minute * 60000));
+    final minute = ref.watch(
+      nowProvider.select((n) => n.millisecondsSinceEpoch ~/ 60000),
+    );
+    final remaining = next.remaining(
+      DateTime.fromMillisecondsSinceEpoch(minute * 60000),
+    );
     final hm = context.formatters.countdown(remaining).substring(0, 5);
     return Semantics(
       container: true,
@@ -232,14 +249,27 @@ class _MissingLocationCard extends StatelessWidget {
                   color: context.colors.primaryContainer,
                   borderRadius: AppRadius.mdAll,
                 ),
-                child: Icon(Icons.location_on_outlined, color: context.colors.primary),
+                child: Icon(
+                  Icons.location_on_outlined,
+                  color: context.colors.primary,
+                ),
               ),
               const SizedBox(width: AppSpacing.sm),
-              Expanded(child: Text(l10n.locationMissingTitle, style: context.text.titleMedium)),
+              Expanded(
+                child: Text(
+                  l10n.locationMissingTitle,
+                  style: context.text.titleMedium,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: AppSpacing.sm),
-          Text(l10n.locationMissingBody, style: context.text.bodyMedium!.copyWith(color: context.brand.textSecondary)),
+          Text(
+            l10n.locationMissingBody,
+            style: context.text.bodyMedium!.copyWith(
+              color: context.brand.textSecondary,
+            ),
+          ),
           const SizedBox(height: AppSpacing.lg),
           const LocationSetupPanel(),
         ],

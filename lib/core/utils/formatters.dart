@@ -12,18 +12,23 @@ class AppFormatters {
   /// numbers use Western ones, so dates are aligned explicitly. An
   /// Eastern-digits option can become a setting later.
   AppFormatters(this.locale)
-      : _time = DateFormat.jm(locale)..useNativeDigits = false,
-        _gregorian = DateFormat.yMMMMEEEEd(locale)..useNativeDigits = false,
-        _twoDigits = NumberFormat('00', locale),
-        _number = NumberFormat.decimalPattern(locale);
+    : _time = DateFormat.jm(locale)..useNativeDigits = false,
+      _gregorian = DateFormat.yMMMMEEEEd(locale)..useNativeDigits = false,
+      _shortDate = DateFormat.yMMMMd(locale)..useNativeDigits = false,
+      _twoDigits = NumberFormat('00', locale),
+      _number = NumberFormat.decimalPattern(locale);
 
   final String locale;
   final DateFormat _time;
   final DateFormat _gregorian;
+  final DateFormat _shortDate;
   final NumberFormat _twoDigits;
   final NumberFormat _number;
 
   String time(DateTime value) => _time.format(value);
+
+  String dateAndTime(DateTime value) =>
+      '${_shortDate.format(value)}، ${_time.format(value)}';
 
   String gregorianDate(CalendarDate date) =>
       _gregorian.format(DateTime(date.year, date.month, date.day));

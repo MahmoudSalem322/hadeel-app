@@ -9,6 +9,7 @@ import '../../domain/entities/library.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/content_actions.dart';
 import '../../shared/widgets/hadeel_bottom_sheet.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/progress_ring.dart';
 import '../settings/providers/settings_provider.dart';
 import 'providers/tasbeeh_provider.dart';
@@ -20,10 +21,13 @@ class TasbeehScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final counter = ref.watch(tasbeehProvider);
-    final phrase = ref.watch(settingsProvider.select((s) => s.tasbeeh.phraseKey));
+    final phrase = ref.watch(
+      settingsProvider.select((s) => s.tasbeeh.phraseKey),
+    );
 
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
         title: Text(l10n.featureTasbeeh),
         actions: [
           IconButton(
@@ -46,7 +50,10 @@ class TasbeehScreen extends ConsumerWidget {
                   Text(
                     l10n.tasbeehPhrase(phrase),
                     textAlign: TextAlign.center,
-                    style: contentTextStyle(context, size: 30).copyWith(height: 1.6),
+                    style: contentTextStyle(
+                      context,
+                      size: 30,
+                    ).copyWith(height: 1.6),
                   ),
                   TextButton.icon(
                     onPressed: () => _pickPhrase(context, ref),
@@ -69,15 +76,22 @@ class TasbeehScreen extends ConsumerWidget {
                       for (final t in TasbeehCounter.targets)
                         ButtonSegment(
                           value: t,
-                          label: Text(t == 0 ? l10n.tasbeehUnlimited : context.formatters.number(t)),
+                          label: Text(
+                            t == 0
+                                ? l10n.tasbeehUnlimited
+                                : context.formatters.number(t),
+                          ),
                         ),
                     ],
                     selected: {c.target},
-                    onSelectionChanged: (v) => ref.read(tasbeehProvider.notifier).setTarget(v.first),
+                    onSelectionChanged: (v) =>
+                        ref.read(tasbeehProvider.notifier).setTarget(v.first),
                   ),
                   const SizedBox(height: AppSpacing.md),
                   OutlinedButton.icon(
-                    onPressed: c.count == 0 ? null : () => ref.read(tasbeehProvider.notifier).reset(),
+                    onPressed: c.count == 0
+                        ? null
+                        : () => ref.read(tasbeehProvider.notifier).reset(),
                     icon: const Icon(Icons.restart_alt_rounded),
                     label: Text(l10n.tasbeehReset),
                   ),
@@ -109,12 +123,18 @@ class TasbeehScreen extends ConsumerWidget {
               children: [
                 Padding(
                   padding: AppSpacing.screenPadding,
-                  child: Text(context.l10n.tasbeehChangeDhikr, style: context.text.titleLarge),
+                  child: Text(
+                    context.l10n.tasbeehChangeDhikr,
+                    style: context.text.titleLarge,
+                  ),
                 ),
                 for (final key in TasbeehSettings.phrases)
                   RadioListTile<String>(
                     value: key,
-                    title: Text(context.l10n.tasbeehPhrase(key), style: contentTextStyle(context, size: 20)),
+                    title: Text(
+                      context.l10n.tasbeehPhrase(key),
+                      style: contentTextStyle(context, size: 20),
+                    ),
                   ),
               ],
             ),
@@ -125,7 +145,10 @@ class TasbeehScreen extends ConsumerWidget {
   }
 
   void _showSettings(BuildContext context) {
-    showHadeelBottomSheet<void>(context: context, builder: (_) => const TasbeehSettingsSheet());
+    showHadeelBottomSheet<void>(
+      context: context,
+      builder: (_) => const TasbeehSettingsSheet(),
+    );
   }
 }
 
@@ -145,7 +168,8 @@ class TasbeehSettingsSheet extends ConsumerWidget {
           SwitchListTile(
             title: Text(l10n.tasbeehVibration),
             value: s.vibration,
-            onChanged: (v) => notifier.setTasbeehSettings(s.copyWith(vibration: v)),
+            onChanged: (v) =>
+                notifier.setTasbeehSettings(s.copyWith(vibration: v)),
           ),
           SwitchListTile(
             title: Text(l10n.tasbeehSound),
@@ -173,9 +197,12 @@ class _CounterButton extends ConsumerWidget {
 
     void tap() {
       final s = ref.read(settingsProvider).tasbeeh;
-      final completesRound = counter.hasTarget && counter.count + 1 == counter.target;
+      final completesRound =
+          counter.hasTarget && counter.count + 1 == counter.target;
       if (s.vibration) {
-        completesRound ? HapticFeedback.heavyImpact() : HapticFeedback.selectionClick();
+        completesRound
+            ? HapticFeedback.heavyImpact()
+            : HapticFeedback.selectionClick();
       }
       if (s.sound) SystemSound.play(SystemSoundType.click);
       ref.read(tasbeehProvider.notifier).increment();
@@ -187,10 +214,9 @@ class _CounterButton extends ConsumerWidget {
       excludeSemantics: true,
       child: SizedBox.square(
         dimension: size,
-        child: Material(
-          color: brand.hero,
-          shape: const CircleBorder(),
-          clipBehavior: Clip.antiAlias,
+        child: LiquidGlass(
+          tint: brand.hero,
+          radius: size / 2,
           child: InkWell(
             onTap: tap,
             child: Padding(
@@ -225,12 +251,16 @@ class _CounterButton extends ConsumerWidget {
                       Text(
                         '/ ${f.number(counter.target)}',
                         textScaler: TextScaler.noScaling,
-                        style: context.text.titleMedium!.copyWith(color: brand.onHeroMuted),
+                        style: context.text.titleMedium!.copyWith(
+                          color: brand.onHeroMuted,
+                        ),
                       ),
                     Text(
                       l10n.tasbeehTapHint,
                       textScaler: TextScaler.noScaling,
-                      style: context.text.labelMedium!.copyWith(color: brand.onHeroMuted),
+                      style: context.text.labelMedium!.copyWith(
+                        color: brand.onHeroMuted,
+                      ),
                     ),
                   ],
                 ),

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/routing/routes.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../shared/extensions/context_x.dart';
+import '../../../shared/widgets/hadeel_logo.dart';
 import '../../prayer/providers/prayer_providers.dart';
 import '../providers/home_providers.dart';
 
@@ -21,32 +22,38 @@ class HomeHeader extends ConsumerWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Padding(
+          padding: EdgeInsetsDirectional.only(end: 12, top: 4),
+          child: HadeelLogo(size: 44),
+        ),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Semantics(
                 header: true,
-                child: Text(l10n.homeGreeting, style: context.text.headlineSmall),
+                child: Text(
+                  l10n.homeGreeting,
+                  style: context.text.headlineSmall,
+                ),
               ),
               const SizedBox(height: AppSpacing.xxs),
               Text(
                 l10n.hijriLabel(hijri, f),
-                style: context.text.titleSmall!.copyWith(color: context.brand.goldText),
+                style: context.text.titleSmall!.copyWith(
+                  color: context.brand.goldText,
+                ),
               ),
-              Text(
-                f.gregorianDate(gregorian),
-                style: context.text.bodySmall,
-              ),
+              Text(f.gregorianDate(gregorian), style: context.text.bodySmall),
             ],
           ),
         ),
-        IconButton(
+        IconButton.filledTonal(
           tooltip: l10n.featureSearch,
           onPressed: () => context.push(Routes.search),
           icon: const Icon(Icons.search_rounded),
         ),
-        IconButton(
+        IconButton.filledTonal(
           tooltip: l10n.featureSettings,
           onPressed: () => context.push(Routes.settings),
           icon: const Icon(Icons.settings_outlined),

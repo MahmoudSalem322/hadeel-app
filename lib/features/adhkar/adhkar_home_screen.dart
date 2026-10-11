@@ -10,6 +10,7 @@ import '../../domain/entities/content.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/content_actions.dart';
 import '../../shared/widgets/hadeel_card.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/responsive_body.dart';
 import '../../shared/widgets/search_field.dart';
 import '../../shared/widgets/section_header.dart';
@@ -30,7 +31,10 @@ class _AdhkarHomeScreenState extends ConsumerState<AdhkarHomeScreen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.featureAdhkar)),
+      appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
+        title: Text(l10n.featureAdhkar),
+      ),
       body: ResponsiveBody(
         child: ContentAsync<HisnLibrary>(
           value: ref.watch(hisnProvider),
@@ -39,14 +43,18 @@ class _AdhkarHomeScreenState extends ConsumerState<AdhkarHomeScreen> {
             final q = normalizeArabic(_query);
             final chapters = q.isEmpty
                 ? lib.chapters
-                : lib.chapters.where((c) => normalizeArabic(c.title).contains(q)).toList();
+                : lib.chapters
+                      .where((c) => normalizeArabic(c.title).contains(q))
+                      .toList();
 
             return CustomScrollView(
               slivers: [
                 if (q.isEmpty) ...[
                   SliverPadding(
                     padding: AppSpacing.screenPadding,
-                    sliver: SliverToBoxAdapter(child: SectionHeader(title: l10n.adhkarDaily)),
+                    sliver: SliverToBoxAdapter(
+                      child: SectionHeader(title: l10n.adhkarDaily),
+                    ),
                   ),
                   SliverPadding(
                     padding: AppSpacing.screenPadding,
@@ -54,12 +62,14 @@ class _AdhkarHomeScreenState extends ConsumerState<AdhkarHomeScreen> {
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: 220,
                         // Grows with the user's text size so labels never clip.
-                        mainAxisExtent: 72 + 40 * MediaQuery.textScalerOf(context).scale(1),
+                        mainAxisExtent:
+                            72 + 40 * MediaQuery.textScalerOf(context).scale(1),
                         crossAxisSpacing: AppSpacing.sm,
                         mainAxisSpacing: AppSpacing.sm,
                       ),
                       itemCount: lib.adhkar.length,
-                      itemBuilder: (context, i) => _CategoryCard(category: lib.adhkar[i], library: lib),
+                      itemBuilder: (context, i) =>
+                          _CategoryCard(category: lib.adhkar[i], library: lib),
                     ),
                   ),
                 ],
@@ -91,7 +101,9 @@ class _AdhkarHomeScreenState extends ConsumerState<AdhkarHomeScreen> {
                     );
                   },
                 ),
-                SliverToBoxAdapter(child: SizedBox(height: AppSpacing.md + context.navBarInset)),
+                SliverToBoxAdapter(
+                  child: SizedBox(height: AppSpacing.md + context.navBarInset),
+                ),
               ],
             );
           },
@@ -123,11 +135,23 @@ class _CategoryCard extends StatelessWidget {
             Container(
               width: 36,
               height: 36,
-              decoration: BoxDecoration(color: context.colors.primaryContainer, shape: BoxShape.circle),
-              child: Icon(adhkarCategoryIcon(category.key), size: 20, color: context.colors.primary),
+              decoration: BoxDecoration(
+                color: context.colors.primaryContainer,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                adhkarCategoryIcon(category.key),
+                size: 20,
+                color: context.colors.primary,
+              ),
             ),
             const Spacer(),
-            Text(title, style: context.text.titleSmall, maxLines: 1, overflow: TextOverflow.ellipsis),
+            Text(
+              title,
+              style: context.text.titleSmall,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
             Text(l10n.itemsCount(count), style: context.text.labelSmall),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_spacing.dart';
+import 'liquid_glass.dart';
 
 /// Filled call-to-action. Shows a spinner and ignores taps while [loading].
 class PrimaryButton extends StatelessWidget {
@@ -25,10 +26,16 @@ class PrimaryButton extends StatelessWidget {
     final child = loading
         ? SizedBox.square(
             dimension: 22,
-            child: CircularProgressIndicator(strokeWidth: 2.4, color: onPrimary),
+            child: CircularProgressIndicator(
+              strokeWidth: 2.4,
+              color: onPrimary,
+            ),
           )
         : _Label(label: label, icon: icon);
-    final button = FilledButton(onPressed: loading ? null : onPressed, child: child);
+    final button = FilledButton(
+      onPressed: loading ? null : onPressed,
+      child: child,
+    );
     return expand ? SizedBox(width: double.infinity, child: button) : button;
   }
 }
@@ -50,7 +57,14 @@ class SecondaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final button = OutlinedButton(onPressed: onPressed, child: _Label(label: label, icon: icon));
+    final button = LiquidGlass(
+      radius: 24,
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(side: BorderSide.none),
+        onPressed: onPressed,
+        child: _Label(label: label, icon: icon),
+      ),
+    );
     return expand ? SizedBox(width: double.infinity, child: button) : button;
   }
 }

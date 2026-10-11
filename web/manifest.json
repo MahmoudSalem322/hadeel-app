@@ -1,11 +1,11 @@
 {
-    "name": "hadeel",
-    "short_name": "hadeel",
+    "name": "هديل | Hadeel",
+    "short_name": "هديل",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#08194A",
+    "theme_color": "#08194A",
+    "description": "رفيقك اليومي للقرآن والذكر والعبادة.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

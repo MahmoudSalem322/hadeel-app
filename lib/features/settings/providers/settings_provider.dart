@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers/core_providers.dart';
@@ -9,7 +9,9 @@ import '../../../domain/entities/prayer_settings.dart';
 import '../../../domain/entities/quran_reading_settings.dart';
 import '../../../domain/repositories/settings_repository.dart';
 
-final settingsProvider = NotifierProvider<SettingsNotifier, AppSettings>(SettingsNotifier.new);
+final settingsProvider = NotifierProvider<SettingsNotifier, AppSettings>(
+  SettingsNotifier.new,
+);
 
 /// Holds user preferences in memory and writes every change through to disk.
 class SettingsNotifier extends Notifier<AppSettings> {
@@ -43,7 +45,9 @@ class SettingsNotifier extends Notifier<AppSettings> {
     await _repo.saveLocation(selection);
   }
 
-  Future<void> updateQuranSettings(QuranReadingSettings Function(QuranReadingSettings) change) async {
+  Future<void> updateQuranSettings(
+    QuranReadingSettings Function(QuranReadingSettings) change,
+  ) async {
     final next = change(state.quran);
     if (next == state.quran) return;
     state = state.copyWith(quran: next);
@@ -63,7 +67,23 @@ class SettingsNotifier extends Notifier<AppSettings> {
   }
 
   Future<void> setAllPrayerNotifications({required bool on}) async {
-    final next = on ? NotificationSettings.allOn : const NotificationSettings();
+    final next = NotificationSettings(
+      enabled: on ? Prayer.obligatory.toSet() : const {},
+      hourlyDhikr: state.notifications.hourlyDhikr,
+      dailyContent: state.notifications.dailyContent,
+    );
+    state = state.copyWith(notifications: next);
+    await _repo.saveNotificationSettings(next);
+  }
+
+  Future<void> setHourlyDhikr({required bool on}) async {
+    final next = state.notifications.withHourlyDhikr(on);
+    state = state.copyWith(notifications: next);
+    await _repo.saveNotificationSettings(next);
+  }
+
+  Future<void> setDailyContent({required bool on}) async {
+    final next = state.notifications.withDailyContent(on);
     state = state.copyWith(notifications: next);
     await _repo.saveNotificationSettings(next);
   }
@@ -98,5 +118,3 @@ final themeModeProvider = Provider<ThemeMode>((ref) {
     AppThemeMode.dark => ThemeMode.dark,
   };
 });
-
-

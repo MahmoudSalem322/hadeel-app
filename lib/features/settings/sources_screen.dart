@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/hadeel_card.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/responsive_body.dart';
 
 /// «المصادر» — where every piece of religious and reference data comes from.
@@ -16,25 +17,70 @@ class SourcesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final entries = [
-      (Icons.menu_book_rounded, l10n.sourceQuranTitle, l10n.sourceQuranBody, tanzilUrl),
-      (Icons.list_alt_rounded, l10n.sourceQuranMetaTitle, l10n.sourceQuranMetaBody, tanzilUrl),
-      (Icons.auto_stories_outlined, l10n.sourceTafsirTitle, l10n.sourceTafsirBody, tanzilUrl),
-      (Icons.auto_awesome_outlined, l10n.sourceAdhkarTitle, l10n.sourceAdhkarBody, 'https://www.hisnmuslim.com'),
-      (Icons.format_quote_rounded, l10n.sourceHadithTitle, l10n.sourceHadithBody, 'https://sunnah.com'),
-      (Icons.access_time_rounded, l10n.sourcePrayerTitle, l10n.sourcePrayerBody, null),
-      (Icons.calendar_month_outlined, l10n.sourceHijriTitle, l10n.sourceHijriBody, null),
-      (Icons.font_download_outlined, l10n.sourceFontsTitle, l10n.sourceFontsBody, null),
+      (
+        Icons.menu_book_rounded,
+        l10n.sourceQuranTitle,
+        l10n.sourceQuranBody,
+        tanzilUrl,
+      ),
+      (
+        Icons.list_alt_rounded,
+        l10n.sourceQuranMetaTitle,
+        l10n.sourceQuranMetaBody,
+        tanzilUrl,
+      ),
+      (
+        Icons.auto_stories_outlined,
+        l10n.sourceTafsirTitle,
+        l10n.sourceTafsirBody,
+        tanzilUrl,
+      ),
+      (
+        Icons.auto_awesome_outlined,
+        l10n.sourceAdhkarTitle,
+        l10n.sourceAdhkarBody,
+        'https://www.hisnmuslim.com',
+      ),
+      (
+        Icons.format_quote_rounded,
+        l10n.sourceHadithTitle,
+        l10n.sourceHadithBody,
+        'https://sunnah.com',
+      ),
+      (
+        Icons.access_time_rounded,
+        l10n.sourcePrayerTitle,
+        l10n.sourcePrayerBody,
+        null,
+      ),
+      (
+        Icons.calendar_month_outlined,
+        l10n.sourceHijriTitle,
+        l10n.sourceHijriBody,
+        null,
+      ),
+      (
+        Icons.font_download_outlined,
+        l10n.sourceFontsTitle,
+        l10n.sourceFontsBody,
+        null,
+      ),
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.featureSources)),
+      appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
+        title: Text(l10n.featureSources),
+      ),
       body: ResponsiveBody(
         child: ListView(
           padding: const EdgeInsets.all(AppSpacing.screenGutter),
           children: [
             Text(
               l10n.sourcesIntro,
-              style: context.text.bodyMedium!.copyWith(color: context.brand.textSecondary),
+              style: context.text.bodyMedium!.copyWith(
+                color: context.brand.textSecondary,
+              ),
             ),
             const SizedBox(height: AppSpacing.md),
             for (final (icon, title, body, url) in entries) ...[
@@ -55,7 +101,9 @@ class SourcesScreen extends StatelessWidget {
                             SelectableText(
                               url,
                               textDirection: TextDirection.ltr,
-                              style: context.text.labelMedium!.copyWith(color: context.brand.goldText),
+                              style: context.text.labelMedium!.copyWith(
+                                color: context.brand.goldText,
+                              ),
                             ),
                         ],
                       ),

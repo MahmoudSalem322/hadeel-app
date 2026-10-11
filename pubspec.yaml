@@ -1,7 +1,7 @@
 name: hadeel
 description: "هديل | Hadeel — رفيقك اليومي للقرآن والذكر. Offline-first Islamic companion app."
 publish_to: 'none'
-version: 0.1.0+1
+version: 0.3.1+5
 
 environment:
   sdk: ^3.13.2
@@ -76,19 +76,19 @@ flutter_launcher_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: assets/branding/icon_1024.png
-  adaptive_icon_background: "#123C35"
-  adaptive_icon_foreground: assets/branding/icon_foreground.png
+  image_path: assets/branding/icon_v4.png
+  adaptive_icon_background: "#08194A"
+  adaptive_icon_foreground: assets/branding/icon_v4.png
   min_sdk_android: 21
 
 flutter_native_splash:
-  color: "#F8F7F2"
+  color: "#F7F8FF"
   image: assets/branding/splash_logo.png
-  color_dark: "#0D1715"
+  color_dark: "#101526"
   image_dark: assets/branding/splash_logo.png
   android_12:
-    color: "#F8F7F2"
+    color: "#F7F8FF"
     image: assets/branding/splash_logo.png
-    color_dark: "#0D1715"
+    color_dark: "#101526"
     image_dark: assets/branding/splash_logo.png
   web: false

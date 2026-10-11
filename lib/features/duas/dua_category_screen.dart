@@ -11,6 +11,7 @@ import '../../domain/entities/library.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/content_actions.dart';
 import '../../shared/widgets/hadeel_card.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/responsive_body.dart';
 import '../../shared/widgets/state_views.dart';
 import '../quran/providers/quran_providers.dart';
@@ -26,14 +27,22 @@ class DuaCategoryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.duaCategory(categoryKey))),
+      appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
+        title: Text(l10n.duaCategory(categoryKey)),
+      ),
       body: ResponsiveBody(
         child: ContentAsync<HisnLibrary>(
           value: ref.watch(hisnProvider),
           onRetry: () => ref.invalidate(hisnProvider),
           data: (lib) {
             final category = lib.duaCategory(categoryKey);
-            if (category == null) return EmptyState(icon: Icons.search_off_rounded, title: l10n.contentLoadError);
+            if (category == null) {
+              return EmptyState(
+                icon: Icons.search_off_rounded,
+                title: l10n.contentLoadError,
+              );
+            }
             final items = lib.itemsOf(category);
             return ListView(
               padding: const EdgeInsets.all(AppSpacing.screenGutter),
@@ -75,22 +84,37 @@ class QuranDuaCard extends ConsumerWidget {
     final reference = l10n.quranReference(surah.nameAr, ayatLabel);
     final text = quran == null
         ? null
-        : [for (final a in dua.ayat) '${quran.ayah(a)} ${ayahEndMarker(a.ayah)}'].join(' ');
+        : [
+            for (final a in dua.ayat)
+              '${quran.ayah(a)} ${ayahEndMarker(a.ayah)}',
+          ].join(' ');
 
     return HadeelCard(
-      onTap: () => context.push(Routes.surah(dua.from.surah, ayah: dua.from.ayah)),
+      onTap: () =>
+          context.push(Routes.surah(dua.from.surah, ayah: dua.from.ayah)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (dua.prophet != null)
             Text(
               l10n.prophetName(dua.prophet!),
-              style: context.text.labelMedium!.copyWith(color: context.brand.goldText),
+              style: context.text.labelMedium!.copyWith(
+                color: context.brand.goldText,
+              ),
             ),
           if (text == null)
-            const Padding(padding: EdgeInsets.all(AppSpacing.md), child: LinearProgressIndicator())
+            const Padding(
+              padding: EdgeInsets.all(AppSpacing.md),
+              child: LinearProgressIndicator(),
+            )
           else
-            Text(text, style: quranTextStyle(settings.copyWith(fontSize: 22, lineHeight: 2), context.colors.onSurface)),
+            Text(
+              text,
+              style: quranTextStyle(
+                settings.copyWith(fontSize: 22, lineHeight: 2),
+                context.colors.onSurface,
+              ),
+            ),
           Row(
             children: [
               Expanded(child: Text(reference, style: context.text.labelMedium)),
@@ -128,7 +152,9 @@ class DhikrCard extends StatelessWidget {
               if (item.repeat > 1)
                 Text(
                   l10n.dhikrRepeat(item.repeat),
-                  style: context.text.labelMedium!.copyWith(color: context.brand.goldText),
+                  style: context.text.labelMedium!.copyWith(
+                    color: context.brand.goldText,
+                  ),
                 ),
               const Spacer(),
               ContentActions(
@@ -143,4 +169,3 @@ class DhikrCard extends StatelessWidget {
     );
   }
 }
-

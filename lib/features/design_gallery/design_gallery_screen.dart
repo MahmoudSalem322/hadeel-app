@@ -9,6 +9,7 @@ import '../../shared/widgets/buttons.dart';
 import '../../shared/widgets/hadeel_bottom_sheet.dart';
 import '../../shared/widgets/hadeel_card.dart';
 import '../../shared/widgets/hadeel_logo.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/progress_ring.dart';
 import '../../shared/widgets/search_field.dart';
 import '../../shared/widgets/section_header.dart';
@@ -26,18 +27,31 @@ class DesignGalleryScreen extends ConsumerWidget {
     final mode = ref.watch(settingsProvider.select((s) => s.themeMode));
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.galleryTitle)),
+      appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
+        title: Text(l10n.galleryTitle),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.screenGutter),
         children: [
           SegmentedButton<AppThemeMode>(
             segments: [
-              ButtonSegment(value: AppThemeMode.light, label: Text(l10n.themeLight)),
-              ButtonSegment(value: AppThemeMode.dark, label: Text(l10n.themeDark)),
-              ButtonSegment(value: AppThemeMode.system, label: Text(l10n.themeSystem)),
+              ButtonSegment(
+                value: AppThemeMode.light,
+                label: Text(l10n.themeLight),
+              ),
+              ButtonSegment(
+                value: AppThemeMode.dark,
+                label: Text(l10n.themeDark),
+              ),
+              ButtonSegment(
+                value: AppThemeMode.system,
+                label: Text(l10n.themeSystem),
+              ),
             ],
             selected: {mode},
-            onSelectionChanged: (s) => ref.read(settingsProvider.notifier).setThemeMode(s.first),
+            onSelectionChanged: (s) =>
+                ref.read(settingsProvider.notifier).setThemeMode(s.first),
           ),
           const SizedBox(height: AppSpacing.lg),
           Row(
@@ -45,7 +59,11 @@ class DesignGalleryScreen extends ConsumerWidget {
             children: [
               const HadeelLogo(size: 72),
               const SizedBox(width: AppSpacing.md),
-              HadeelLogo(size: 72, withBackground: false, markColor: context.colors.primary),
+              HadeelLogo(
+                size: 72,
+                withBackground: false,
+                markColor: context.colors.primary,
+              ),
               const SizedBox(width: AppSpacing.md),
               const HadeelLogo(size: 36),
             ],
@@ -64,20 +82,42 @@ class DesignGalleryScreen extends ConsumerWidget {
           SectionHeader(title: l10n.galleryComponents),
           PrimaryButton(label: l10n.actionStartNow, onPressed: () {}),
           const SizedBox(height: AppSpacing.sm),
-          SecondaryButton(label: l10n.locationChooseCity, icon: Icons.location_city_rounded, onPressed: () {}),
+          SecondaryButton(
+            label: l10n.locationChooseCity,
+            icon: Icons.location_city_rounded,
+            onPressed: () {},
+          ),
           const SizedBox(height: AppSpacing.sm),
-          PrimaryButton(label: l10n.actionContinue, loading: true, onPressed: () {}),
+          PrimaryButton(
+            label: l10n.actionContinue,
+            loading: true,
+            onPressed: () {},
+          ),
           const SizedBox(height: AppSpacing.sm),
-          Center(child: TextButton(onPressed: () {}, child: Text(l10n.actionSkip))),
+          Center(
+            child: TextButton(onPressed: () {}, child: Text(l10n.actionSkip)),
+          ),
           const SizedBox(height: AppSpacing.md),
           SearchField(hint: l10n.gallerySearchHint),
           const SizedBox(height: AppSpacing.md),
           Wrap(
             spacing: AppSpacing.xs,
             children: [
-              ChoiceChip(label: Text(l10n.featureAdhkar), selected: true, onSelected: (_) {}),
-              ChoiceChip(label: Text(l10n.featureDuas), selected: false, onSelected: (_) {}),
-              ChoiceChip(label: Text(l10n.featureHadith), selected: false, onSelected: (_) {}),
+              ChoiceChip(
+                label: Text(l10n.featureAdhkar),
+                selected: true,
+                onSelected: (_) {},
+              ),
+              ChoiceChip(
+                label: Text(l10n.featureDuas),
+                selected: false,
+                onSelected: (_) {},
+              ),
+              ChoiceChip(
+                label: Text(l10n.featureHadith),
+                selected: false,
+                onSelected: (_) {},
+              ),
             ],
           ),
           const SizedBox(height: AppSpacing.md),
@@ -90,10 +130,18 @@ class DesignGalleryScreen extends ConsumerWidget {
                   color: context.brand.gold,
                   trackColor: context.brand.surfaceMuted,
                   size: 56,
-                  child: Text(context.formatters.number(22), style: context.text.titleSmall),
+                  child: Text(
+                    context.formatters.number(22),
+                    style: context.text.titleSmall,
+                  ),
                 ),
                 const SizedBox(width: AppSpacing.md),
-                Expanded(child: Text(l10n.gallerySampleText, style: context.text.bodyMedium)),
+                Expanded(
+                  child: Text(
+                    l10n.gallerySampleText,
+                    style: context.text.bodyMedium,
+                  ),
+                ),
               ],
             ),
           ),
@@ -111,7 +159,10 @@ class DesignGalleryScreen extends ConsumerWidget {
                         AppSpacing.xl,
                         AppSpacing.xl,
                       ),
-                      child: Text(l10n.gallerySampleText, style: context.text.bodyLarge),
+                      child: Text(
+                        l10n.gallerySampleText,
+                        style: context.text.bodyLarge,
+                      ),
                     ),
                   ),
                   child: const Icon(Icons.vertical_align_top_rounded),
@@ -199,7 +250,11 @@ class _Swatches extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: AppSpacing.xxs),
-              Text(name, style: context.text.labelSmall, textDirection: TextDirection.ltr),
+              Text(
+                name,
+                style: context.text.labelSmall,
+                textDirection: TextDirection.ltr,
+              ),
             ],
           ),
       ],

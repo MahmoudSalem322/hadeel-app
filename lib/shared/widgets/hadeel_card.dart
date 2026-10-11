@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_spacing.dart';
-import '../extensions/context_x.dart';
 
-/// The standard surface: hairline border, no shadow, large radius.
+/// Solid reading surface, paired with glass navigation and overlays.
 class HadeelCard extends StatelessWidget {
   const HadeelCard({
     super.key,
@@ -22,16 +21,32 @@ class HadeelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final card = Material(
-      color: color ?? context.colors.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: AppRadius.lgAll,
-        side: BorderSide(color: context.brand.divider),
+    final theme = Theme.of(context);
+    final radius = BorderRadius.circular(26);
+    final card = DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: radius,
+        boxShadow: [
+          BoxShadow(
+            color: theme.colorScheme.primary.withValues(alpha: .06),
+            blurRadius: 18,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(padding: padding, child: child),
+      child: Material(
+        color: color ?? theme.colorScheme.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: radius,
+          side: BorderSide(
+            color: theme.colorScheme.outlineVariant.withValues(alpha: .45),
+          ),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(padding: padding, child: child),
+        ),
       ),
     );
     if (semanticLabel == null) return card;

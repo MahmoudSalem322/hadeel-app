@@ -8,6 +8,7 @@ import '../../domain/entities/prayer.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/content_actions.dart';
 import '../../shared/widgets/hadeel_card.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/responsive_body.dart';
 import '../../shared/widgets/section_header.dart';
 import '../home/providers/home_providers.dart';
@@ -34,7 +35,10 @@ class PrayerScreen extends ConsumerWidget {
     final today = ref.watch(todayDateProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.featurePrayerTimes)),
+      appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
+        title: Text(l10n.featurePrayerTimes),
+      ),
       body: ResponsiveBody(
         child: ListView(
           padding: EdgeInsets.fromLTRB(
@@ -44,7 +48,12 @@ class PrayerScreen extends ConsumerWidget {
             AppSpacing.lg + context.navBarInset,
           ),
           children: [
-            Text(l10n.hijriLabel(hijri, f), style: context.text.titleSmall!.copyWith(color: context.brand.goldText)),
+            Text(
+              l10n.hijriLabel(hijri, f),
+              style: context.text.titleSmall!.copyWith(
+                color: context.brand.goldText,
+              ),
+            ),
             Text(f.gregorianDate(today), style: context.text.bodySmall),
             const SizedBox(height: AppSpacing.md),
             const NextPrayerCard(),
@@ -56,7 +65,11 @@ class PrayerScreen extends ConsumerWidget {
               SectionHeader(title: l10n.prayerMethod),
               const _MethodCard(),
               const SizedBox(height: AppSpacing.md),
-              Text(l10n.prayerCalcNote, style: context.text.bodySmall, textAlign: TextAlign.center),
+              Text(
+                l10n.prayerCalcNote,
+                style: context.text.bodySmall,
+                textAlign: TextAlign.center,
+              ),
             ],
           ],
         ),
@@ -74,9 +87,13 @@ class _Timeline extends ConsumerWidget {
     if (day == null) return const SizedBox.shrink();
     final next = ref.watch(nextPrayerProvider);
     // Minute resolution is enough to grey out passed prayers.
-    final minute = ref.watch(nowProvider.select((n) => n.millisecondsSinceEpoch ~/ 60000));
+    final minute = ref.watch(
+      nowProvider.select((n) => n.millisecondsSinceEpoch ~/ 60000),
+    );
     final now = DateTime.fromMillisecondsSinceEpoch(minute * 60000);
-    final enabled = ref.watch(settingsProvider.select((s) => s.notifications.enabled));
+    final enabled = ref.watch(
+      settingsProvider.select((s) => s.notifications.enabled),
+    );
     final entries = day.entries;
 
     return HadeelCard(
@@ -87,7 +104,10 @@ class _Timeline extends ConsumerWidget {
             _TimelineRow(
               prayer: entries[i].key,
               time: entries[i].value,
-              isNext: next != null && next.prayer == entries[i].key && next.time.isAtSameMomentAs(entries[i].value),
+              isNext:
+                  next != null &&
+                  next.prayer == entries[i].key &&
+                  next.time.isAtSameMomentAs(entries[i].value),
               passed: !entries[i].value.isAfter(now),
               first: i == 0,
               last: i == entries.length - 1,
@@ -127,8 +147,8 @@ class _TimelineRow extends ConsumerWidget {
     final fg = isNext
         ? context.colors.primary
         : muted
-            ? context.brand.textSecondary
-            : context.colors.onSurface;
+        ? context.brand.textSecondary
+        : context.colors.onSurface;
     final lineColor = context.brand.divider;
 
     return Semantics(
@@ -150,16 +170,28 @@ class _TimelineRow extends ConsumerWidget {
                 width: 20,
                 child: Column(
                   children: [
-                    Expanded(child: Container(width: 2, color: first ? Colors.transparent : lineColor)),
+                    Expanded(
+                      child: Container(
+                        width: 2,
+                        color: first ? Colors.transparent : lineColor,
+                      ),
+                    ),
                     Container(
                       width: isNext ? 14 : 10,
                       height: isNext ? 14 : 10,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: isNext ? context.brand.gold : (muted ? lineColor : context.colors.primary),
+                        color: isNext
+                            ? context.brand.gold
+                            : (muted ? lineColor : context.colors.primary),
                       ),
                     ),
-                    Expanded(child: Container(width: 2, color: last ? Colors.transparent : lineColor)),
+                    Expanded(
+                      child: Container(
+                        width: 2,
+                        color: last ? Colors.transparent : lineColor,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -180,19 +212,32 @@ class _TimelineRow extends ConsumerWidget {
               ),
               Text(
                 timeText,
-                style: context.text.titleMedium!.copyWith(color: fg, fontFeatures: AppTypography.tabularFigures),
+                style: context.text.titleMedium!.copyWith(
+                  color: fg,
+                  fontFeatures: AppTypography.tabularFigures,
+                ),
               ),
               if (prayer.isObligatory)
                 IconButton(
                   tooltip: l10n.notificationForPrayer(name),
                   isSelected: notify,
                   icon: Icon(
-                    notify ? Icons.notifications_active_rounded : Icons.notifications_none_rounded,
-                    color: notify ? context.brand.goldText : context.brand.textSecondary,
+                    notify
+                        ? Icons.notifications_active_rounded
+                        : Icons.notifications_none_rounded,
+                    color: notify
+                        ? context.brand.goldText
+                        : context.brand.textSecondary,
                   ),
                   onPressed: () async {
-                    final ok = await setPrayerNotification(ref, prayer, on: !notify);
-                    if (!ok && context.mounted) showToast(context, l10n.notificationsDenied);
+                    final ok = await setPrayerNotification(
+                      ref,
+                      prayer,
+                      on: !notify,
+                    );
+                    if (!ok && context.mounted) {
+                      showToast(context, l10n.notificationsDenied);
+                    }
                   },
                 )
               else
@@ -213,7 +258,9 @@ class _LocationCard extends ConsumerWidget {
     final l10n = context.l10n;
     final location = ref.watch(resolvedLocationProvider)!;
     final setup = ref.watch(locationSetupProvider);
-    final label = location.isGps ? l10n.locationGpsLabel : location.city!.localizedName(context.languageCode);
+    final label = location.isGps
+        ? l10n.locationGpsLabel
+        : location.city!.localizedName(context.languageCode);
 
     return HadeelCard(
       child: Column(
@@ -221,7 +268,12 @@ class _LocationCard extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(location.isGps ? Icons.my_location_rounded : Icons.location_on_outlined, color: context.colors.primary),
+              Icon(
+                location.isGps
+                    ? Icons.my_location_rounded
+                    : Icons.location_on_outlined,
+                color: context.colors.primary,
+              ),
               const SizedBox(width: AppSpacing.sm),
               Expanded(child: Text(label, style: context.text.titleMedium)),
             ],
@@ -231,7 +283,9 @@ class _LocationCard extends ConsumerWidget {
               padding: const EdgeInsets.only(top: AppSpacing.xs),
               child: Text(
                 setup.failure!.message(l10n),
-                style: context.text.bodySmall!.copyWith(color: context.colors.error),
+                style: context.text.bodySmall!.copyWith(
+                  color: context.colors.error,
+                ),
               ),
             ),
           const SizedBox(height: AppSpacing.sm),
@@ -239,16 +293,27 @@ class _LocationCard extends ConsumerWidget {
             spacing: AppSpacing.xs,
             children: [
               OutlinedButton.icon(
-                onPressed: setup.locating ? null : () => ref.read(locationSetupProvider.notifier).useDeviceLocation(),
+                onPressed: setup.locating
+                    ? null
+                    : () => ref
+                          .read(locationSetupProvider.notifier)
+                          .useDeviceLocation(),
                 icon: setup.locating
-                    ? const SizedBox.square(dimension: 16, child: CircularProgressIndicator(strokeWidth: 2))
+                    ? const SizedBox.square(
+                        dimension: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
                     : const Icon(Icons.my_location_rounded, size: 18),
                 label: Text(l10n.locationUpdate),
               ),
               OutlinedButton.icon(
                 onPressed: () async {
                   final city = await showCityPicker(context);
-                  if (city != null) await ref.read(locationSetupProvider.notifier).chooseCity(city);
+                  if (city != null) {
+                    await ref
+                        .read(locationSetupProvider.notifier)
+                        .chooseCity(city);
+                  }
                 },
                 icon: const Icon(Icons.location_city_rounded, size: 18),
                 label: Text(l10n.locationChangeCity),

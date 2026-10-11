@@ -1,5 +1,6 @@
-﻿import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../../domain/entities/app_settings.dart';
 import 'app_colors.dart';
 import 'app_spacing.dart';
@@ -25,31 +26,41 @@ abstract final class AppTheme {
     final isDefault = theme == AppColorTheme.green;
     return _build(
       brightness: Brightness.light,
-      scheme: (isDefault ? const ColorScheme(
-        brightness: Brightness.light,
-        primary: AppColors.primary,
-        onPrimary: Color(0xFFFFFFFF),
-        primaryContainer: AppColors.primaryContainerLight,
-        onPrimaryContainer: AppColors.primary,
-        secondary: AppColors.goldDeep,
-        onSecondary: Color(0xFFFFFFFF),
-        secondaryContainer: Color(0xFFF1E3BF),
-        onSecondaryContainer: Color(0xFF3A3220),
-        error: AppColors.error,
-        onError: Color(0xFFFFFFFF),
-        surface: AppColors.surfaceLight,
-        onSurface: AppColors.textPrimaryLight,
-        onSurfaceVariant: AppColors.textSecondaryLight,
-        surfaceContainerLowest: AppColors.surfaceLight,
-        surfaceContainerLow: Color(0xFFF5F4F0),
-        surfaceContainer: AppColors.surfaceMutedLight,
-        surfaceContainerHigh: Color(0xFFEBEAE5),
-        surfaceContainerHighest: Color(0xFFE3E2DD),
-        outline: AppColors.outlineLight,
-        outlineVariant: Color(0xFFC7C5BE),
-        shadow: Color(0x33000000),
-      ) : ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.light)),
-      background: (isDefault ? AppColors.backgroundLight : ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.light).surface),
+      scheme: (isDefault
+          ? const ColorScheme(
+              brightness: Brightness.light,
+              primary: AppColors.primary,
+              onPrimary: Color(0xFFFFFFFF),
+              primaryContainer: AppColors.primaryContainerLight,
+              onPrimaryContainer: AppColors.primary,
+              secondary: Color(0xFF7453BB),
+              onSecondary: Color(0xFFFFFFFF),
+              secondaryContainer: Color(0xFFEEE6FF),
+              onSecondaryContainer: Color(0xFF463074),
+              error: AppColors.error,
+              onError: Color(0xFFFFFFFF),
+              surface: AppColors.surfaceLight,
+              onSurface: AppColors.textPrimaryLight,
+              onSurfaceVariant: AppColors.textSecondaryLight,
+              surfaceContainerLowest: AppColors.surfaceLight,
+              surfaceContainerLow: Color(0xFFF3F5FD),
+              surfaceContainer: AppColors.surfaceMutedLight,
+              surfaceContainerHigh: Color(0xFFE7ECF8),
+              surfaceContainerHighest: Color(0xFFDDE4F4),
+              outline: AppColors.outlineLight,
+              outlineVariant: Color(0xFFCCD6EA),
+              shadow: Color(0x33000000),
+            )
+          : ColorScheme.fromSeed(
+              seedColor: seed,
+              brightness: Brightness.light,
+            )),
+      background: (isDefault
+          ? AppColors.backgroundLight
+          : ColorScheme.fromSeed(
+              seedColor: seed,
+              brightness: Brightness.light,
+            ).surface),
       brand: HadeelColors.light,
     );
   }
@@ -59,31 +70,38 @@ abstract final class AppTheme {
     final isDefault = theme == AppColorTheme.green;
     return _build(
       brightness: Brightness.dark,
-      scheme: (isDefault ? const ColorScheme(
-        brightness: Brightness.dark,
-        primary: AppColors.primaryDarkTheme,
-        onPrimary: Color(0xFF003828),
-        primaryContainer: AppColors.primaryContainerDark,
-        onPrimaryContainer: AppColors.primaryDarkTheme,
-        secondary: AppColors.goldSoftDark,
-        onSecondary: Color(0xFF3A3220),
-        secondaryContainer: Color(0xFF3A3220),
-        onSecondaryContainer: Color(0xFFF1E3BF),
-        error: AppColors.errorDark,
-        onError: AppColors.backgroundDark,
-        surface: AppColors.surfaceDark,
-        onSurface: AppColors.textPrimaryDark,
-        onSurfaceVariant: AppColors.textSecondaryDark,
-        surfaceContainerLowest: AppColors.backgroundDark,
-        surfaceContainerLow: Color(0xFF111D1A),
-        surfaceContainer: AppColors.surfaceMutedDark,
-        surfaceContainerHigh: Color(0xFF203330),
-        surfaceContainerHighest: Color(0xFF273C38),
-        outline: Color(0xFF3A504A),
-        outlineVariant: AppColors.outlineDark,
-        shadow: Color(0x66000000),
-      ) : ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark)),
-      background: (isDefault ? AppColors.backgroundDark : ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark).surface),
+      scheme: (isDefault
+          ? const ColorScheme(
+              brightness: Brightness.dark,
+              primary: AppColors.primaryDarkTheme,
+              onPrimary: Color(0xFF003D46),
+              primaryContainer: AppColors.primaryContainerDark,
+              onPrimaryContainer: AppColors.primaryDarkTheme,
+              secondary: Color(0xFFC7AEFF),
+              onSecondary: Color(0xFF30204D),
+              secondaryContainer: Color(0xFF42375F),
+              onSecondaryContainer: Color(0xFFEEE6FF),
+              error: AppColors.errorDark,
+              onError: AppColors.backgroundDark,
+              surface: AppColors.surfaceDark,
+              onSurface: AppColors.textPrimaryDark,
+              onSurfaceVariant: AppColors.textSecondaryDark,
+              surfaceContainerLowest: AppColors.backgroundDark,
+              surfaceContainerLow: Color(0xFF161D30),
+              surfaceContainer: AppColors.surfaceMutedDark,
+              surfaceContainerHigh: Color(0xFF2B3550),
+              surfaceContainerHighest: Color(0xFF333E5D),
+              outline: Color(0xFF53617D),
+              outlineVariant: AppColors.outlineDark,
+              shadow: Color(0x66000000),
+            )
+          : ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark)),
+      background: (isDefault
+          ? AppColors.backgroundDark
+          : ColorScheme.fromSeed(
+              seedColor: seed,
+              brightness: Brightness.dark,
+            ).surface),
       brand: HadeelColors.dark,
     );
   }
@@ -94,22 +112,29 @@ abstract final class AppTheme {
     required Color background,
     required HadeelColors brand,
   }) {
-    final textTheme = AppTypography.textTheme(scheme.onSurface, brand.textSecondary);
+    final textTheme = AppTypography.textTheme(
+      scheme.onSurface,
+      brand.textSecondary,
+    );
 
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,
       colorScheme: scheme,
-      scaffoldBackgroundColor: background,
+      scaffoldBackgroundColor: Colors.transparent,
       fontFamily: AppTypography.uiFont,
       textTheme: textTheme,
       extensions: [brand],
       splashFactory: InkSparkle.splashFactory,
       visualDensity: VisualDensity.standard,
       materialTapTargetSize: MaterialTapTargetSize.padded,
-      dividerTheme: DividerThemeData(color: brand.divider, thickness: 1, space: 1),
+      dividerTheme: DividerThemeData(
+        color: brand.divider,
+        thickness: 1,
+        space: 1,
+      ),
       appBarTheme: AppBarTheme(
-        backgroundColor: background,
+        backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         foregroundColor: scheme.onSurface,
         elevation: 0,
@@ -128,12 +153,14 @@ abstract final class AppTheme {
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: scheme.surface,
+        backgroundColor: scheme.surface.withValues(alpha: .82),
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         height: 72,
         indicatorColor: scheme.primaryContainer,
-        indicatorShape: const RoundedRectangleBorder(borderRadius: AppRadius.mdAll),
+        indicatorShape: const RoundedRectangleBorder(
+          borderRadius: AppRadius.mdAll,
+        ),
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
@@ -186,17 +213,20 @@ abstract final class AppTheme {
         ),
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: scheme.surface,
+        backgroundColor: scheme.surface.withValues(alpha: .82),
         selectedColor: scheme.primaryContainer,
         side: BorderSide(color: brand.divider),
         shape: const RoundedRectangleBorder(borderRadius: AppRadius.smAll),
         labelStyle: textTheme.labelMedium!.copyWith(color: scheme.onSurface),
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs, vertical: AppSpacing.xxs),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.xs,
+          vertical: AppSpacing.xxs,
+        ),
         showCheckmark: false,
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: brand.surfaceMuted,
+        fillColor: scheme.surface.withValues(alpha: .55),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
           vertical: AppSpacing.sm,
@@ -216,16 +246,18 @@ abstract final class AppTheme {
         ),
       ),
       bottomSheetTheme: BottomSheetThemeData(
-        backgroundColor: scheme.surface,
+        backgroundColor: scheme.surface.withValues(alpha: .82),
         surfaceTintColor: Colors.transparent,
         showDragHandle: true,
         dragHandleColor: scheme.outline,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppRadius.xl),
+          ),
         ),
       ),
       dialogTheme: DialogThemeData(
-        backgroundColor: scheme.surface,
+        backgroundColor: scheme.surface.withValues(alpha: .82),
         surfaceTintColor: Colors.transparent,
         shape: const RoundedRectangleBorder(borderRadius: AppRadius.xlAll),
         titleTextStyle: textTheme.titleLarge,
@@ -235,13 +267,17 @@ abstract final class AppTheme {
         labelColor: scheme.onSurface,
         unselectedLabelColor: brand.textSecondary,
         labelStyle: textTheme.titleSmall,
-        unselectedLabelStyle: textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w500),
+        unselectedLabelStyle: textTheme.titleSmall!.copyWith(
+          fontWeight: FontWeight.w500,
+        ),
         indicatorColor: scheme.primary,
         dividerColor: brand.divider,
         indicatorSize: TabBarIndicatorSize.label,
       ),
       listTileTheme: ListTileThemeData(
-        contentPadding: const EdgeInsetsDirectional.symmetric(horizontal: AppSpacing.md),
+        contentPadding: const EdgeInsetsDirectional.symmetric(
+          horizontal: AppSpacing.md,
+        ),
         minVerticalPadding: AppSpacing.sm,
         iconColor: scheme.primary,
         titleTextStyle: textTheme.titleSmall,
@@ -258,8 +294,8 @@ abstract final class AppTheme {
         shape: const RoundedRectangleBorder(borderRadius: AppRadius.mdAll),
         contentTextStyle: textTheme.bodyMedium!.copyWith(color: scheme.surface),
       ),
-      pageTransitionsTheme: PageTransitionsTheme(
-        builders: const {
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
           TargetPlatform.android: FadeForwardsPageTransitionsBuilder(),
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
         },
@@ -267,6 +303,3 @@ abstract final class AppTheme {
     );
   }
 }
-
-
-

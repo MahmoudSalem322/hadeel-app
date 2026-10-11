@@ -10,6 +10,7 @@ import '../../domain/entities/library.dart';
 import '../../domain/usecases/adhkar_counter.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/content_actions.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/progress_ring.dart';
 import '../../shared/widgets/state_views.dart';
 import '../settings/providers/settings_provider.dart';
@@ -38,7 +39,8 @@ class _AdhkarReaderScreenState extends ConsumerState<AdhkarReaderScreen> {
   String _title(HisnLibrary? lib) {
     final key = widget.categoryKey;
     if (key.startsWith('c') && lib != null) {
-      return lib.chapter(int.tryParse(key.substring(1)) ?? -1)?.title ?? context.l10n.featureAdhkar;
+      return lib.chapter(int.tryParse(key.substring(1)) ?? -1)?.title ??
+          context.l10n.featureAdhkar;
     }
     return context.l10n.adhkarCategory(key);
   }
@@ -50,7 +52,11 @@ class _AdhkarReaderScreenState extends ConsumerState<AdhkarReaderScreen> {
     if (MediaQuery.disableAnimationsOf(context)) {
       pages.jumpToPage(index);
     } else {
-      pages.animateToPage(index, duration: AppMotion.slow, curve: AppMotion.curve);
+      pages.animateToPage(
+        index,
+        duration: AppMotion.slow,
+        curve: AppMotion.curve,
+      );
     }
   }
 
@@ -63,11 +69,14 @@ class _AdhkarReaderScreenState extends ConsumerState<AdhkarReaderScreen> {
 
     ref.listen(provider, (prev, next) {
       final index = next.value?.counter.index;
-      if (index != null && index != prev?.value?.counter.index) _syncPage(index);
+      if (index != null && index != prev?.value?.counter.index) {
+        _syncPage(index);
+      }
     });
 
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
         title: Text(_title(ref.watch(hisnProvider).value)),
         actions: [
           if (session.value != null)
@@ -82,7 +91,12 @@ class _AdhkarReaderScreenState extends ConsumerState<AdhkarReaderScreen> {
         value: session,
         onRetry: () => ref.invalidate(provider),
         data: (state) {
-          if (state == null) return EmptyState(icon: Icons.search_off_rounded, title: l10n.contentLoadError);
+          if (state == null) {
+            return EmptyState(
+              icon: Icons.search_off_rounded,
+              title: l10n.contentLoadError,
+            );
+          }
           _pages ??= PageController(initialPage: state.counter.index);
           final c = state.counter;
 
@@ -103,11 +117,19 @@ class _AdhkarReaderScreenState extends ConsumerState<AdhkarReaderScreen> {
             children: [
               LinearProgressIndicator(value: c.overallProgress, minHeight: 3),
               Padding(
-                padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.sm, AppSpacing.md, 0),
+                padding: const EdgeInsets.fromLTRB(
+                  AppSpacing.md,
+                  AppSpacing.sm,
+                  AppSpacing.md,
+                  0,
+                ),
                 child: Row(
                   children: [
                     Text(
-                      l10n.dhikrPosition(context.formatters.number(c.index + 1), context.formatters.number(c.total)),
+                      l10n.dhikrPosition(
+                        context.formatters.number(c.index + 1),
+                        context.formatters.number(c.total),
+                      ),
                       style: context.text.titleSmall,
                     ),
                     const Spacer(),
@@ -120,7 +142,9 @@ class _AdhkarReaderScreenState extends ConsumerState<AdhkarReaderScreen> {
                   controller: _pages,
                   itemCount: state.items.length,
                   onPageChanged: (i) {
-                    if (i != ref.read(provider).value?.counter.index) notifier.goTo(i);
+                    if (i != ref.read(provider).value?.counter.index) {
+                      notifier.goTo(i);
+                    }
                   },
                   itemBuilder: (context, i) => _DhikrPage(item: state.items[i]),
                 ),
@@ -154,7 +178,12 @@ class _DhikrPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.md, AppSpacing.lg, AppSpacing.lg),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        AppSpacing.md,
+        AppSpacing.lg,
+        AppSpacing.lg,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -162,11 +191,17 @@ class _DhikrPage extends StatelessWidget {
           const SizedBox(height: AppSpacing.sm),
           Row(
             children: [
-              Icon(Icons.repeat_rounded, size: 18, color: context.brand.goldText),
+              Icon(
+                Icons.repeat_rounded,
+                size: 18,
+                color: context.brand.goldText,
+              ),
               const SizedBox(width: AppSpacing.xxs),
               Text(
                 l10n.dhikrRepeat(item.repeat),
-                style: context.text.labelMedium!.copyWith(color: context.brand.goldText),
+                style: context.text.labelMedium!.copyWith(
+                  color: context.brand.goldText,
+                ),
               ),
               const Spacer(),
               ContentActions(
@@ -211,7 +246,12 @@ class _CounterBar extends StatelessWidget {
           color: context.colors.surface,
           border: Border(top: BorderSide(color: context.brand.divider)),
         ),
-        padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.md, AppSpacing.md, AppSpacing.md),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.md,
+          AppSpacing.md,
+          AppSpacing.md,
+          AppSpacing.md,
+        ),
         child: Row(
           children: [
             Expanded(
@@ -233,48 +273,53 @@ class _CounterBar extends StatelessWidget {
             ),
             Semantics(
               button: true,
-              label: '${l10n.dhikrCounterButton}، ${l10n.dhikrCountSemantics(f.number(count), f.number(target))}',
+              label:
+                  '${l10n.dhikrCounterButton}، ${l10n.dhikrCountSemantics(f.number(count), f.number(target))}',
               excludeSemantics: true,
               child: SizedBox.square(
-                  dimension: 112,
-                  child: Material(
-                    color: context.brand.hero,
-                    shape: const CircleBorder(),
-                    child: InkWell(
-                      customBorder: const CircleBorder(),
-                      onTap: onTap,
-                      child: Padding(
-                        padding: const EdgeInsets.all(6),
-                        child: ProgressRing(
-                          progress: count / target,
-                          size: 100,
-                          strokeWidth: 4,
-                          color: context.brand.gold,
-                          trackColor: context.brand.onHero.withValues(alpha: 0.15),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                f.number(count),
-                                textScaler: TextScaler.noScaling,
-                                style: context.text.headlineMedium!.copyWith(
-                                  color: context.brand.onHero,
-                                  fontFeatures: AppTypography.tabularFigures,
-                                  height: 1.1,
-                                ),
+                dimension: 112,
+                child: Material(
+                  color: context.brand.hero,
+                  shape: const CircleBorder(),
+                  child: InkWell(
+                    customBorder: const CircleBorder(),
+                    onTap: onTap,
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: ProgressRing(
+                        progress: count / target,
+                        size: 100,
+                        strokeWidth: 4,
+                        color: context.brand.gold,
+                        trackColor: context.brand.onHero.withValues(
+                          alpha: 0.15,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              f.number(count),
+                              textScaler: TextScaler.noScaling,
+                              style: context.text.headlineMedium!.copyWith(
+                                color: context.brand.onHero,
+                                fontFeatures: AppTypography.tabularFigures,
+                                height: 1.1,
                               ),
-                              Text(
-                                l10n.dhikrCounterButton,
-                                textScaler: TextScaler.noScaling,
-                                style: context.text.labelSmall!.copyWith(color: context.brand.onHeroMuted),
+                            ),
+                            Text(
+                              l10n.dhikrCounterButton,
+                              textScaler: TextScaler.noScaling,
+                              style: context.text.labelSmall!.copyWith(
+                                color: context.brand.onHeroMuted,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
+              ),
             ),
             Expanded(
               child: Align(

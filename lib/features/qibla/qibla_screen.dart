@@ -11,18 +11,23 @@ import '../../services/sensors/compass_service.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/hadeel_bottom_sheet.dart';
 import '../../shared/widgets/hadeel_card.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/responsive_body.dart';
 import '../../shared/widgets/state_views.dart';
 import '../prayer/providers/location_setup_provider.dart';
 import '../prayer/providers/prayer_providers.dart';
 import '../prayer/widgets/city_picker_sheet.dart';
 
-final compassServiceProvider = Provider<CompassService>((ref) => const FlutterCompassService());
+final compassServiceProvider = Provider<CompassService>(
+  (ref) => const FlutterCompassService(),
+);
 
 /// Live heading. A device without a compass yields a single reading with a
 /// null heading (a value, not an error, so nothing retries).
 final compassProvider = StreamProvider.autoDispose<CompassReading>(
-  (ref) => ref.watch(compassServiceProvider).readings ?? Stream.value(const CompassReading(heading: null)),
+  (ref) =>
+      ref.watch(compassServiceProvider).readings ??
+      Stream.value(const CompassReading(heading: null)),
 );
 
 /// Within this many degrees the user is considered to face the qibla.
@@ -37,6 +42,7 @@ class QiblaScreen extends ConsumerWidget {
     final location = ref.watch(resolvedLocationProvider);
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
         title: Text(l10n.featureQibla),
         actions: [
           IconButton(
@@ -53,7 +59,11 @@ class QiblaScreen extends ConsumerWidget {
               actionLabel: l10n.locationChooseCity,
               onAction: () async {
                 final city = await showCityPicker(context);
-                if (city != null) await ref.read(locationSetupProvider.notifier).chooseCity(city);
+                if (city != null) {
+                  await ref
+                      .read(locationSetupProvider.notifier)
+                      .chooseCity(city);
+                }
               },
             )
           : ResponsiveBody(child: _QiblaBody(location: location)),
@@ -67,16 +77,33 @@ void _showCalibration(BuildContext context) {
     builder: (context) => SafeArea(
       top: false,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.xl),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          0,
+          AppSpacing.lg,
+          AppSpacing.xl,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Icon(Icons.screen_rotation_alt_rounded, size: 48, color: context.colors.primary),
+            Icon(
+              Icons.screen_rotation_alt_rounded,
+              size: 48,
+              color: context.colors.primary,
+            ),
             const SizedBox(height: AppSpacing.md),
-            Text(context.l10n.qiblaCalibrationTitle, style: context.text.titleLarge, textAlign: TextAlign.center),
+            Text(
+              context.l10n.qiblaCalibrationTitle,
+              style: context.text.titleLarge,
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: AppSpacing.sm),
-            Text(context.l10n.qiblaCalibrationBody, style: context.text.bodyLarge, textAlign: TextAlign.center),
+            Text(
+              context.l10n.qiblaCalibrationBody,
+              style: context.text.bodyLarge,
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),
@@ -95,7 +122,8 @@ class _QiblaBody extends ConsumerStatefulWidget {
 
 class _QiblaBodyState extends ConsumerState<_QiblaBody> {
   bool _isAligned(double? heading, double bearing) =>
-      heading != null && turnToQibla(heading: heading, bearing: bearing).abs() <= qiblaTolerance;
+      heading != null &&
+      turnToQibla(heading: heading, bearing: bearing).abs() <= qiblaTolerance;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +134,8 @@ class _QiblaBodyState extends ConsumerState<_QiblaBody> {
     final compass = ref.watch(compassProvider);
     // A single gentle haptic when the phone comes into line with the qibla.
     ref.listen(compassProvider, (prev, next) {
-      if (_isAligned(next.value?.heading, bearing) && !_isAligned(prev?.value?.heading, bearing)) {
+      if (_isAligned(next.value?.heading, bearing) &&
+          !_isAligned(prev?.value?.heading, bearing)) {
         HapticFeedback.mediumImpact();
       }
     });
@@ -121,16 +150,18 @@ class _QiblaBodyState extends ConsumerState<_QiblaBody> {
       aligned = turn.abs() <= qiblaTolerance;
     }
 
-    final place = widget.location.city?.localizedName(context.languageCode) ?? l10n.locationCurrent;
+    final place =
+        widget.location.city?.localizedName(context.languageCode) ??
+        l10n.locationCurrent;
     final status = noSensor
         ? l10n.qiblaNoSensor
         : turn == null
-            ? l10n.qiblaDirectionLabel
-            : aligned
-                ? l10n.qiblaAligned
-                : turn > 0
-                    ? l10n.qiblaTurnRight
-                    : l10n.qiblaTurnLeft;
+        ? l10n.qiblaDirectionLabel
+        : aligned
+        ? l10n.qiblaAligned
+        : turn > 0
+        ? l10n.qiblaTurnRight
+        : l10n.qiblaTurnLeft;
 
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.screenGutter),
@@ -140,7 +171,9 @@ class _QiblaBodyState extends ConsumerState<_QiblaBody> {
           child: AnimatedDefaultTextStyle(
             duration: AppMotion.medium,
             style: context.text.titleLarge!.copyWith(
-              color: aligned ? context.brand.goldText : context.colors.onSurface,
+              color: aligned
+                  ? context.brand.goldText
+                  : context.colors.onSurface,
             ),
             textAlign: TextAlign.center,
             child: Text(status),
@@ -166,12 +199,26 @@ class _QiblaBodyState extends ConsumerState<_QiblaBody> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _InfoRow(Icons.explore_outlined, l10n.qiblaBearing(f.number(bearing.round()))),
+              _InfoRow(
+                Icons.explore_outlined,
+                l10n.qiblaBearing(f.number(bearing.round())),
+              ),
               _InfoRow(Icons.place_outlined, place),
-              _InfoRow(Icons.straighten_rounded, l10n.qiblaDistance(f.number(distance.round()))),
-              if (heading != null) _InfoRow(Icons.navigation_outlined, l10n.qiblaHeading(f.number(heading.round()))),
+              _InfoRow(
+                Icons.straighten_rounded,
+                l10n.qiblaDistance(f.number(distance.round())),
+              ),
+              if (heading != null)
+                _InfoRow(
+                  Icons.navigation_outlined,
+                  l10n.qiblaHeading(f.number(heading.round())),
+                ),
               if (accuracy != null && accuracy > 30)
-                _InfoRow(Icons.warning_amber_rounded, l10n.qiblaCalibrationBody, color: context.colors.error),
+                _InfoRow(
+                  Icons.warning_amber_rounded,
+                  l10n.qiblaCalibrationBody,
+                  color: context.colors.error,
+                ),
             ],
           ),
         ),
@@ -196,7 +243,12 @@ class _InfoRow extends StatelessWidget {
         children: [
           Icon(icon, size: 20, color: color ?? context.colors.primary),
           const SizedBox(width: AppSpacing.sm),
-          Expanded(child: Text(text, style: context.text.bodyMedium!.copyWith(color: color))),
+          Expanded(
+            child: Text(
+              text,
+              style: context.text.bodyMedium!.copyWith(color: color),
+            ),
+          ),
         ],
       ),
     );
@@ -207,7 +259,12 @@ class _InfoRow extends StatelessWidget {
 /// sits at the qibla bearing. When the marker reaches the top, the phone
 /// faces the qibla.
 class _Compass extends StatefulWidget {
-  const _Compass({required this.size, required this.heading, required this.bearing, required this.aligned});
+  const _Compass({
+    required this.size,
+    required this.heading,
+    required this.bearing,
+    required this.aligned,
+  });
 
   final double size;
   final double heading;
@@ -260,7 +317,7 @@ class _CompassState extends State<_Compass> {
                     ring: context.brand.divider,
                     north: context.colors.error,
                     kaaba: brand.gold,
-                    face: context.colors.surface,
+                    face: context.colors.surface.withValues(alpha: .35),
                   ),
                 ),
               ),
@@ -333,7 +390,8 @@ class _DialPainter extends CustomPainter {
       final major = d % 30 == 0;
       final a = (d - 90) * math.pi / 180;
       final outer = c + Offset(math.cos(a), math.sin(a)) * (r - 6);
-      final inner = c + Offset(math.cos(a), math.sin(a)) * (r - (major ? 20 : 12));
+      final inner =
+          c + Offset(math.cos(a), math.sin(a)) * (r - (major ? 20 : 12));
       canvas.drawLine(inner, outer, tickPaint..strokeWidth = major ? 2.5 : 1);
     }
 
@@ -358,12 +416,19 @@ class _DialPainter extends CustomPainter {
     );
     final tip = c + dir * (r - 20);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(Rect.fromCenter(center: tip, width: 22, height: 22), const Radius.circular(4)),
+      RRect.fromRectAndRadius(
+        Rect.fromCenter(center: tip, width: 22, height: 22),
+        const Radius.circular(4),
+      ),
       Paint()..color = kaaba,
     );
   }
 
   @override
   bool shouldRepaint(_DialPainter old) =>
-      old.bearing != bearing || old.tick != tick || old.north != north || old.kaaba != kaaba || old.face != face;
+      old.bearing != bearing ||
+      old.tick != tick ||
+      old.north != north ||
+      old.kaaba != kaaba ||
+      old.face != face;
 }

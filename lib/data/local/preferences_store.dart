@@ -1,4 +1,4 @@
-﻿import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Typed keys over [SharedPreferencesWithCache]. The only place that knows
 /// preference key names.
@@ -25,6 +25,8 @@ class PreferencesStore {
   static const String keyQuranMode = 'quran.mode';
   static const String keyQuranShowTafsir = 'quran.showTafsir';
   static const String keyNotifyPrayers = 'notify.prayers';
+  static const String keyNotifyHourlyDhikr = 'notify.hourlyDhikr';
+  static const String keyNotifyDailyContent = 'notify.dailyContent';
   static const String keyTasbeehVibration = 'tasbeeh.vibration';
   static const String keyTasbeehSound = 'tasbeeh.sound';
   static const String keyTasbeehPhrase = 'tasbeeh.phrase';
@@ -49,6 +51,8 @@ class PreferencesStore {
     keyQuranMode,
     keyQuranShowTafsir,
     keyNotifyPrayers,
+    keyNotifyHourlyDhikr,
+    keyNotifyDailyContent,
     keyTasbeehVibration,
     keyTasbeehSound,
     keyTasbeehPhrase,
@@ -68,12 +72,14 @@ class PreferencesStore {
   int? getInt(String key) => _prefs.getInt(key);
   List<String>? getStringList(String key) => _prefs.getStringList(key);
 
-  Future<void> setString(String key, String value) => _prefs.setString(key, value);
-  Future<void> setBool(String key, {required bool value}) => _prefs.setBool(key, value);
-  Future<void> setDouble(String key, double value) => _prefs.setDouble(key, value);
+  Future<void> setString(String key, String value) =>
+      _prefs.setString(key, value);
+  Future<void> setBool(String key, {required bool value}) =>
+      _prefs.setBool(key, value);
+  Future<void> setDouble(String key, double value) =>
+      _prefs.setDouble(key, value);
   Future<void> setInt(String key, int value) => _prefs.setInt(key, value);
-  Future<void> setStringList(String key, List<String> value) => _prefs.setStringList(key, value);
+  Future<void> setStringList(String key, List<String> value) =>
+      _prefs.setStringList(key, value);
   Future<void> remove(String key) => _prefs.remove(key);
 }
-
-

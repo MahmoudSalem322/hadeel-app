@@ -13,23 +13,29 @@ import '../../domain/usecases/search_quran.dart';
 import '../../shared/extensions/context_x.dart';
 import '../../shared/widgets/content_actions.dart';
 import '../../shared/widgets/highlighted_text.dart';
+import '../../shared/widgets/liquid_glass.dart';
 import '../../shared/widgets/responsive_body.dart';
 import '../../shared/widgets/search_field.dart';
 import '../../shared/widgets/section_header.dart';
 import '../../shared/widgets/state_views.dart';
 import '../quran/providers/quran_providers.dart';
 
-final contentSearchIndexProvider = FutureProvider<ContentSearchIndex>((ref) async {
+final contentSearchIndexProvider = FutureProvider<ContentSearchIndex>((
+  ref,
+) async {
   final hisn = await ref.watch(hisnProvider.future);
   final hadith = await ref.watch(hadithLibraryProvider.future);
   return ContentSearchIndex(hisn, hadith);
 });
 
-final contentSearchProvider = FutureProvider.autoDispose.family<ContentSearchResults, String>((ref, q) async {
-  if (q.trim().length < ContentSearchIndex.minQueryLength) return ContentSearchResults.empty;
-  final index = await ref.watch(contentSearchIndexProvider.future);
-  return index.search(q);
-});
+final contentSearchProvider = FutureProvider.autoDispose
+    .family<ContentSearchResults, String>((ref, q) async {
+      if (q.trim().length < ContentSearchIndex.minQueryLength) {
+        return ContentSearchResults.empty;
+      }
+      final index = await ref.watch(contentSearchIndexProvider.future);
+      return index.search(q);
+    });
 
 /// One search box for the Quran, adhkar, duas and hadith — all offline.
 class GlobalSearchScreen extends ConsumerStatefulWidget {
@@ -53,12 +59,20 @@ class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.featureSearch)),
+      appBar: AppBar(
+        flexibleSpace: const LiquidGlass(radius: 0, child: SizedBox.expand()),
+        title: Text(l10n.featureSearch),
+      ),
       body: ResponsiveBody(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.xs),
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.md,
+                0,
+                AppSpacing.md,
+                AppSpacing.xs,
+              ),
               child: SearchField(
                 hint: l10n.globalSearchHint,
                 autofocus: true,
@@ -88,17 +102,29 @@ class _Results extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    if (query.length < 2) return EmptyState(icon: Icons.manage_search_rounded, title: l10n.searchMinChars);
+    if (query.length < 2) {
+      return EmptyState(
+        icon: Icons.manage_search_rounded,
+        title: l10n.searchMinChars,
+      );
+    }
 
     final quran = ref.watch(quranSearchProvider(query));
     final content = ref.watch(contentSearchProvider(query));
     if (quran.isLoading || content.isLoading) {
-      return const Align(alignment: AlignmentDirectional.topCenter, child: LinearProgressIndicator());
+      return const Align(
+        alignment: AlignmentDirectional.topCenter,
+        child: LinearProgressIndicator(),
+      );
     }
     final q = quran.value ?? QuranSearchResults.empty;
     final c = content.value ?? ContentSearchResults.empty;
     if (q.isEmpty && c.isEmpty) {
-      return EmptyState(icon: Icons.search_off_rounded, title: l10n.searchNoResults, message: l10n.searchNoResultsBody);
+      return EmptyState(
+        icon: Icons.search_off_rounded,
+        title: l10n.searchNoResults,
+        message: l10n.searchNoResultsBody,
+      );
     }
 
     final meta = ref.watch(quranMetaProvider);
@@ -106,11 +132,17 @@ class _Results extends ConsumerWidget {
     final small = contentTextStyle(context, size: 18);
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(AppSpacing.md, 0, AppSpacing.md, AppSpacing.xxl),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.md,
+        0,
+        AppSpacing.md,
+        AppSpacing.xxl,
+      ),
       children: [
         if (!q.isEmpty) ...[
           SectionHeader(
-            title: '${l10n.searchSectionQuran} · ${f.number(q.totalAyat + q.surahs.length)}',
+            title:
+                '${l10n.searchSectionQuran} · ${f.number(q.totalAyat + q.surahs.length)}',
             action: TextButton(
               onPressed: () => context.push(Routes.quranSearchFor(query)),
               child: Text(l10n.searchShowAll),
@@ -124,26 +156,41 @@ class _Results extends ConsumerWidget {
             ),
           for (final hit in q.ayat.take(quranPreview))
             _HitTile(
-              label: l10n.ayahPosition(meta.surah(hit.ref.surah).nameAr, f.number(hit.ref.ayah)),
+              label: l10n.ayahPosition(
+                meta.surah(hit.ref.surah).nameAr,
+                f.number(hit.ref.ayah),
+              ),
               text: hit.text,
               ranges: hit.ranges,
               style: small,
-              onTap: () => context.push(Routes.surah(hit.ref.surah, ayah: hit.ref.ayah)),
+              onTap: () =>
+                  context.push(Routes.surah(hit.ref.surah, ayah: hit.ref.ayah)),
             ),
         ],
         if (c.adhkarTotal > 0) ...[
-          SectionHeader(title: '${l10n.searchSectionAdhkar} · ${f.number(c.adhkarTotal)}'),
+          SectionHeader(
+            title: '${l10n.searchSectionAdhkar} · ${f.number(c.adhkarTotal)}',
+          ),
           for (final hit in c.adhkar)
             _HitTile(
-              label: ref.watch(hisnProvider).value?.chapter(hit.item.chapterId)?.title ?? '',
+              label:
+                  ref
+                      .watch(hisnProvider)
+                      .value
+                      ?.chapter(hit.item.chapterId)
+                      ?.title ??
+                  '',
               text: hit.text,
               ranges: hit.ranges,
               style: small,
-              onTap: () => context.push(Routes.azkarOf('c${hit.item.chapterId}')),
+              onTap: () =>
+                  context.push(Routes.azkarOf('c${hit.item.chapterId}')),
             ),
         ],
         if (c.hadithTotal > 0) ...[
-          SectionHeader(title: '${l10n.searchSectionHadith} · ${f.number(c.hadithTotal)}'),
+          SectionHeader(
+            title: '${l10n.searchSectionHadith} · ${f.number(c.hadithTotal)}',
+          ),
           for (final hit in c.hadith)
             _HitTile(
               label:
@@ -151,7 +198,9 @@ class _Results extends ConsumerWidget {
               text: hit.text,
               ranges: hit.ranges,
               style: small,
-              onTap: () => context.push(Routes.hadithItem(hit.item.bookKey, hit.item.number)),
+              onTap: () => context.push(
+                Routes.hadithItem(hit.item.bookKey, hit.item.number),
+              ),
             ),
         ],
       ],
@@ -181,12 +230,25 @@ class _HitTile extends StatelessWidget {
       onTap: onTap,
       borderRadius: AppRadius.mdAll,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm, horizontal: AppSpacing.xxs),
+        padding: const EdgeInsets.symmetric(
+          vertical: AppSpacing.sm,
+          horizontal: AppSpacing.xxs,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: context.text.labelMedium!.copyWith(color: context.brand.goldText)),
-            HighlightedText(text: excerpt, ranges: shifted, style: style, maxLines: 4),
+            Text(
+              label,
+              style: context.text.labelMedium!.copyWith(
+                color: context.brand.goldText,
+              ),
+            ),
+            HighlightedText(
+              text: excerpt,
+              ranges: shifted,
+              style: style,
+              maxLines: 4,
+            ),
           ],
         ),
       ),

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,36 +24,54 @@ void main() {
     Map<String, Object> prefs = const {},
     FakeNotificationService? notifications,
     FakeCompassService? compass,
-  }) =>
-      pumpHadeelApp(
-        tester,
-        clock: ManualClock(zoned('Asia/Hebron', 2026, 9, 26, 14)),
-        prefs: {...onboardedWithCity('jerusalem'), ...prefs},
-        notifications: notifications,
-        compass: compass,
-      );
+  }) => pumpHadeelApp(
+    tester,
+    clock: ManualClock(zoned('Asia/Hebron', 2026, 9, 26, 14)),
+    prefs: {...onboardedWithCity('jerusalem'), ...prefs},
+    notifications: notifications,
+    compass: compass,
+  );
 
   void go(WidgetTester tester, String location) =>
       GoRouter.of(tester.element(find.byType(Scaffold).first)).push(location);
 
   Future<void> openTab(WidgetTester tester, String label) async {
-    await tester.tap(find.descendant(of: find.byType(NavigationBar), matching: find.text(label)));
+    await tester.tap(
+      find.descendant(
+        of: find.byType(NavigationBar),
+        matching: find.text(label),
+      ),
+    );
     await tester.pumpAndSettle();
   }
 
   group('prayer', () {
-    testWidgets('tab shows the full timeline, location and method', (tester) async {
+    testWidgets('tab shows the full timeline, location and method', (
+      tester,
+    ) async {
       await start(tester);
       await openTab(tester, 'الصلاة');
-      for (final name in ['الفجر', 'الشروق', 'الظهر', 'العصر', 'المغرب', 'العشاء']) {
+      for (final name in [
+        'الفجر',
+        'الشروق',
+        'الظهر',
+        'العصر',
+        'المغرب',
+        'العشاء',
+      ]) {
         expect(find.text(name), findsWidgets);
       }
-      await tester.scrollUntilVisible(find.text('الهيئة المصرية العامة للمساحة'), 300,
-          scrollable: find.byType(Scrollable).last);
+      await tester.scrollUntilVisible(
+        find.text('الهيئة المصرية العامة للمساحة'),
+        300,
+        scrollable: find.byType(Scrollable).last,
+      );
       expect(find.text('الهيئة المصرية العامة للمساحة'), findsOneWidget);
     });
 
-    testWidgets('bell enables a prayer notification and schedules it', (tester) async {
+    testWidgets('bell enables a prayer notification and schedules it', (
+      tester,
+    ) async {
       final notifications = FakeNotificationService();
       final container = await start(tester, notifications: notifications);
       await openTab(tester, 'الصلاة');
@@ -63,13 +81,21 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(notifications.permissionRequests, 1);
-      expect(container.read(settingsProvider).notifications.isOn(Prayer.maghrib), isTrue);
+      expect(
+        container.read(settingsProvider).notifications.isOn(Prayer.maghrib),
+        isTrue,
+      );
       expect(notifications.scheduled, isNotEmpty);
-      expect(notifications.scheduled.every((r) => r.title == Prayer.maghrib), isTrue);
-      expect(notifications.scheduled.first.title, contains('المغرب'));
+      final prayers = notifications.scheduled
+          .where((r) => r.id < 1000)
+          .toList();
+      expect(prayers, isNotEmpty);
+      expect(prayers.every((r) => r.title.contains('المغرب')), isTrue);
     });
 
-    testWidgets('denied permission leaves notifications off and explains', (tester) async {
+    testWidgets('denied permission leaves notifications off and explains', (
+      tester,
+    ) async {
       final notifications = FakeNotificationService(granted: false);
       final container = await start(tester, notifications: notifications);
       await openTab(tester, 'الصلاة');
@@ -77,7 +103,10 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byTooltip('تنبيه الفجر'));
       await tester.pumpAndSettle();
-      expect(container.read(settingsProvider).notifications.isOn(Prayer.fajr), isFalse);
+      expect(
+        container.read(settingsProvider).notifications.isOn(Prayer.fajr),
+        isFalse,
+      );
       expect(find.textContaining('الإشعارات غير مسموحة'), findsOneWidget);
     });
 
@@ -85,8 +114,11 @@ void main() {
       final container = await start(tester);
       await openTab(tester, 'الصلاة');
       final before = container.read(settingsProvider).prayer.method;
-      await tester.scrollUntilVisible(find.text('الهيئة المصرية العامة للمساحة'), 300,
-          scrollable: find.byType(Scrollable).last);
+      await tester.scrollUntilVisible(
+        find.text('الهيئة المصرية العامة للمساحة'),
+        300,
+        scrollable: find.byType(Scrollable).last,
+      );
       await tester.tap(find.text('الهيئة المصرية العامة للمساحة'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('رابطة العالم الإسلامي'));
@@ -103,7 +135,9 @@ void main() {
       go(tester, Routes.qibla);
       await tester.pumpAndSettle();
 
-      final bearing = qiblaBearing(loadBundledCities().firstWhere((c) => c.id == 'jerusalem').coordinates);
+      final bearing = qiblaBearing(
+        loadBundledCities().firstWhere((c) => c.id == 'jerusalem').coordinates,
+      );
       expect(find.text('${bearing.round()}° من الشمال'), findsOneWidget);
 
       controller.add(CompassReading(heading: bearing - 40));
@@ -147,7 +181,9 @@ void main() {
       await tester.pump(const Duration(seconds: 1)); // debounce → saved
       await tester.pumpAndSettle();
       final repo = container.read(libraryRepositoryProvider);
-      final saved = await tester.runAsync(() => repo.loadTasbeeh('subhanallah'));
+      final saved = await tester.runAsync(
+        () => repo.loadTasbeeh('subhanallah'),
+      );
       expect(saved!.total, 3);
       expect(saved.target, 99);
     });
@@ -183,7 +219,11 @@ void main() {
   testWidgets('favorites list saved adhkar', (tester) async {
     final container = await start(tester);
     final item = loadHisnLibrary().chapters.first.items.first;
-    await tester.runAsync(() => container.read(libraryRepositoryProvider).toggleFavorite(FavoriteKind.dhikr, item.key));
+    await tester.runAsync(
+      () => container
+          .read(libraryRepositoryProvider)
+          .toggleFavorite(FavoriteKind.dhikr, item.key),
+    );
     go(tester, Routes.favorites);
     await tester.pumpAndSettle();
     await tester.tap(find.text('الأذكار'));
@@ -199,7 +239,11 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
     await tester.pumpAndSettle();
     expect(find.textContaining('القرآن الكريم ·'), findsOneWidget);
-    await tester.scrollUntilVisible(find.textContaining('الأذكار ·'), 400, scrollable: find.byType(Scrollable).last);
+    await tester.scrollUntilVisible(
+      find.textContaining('الأذكار ·'),
+      400,
+      scrollable: find.byType(Scrollable).last,
+    );
     expect(find.textContaining('الأذكار ·'), findsOneWidget);
   });
 
@@ -218,7 +262,11 @@ void main() {
 
   testWidgets('home shows today\'s daily content', (tester) async {
     await start(tester);
-    await tester.scrollUntilVisible(find.text('زاد اليوم'), 300, scrollable: find.byType(Scrollable).first);
+    await tester.scrollUntilVisible(
+      find.text('زاد اليوم'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.text('زاد اليوم'), findsOneWidget);
     expect(find.text('آية اليوم'), findsOneWidget);
   });
@@ -245,5 +293,3 @@ void main() {
     });
   }
 }
-
-

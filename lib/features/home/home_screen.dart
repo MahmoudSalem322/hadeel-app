@@ -14,7 +14,7 @@ import 'widgets/prayer_times_strip.dart';
 import 'widgets/quick_actions_grid.dart';
 
 /// Home, ordered by what matters most day-to-day: next prayer, Quran,
-/// today's times, quick access (adhkar, tasbeeh, qibla, duas), then the day's
+/// quick access (adhkar, tasbeeh, qibla, duas), today's times, then the day's
 /// ayah, dhikr, hadith and dua from verified local content.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -41,12 +41,12 @@ class HomeScreen extends ConsumerWidget {
               const NextPrayerCard(),
               const SizedBox(height: AppSpacing.md),
               const ContinueReadingCard(),
+              SectionHeader(title: l10n.homeQuickAccess),
+              const QuickActionsGrid(),
               if (hasLocation) ...[
                 SectionHeader(title: l10n.homeTodayPrayerTimes),
                 const PrayerTimesStrip(),
               ],
-              SectionHeader(title: l10n.homeQuickAccess),
-              const QuickActionsGrid(),
               const DailyContentSection(),
             ],
           ),
