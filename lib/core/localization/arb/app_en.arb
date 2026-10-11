@@ -25,6 +25,8 @@
   "navAdhkar": "Adhkar",
   "navPrayer": "Prayer",
   "navMore": "More",
+  "sidebarWorkspace": "WORKSPACE",
+  "sidebarDeviceBody": "Your data stays on your device and works offline.",
   "homeGreeting": "Assalamu alaikum",
   "homeNextPrayer": "Next prayer",
   "homeRemaining": "Remaining",

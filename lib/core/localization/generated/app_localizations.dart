@@ -248,6 +248,18 @@ abstract class AppLocalizations {
   /// **'المزيد'**
   String get navMore;
 
+  /// No description provided for @sidebarWorkspace.
+  ///
+  /// In ar, this message translates to:
+  /// **'المساحة'**
+  String get sidebarWorkspace;
+
+  /// No description provided for @sidebarDeviceBody.
+  ///
+  /// In ar, this message translates to:
+  /// **'بياناتك محفوظة على جهازك وتعمل دون اتصال.'**
+  String get sidebarDeviceBody;
+
   /// No description provided for @homeGreeting.
   ///
   /// In ar, this message translates to:

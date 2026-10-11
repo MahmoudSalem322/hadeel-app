@@ -91,6 +91,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navMore => 'More';
 
   @override
+  String get sidebarWorkspace => 'WORKSPACE';
+
+  @override
+  String get sidebarDeviceBody =>
+      'Your data stays on your device and works offline.';
+
+  @override
   String get homeGreeting => 'Assalamu alaikum';
 
   @override

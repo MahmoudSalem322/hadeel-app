@@ -89,6 +89,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get navMore => 'المزيد';
 
   @override
+  String get sidebarWorkspace => 'المساحة';
+
+  @override
+  String get sidebarDeviceBody => 'بياناتك محفوظة على جهازك وتعمل دون اتصال.';
+
+  @override
   String get homeGreeting => 'السلام عليكم';
 
   @override
